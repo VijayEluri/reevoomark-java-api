@@ -7,13 +7,13 @@
     <groupId>com.reevoo.taglib</groupId>
     <artifactId>reevoo-taglib</artifactId>
     <packaging>jar</packaging>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>reevoo-taglib</name>
 
     <parent>
         <groupId>com.reevoo.taglib</groupId>
         <artifactId>reevoo-taglib-root</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
     
     <dependencies>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.reevoo.taglib</groupId>
             <artifactId>reevoo-taglib-core</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
 
         <dependency>

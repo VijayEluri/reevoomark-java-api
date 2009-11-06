@@ -7,7 +7,7 @@
   <groupId>com.reevoo.taglib</groupId>
   <artifactId>reevoo-taglib-root</artifactId>
   <packaging>pom</packaging>
-  <version>0.1-SNAPSHOT</version>
+  <version>1.0</version>
   <name>reevoo-taglib-root</name>
 
   <modules>
