@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0  http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.reevoo.taglib</groupId>
+    <artifactId>reevoo-taglib</artifactId>
+    <packaging>jar</packaging>
+    <version>0.1-SNAPSHOT</version>
+    <name>reevoo-taglib</name>
+
+    <parent>
+        <groupId>com.reevoo.taglib</groupId>
+        <artifactId>reevoo-taglib-root</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+    
+    <dependencies>
+
+        <dependency>
+            <groupId>com.reevoo.taglib</groupId>
+            <artifactId>reevoo-taglib-core</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.7</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.8.0</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <!-- Regardless of the java deps that you have, this will build
+        1 and only one jar, that can be deployed anywhere.
+        it will bundle any deps that you have inside your jar such that
+        clients using your taglib will not get effected by classpath issues
+    -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <excludes>
+                                    <!-- Exclude artifacts from classpath hiding -->
+                                    <exclude>classworlds:classworlds</exclude>
+                                    <exclude>junit:junit</exclude>
+                                    <exclude>jmock:jmock</exclude>
+                                    <exclude>xml-apis:xml-apis</exclude>
+                                    <!-- The following should be provided by all containers -->
+                                    <exclude>javax.servlet.jsp:jsp-api</exclude>
+                                    <exclude>javax.servlet:servlet-api</exclude>
+                                </excludes>
+                            </artifactSet>
+
+                            <!-- Directly bundle your deps into the one true reevoo jar -->
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.google</pattern>
+                                    <shadedPattern>com.reevoo._bundled_.google</shadedPattern>
+                                    <!--
+                                    <excludes>
+                                        <exclude>org.codehaus.plexus.util.xml.Xpp3Dom</exclude>
+                                        <exclude>org.codehaus.plexus.util.xml.pull.*</exclude>
+                                    </excludes>
+                                    -->
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>com.sun.ws</pattern>
+                                    <shadedPattern>com.reevoo._bundled_.ws</shadedPattern>
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>org.apache</pattern>
+                                    <shadedPattern>com.reevoo._bundled_.apache</shadedPattern>
+                                </relocation>
+
+                            </relocations>
+
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

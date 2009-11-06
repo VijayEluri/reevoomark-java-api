@@ -1,0 +1,12 @@
+taglib/target
+taglib-inttest/target
+*.class
+*.swp
+*.jar
+.idea
+*.iml
+taglib-core/target/maven-archiver/pom.properties
+taglib-core/target/surefire-reports
+taglib/src/main/resources/META-INF/services
+taglib-inttest/logging.properties
+.DS_Store
