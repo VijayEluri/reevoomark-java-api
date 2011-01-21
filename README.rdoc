@@ -1,0 +1,89 @@
+= reevoomark-java-api
+
+* http://github.com/reevoo/reevoomark-java-api
+* http://labs.reevoo.com
+* http://mark.reevoo.com
+* http://www.reevoo.com
+
+== DESCRIPTION:
+
+The reevoomark-java-api is a Java tag library for certified ReevooMark partners
+wanting to quickly and easily integrate Reevoo content into their sites server-
+side.  Equivalent server-side tag libraries are available for other programming
+languages at the {ReevooMark github repository}[http://github.com/reevoo].
+
+Although this library and the source are provided under an MIT license, use of the 
+Reevoo content requires you to be a certified ReevooMark partner.
+
+== FEATURES:
+
+* Server-side inclusion of Reevoo content
+* Included CSS for display of Reevoo content
+* Server-side caching of content respecting the cache control rules set by Reevoo
+
+== CACHING:
+
+Feel free to take a look at / amend / replace the default caching infrastructure provided.
+
+== SUPPORT:
+
+For certified ReevooMark partners, support can be obtained by mailing [mailto:operations@reevoo.com].
+
+The {bug tracker}[http://github.com/reevoo/reevoomark-java-api/issues]
+is available here:
+
+  * http://github.com/reevoo/reevoomark-java-api/issues
+
+== SYNOPSIS:
+
+  # Include the appropriate taglib (see below for INSTALL)
+  <%@ taglib prefix="reevoo" uri="http://reevoo.com/java-taglib/v1" %>
+
+  # Display the first two reviews for test retailer REV and test SKU 10
+  <reevoo:mark sku="10" trkref="REV" baseURI="http://mark.reevoo.com/reevoomark/first_two_reviews.html" />
+
+  # Display in-line reviews for the retailer JSP and the SKU 5155703
+  <reevoo:mark sku="5155703" trkref="JSP" baseURI="http://mark.reevoo.com/reevoomark/en-GB/embeddable_reviews.html" />
+
+
+== REQUIREMENTS:
+
+* jQuery
+
+
+== INSTALL:
+
+Download and install the latest version of the reevoomark-java-api taglibrary
+[https://github.com/reevoo/reevoomark-java-api/downloads]
+
+
+== LICENSE:
+
+This software is released under the MIT license.  Only certified ReevooMark partners
+are licensed to display Reevoo content on their sites.  Contact [mailto:sales@reevoo.com] for
+more information.
+
+(The MIT License)
+
+Copyright (c) 2008 - 2010:
+
+* {Reevoo}[http://www.reevoo.com]
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
