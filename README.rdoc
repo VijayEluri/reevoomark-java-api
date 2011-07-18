@@ -39,9 +39,6 @@ is available here:
   # Include the appropriate taglib (see below for INSTALL)
   <%@ taglib prefix="reevoo" uri="http://reevoo.com/java-taglib/v1" %>
 
-  # Display the first two reviews for test retailer REV and test SKU 10
-  <reevoo:mark sku="10" trkref="REV" baseURI="http://mark.reevoo.com/reevoomark/first_two_reviews.html" />
-
   # Display in-line reviews for the retailer JSP and the SKU 5155703
   <reevoo:mark sku="5155703" trkref="JSP" baseURI="http://mark.reevoo.com/reevoomark/en-GB/embeddable_reviews.html" />
 
