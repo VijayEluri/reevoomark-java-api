@@ -1,11 +1,11 @@
-#reevoomark-php-api
+#reevoomark-java-api
 
 ##Description
 
-The reevoomark-php-api is a PHP tag library for ReevooMark and Reevoo Essentials customers who want to quickly and easily integrate Reevoo content in to their sites server-side.
+The reevoomark-java-api is a Java tag library for ReevooMark and Reevoo Essentials customers who want to quickly and easily integrate Reevoo content in to their sites server-side.
 
 ##Other Languages
-Tag libraries are also available for [.NET](https://github.com/reevoo/reevoomark-dotnet-api) and [Java](https://github.com/reevoo/reevoomark-java-api).
+Tag libraries are also available for [.NET](https://github.com/reevoo/reevoomark-dotnet-api) and [PHP](https://github.com/reevoo/reevoomark-php-api).
 
 ##Features
 
