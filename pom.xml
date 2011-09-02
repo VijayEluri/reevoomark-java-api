@@ -10,6 +10,10 @@
   <version>1.0</version>
   <name>reevoo-taglib-root</name>
 
+  <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
   <modules>
     <module>taglib</module>
     <module>taglib-core</module>
