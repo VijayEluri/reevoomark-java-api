@@ -9,6 +9,27 @@
   <packaging>pom</packaging>
   <version>1.0</version>
   <name>reevoo-taglib-root</name>
+  <description>The reevoomark-java-api is a Java tag library for ReevooMark and Reevoo Essentials customers who want to quickly and easily integrate Reevoo content in to their sites server-side.</description>
+  <url>https://github.com/reevoo/reevoomark-java-api</url>
+  <licenses>
+      <license>
+          <name>MIT license</name>
+          <url>http://www.opensource.org/licenses/mit-license.php</url>
+      </license>
+  </licenses>
+  <scm>
+    <connection>scm:git:git@github.com:reevoo/reevoomark-java-api.git</connection>
+    <developerConnection>scm:git:git@github.com:reevoo/reevoomark-java-api.git</developerConnection>
+    <url>git@github.com:reevoo/reevoomark-java-api.git</url>
+  </scm>
+
+  <developers>
+    <developer>
+      <id>PipT</id>
+      <name>Pip Taylor</name>
+      <email>pip@reevoo.com</email>
+    </developer>
+  </developers>
 
   <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
