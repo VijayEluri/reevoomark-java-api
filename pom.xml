@@ -35,6 +35,12 @@
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+
   <modules>
     <module>taglib</module>
     <module>taglib-core</module>
@@ -61,6 +67,33 @@
                   <stopKey>reevoomark</stopKey>
               </configuration>
           </plugin>
+          <plugin>
+	          <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-gpg-plugin</artifactId>
+	          <executions>
+	              <execution>
+	                  <id>sign-artifacts</id>
+	                  <phase>verify</phase>
+	                  <goals>
+	                      <goal>sign</goal>
+	                  </goals>
+	              </execution>
+	          </executions>
+	      </plugin>
+	      <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-source-plugin</artifactId>
+	        <version>2.1.2</version>
+	        <executions>
+	          <execution>
+	            <id>attach-sources</id>
+	            <phase>verify</phase>
+	            <goals>
+	              <goal>jar-no-fork</goal>
+	            </goals>
+	          </execution>
+	        </executions>
+	      </plugin>
       </plugins>
   </build>
 
