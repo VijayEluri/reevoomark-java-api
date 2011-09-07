@@ -18,6 +18,18 @@ For ReevooMark and Reevoo Essentials customers, support can be obtained by email
 
 There is also a [bug tracker](http://github.com/reevoo/reevoomark-java-api/issues) available.
 
+##Installation
+
+Add the following dependency to your `pom.xml`:
+
+``` xml
+<dependency>
+    <groupId>com.reevoo.taglib</groupId>
+    <artifactId>reevoo-taglib</artifactId>
+    <version>1.0</version>
+</dependency>
+```
+
 ##Implementation
 
 Include the relevant CSS. For product reviews use:
