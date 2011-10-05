@@ -35,7 +35,7 @@ Add the following dependency to your `pom.xml`:
 Include the relevant CSS. For product reviews use:
 
 ``` html
-<link rel="stylesheet" href="http://mark.reevoo.com/stylesheets/reevoomark/reevoo_reviews.css" type="text/css" />
+<link rel="stylesheet" href="http://mark.reevoo.com/stylesheets/reevoomark/embedded_reviews.css" type="text/css" />
 ```
 
 Include your customer specific Reevoo JavaScript:
@@ -53,7 +53,7 @@ Include the taglib:
 Render embedded review content. Make sure to replace `<SKU>` and `<TRKREF>` with the appropriate values:
 
 ``` java
-<reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/en-GB/embeddable_reviews.html" />
+<reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/embeddable_reviews.html" />
 ```
 
 ##License
