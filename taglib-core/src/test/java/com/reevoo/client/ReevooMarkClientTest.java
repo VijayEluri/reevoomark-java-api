@@ -13,6 +13,8 @@ import com.reevoo.client.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.io.IOException;
+import java.lang.reflect.*;
+
 
 public class ReevooMarkClientTest {
 
@@ -168,5 +170,29 @@ public class ReevooMarkClientTest {
     Date cache_expires = Cache.get("http://www.example.org/reevoomark").getExpirationTime();
 
     assertEquals((double)expected_time.getTime(), (double)cache_expires.getTime(), 1000);
+  }
+
+  private String buildParams(String trkref, String sku) throws Exception {
+    Class argClasses[] = new Class[2];
+    argClasses[0] = argClasses[1] = String.class;
+
+    String params[] = new String[2];
+    params[0] = trkref;
+    params[1] = sku;
+    Method method = ReevooMarkClient.class.getDeclaredMethod("generateReevooMarkQueryParams", argClasses);
+
+    method.setAccessible(true);
+    return (String)method.invoke(c, params);
+  }
+
+  @Test
+  public void testURLEscaping() throws Exception {
+    assertEquals("?sku=SKU%3Bparts&retailer=TRKREF", buildParams("TRKREF", "SKU;parts"));
+    assertEquals("?sku=SKU%2Fparts&retailer=TRKREF", buildParams("TRKREF", "SKU/parts"));
+    assertEquals("?sku=SKU%26parts&retailer=TRKREF", buildParams("TRKREF", "SKU&parts"));
+    assertEquals("?sku=SKU%A3parts&retailer=TRKREF", buildParams("TRKREF", "SKU£parts"));
+    assertEquals("?sku=SKU+parts&retailer=TRKREF", buildParams("TRKREF", "SKU parts"));
+    assertEquals("?sku=SKU%2Bparts&retailer=TRKREF", buildParams("TRKREF", "SKU+parts"));
+    assertEquals("?sku=SKU%25parts&retailer=TRKREF", buildParams("TRKREF", "SKU%parts"));
   }
 }

@@ -8,7 +8,7 @@ import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.URIException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
-import org.apache.commons.httpclient.util.URIUtil;
+import java.net.URLEncoder;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.io.IOException;
@@ -121,7 +121,7 @@ public class ReevooMarkClient {
       }
     }
 
-    private String generateReevooMarkQueryParams(String trkref, String sku) throws URIException {
-      return URIUtil.encodeQuery(String.format("?sku=%s&retailer=%s", sku, trkref));
+    private String generateReevooMarkQueryParams(String trkref, String sku) throws java.io.UnsupportedEncodingException {
+      return String.format("?sku=%s&retailer=%s", URLEncoder.encode(sku, "ISO-8859-1"), URLEncoder.encode(trkref, "ISO-8859-1"));
     }
 }
