@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import org.apache.commons.httpclient.methods.*;
 import org.apache.commons.httpclient.*;
-import com.reevoo.client.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.io.IOException;
