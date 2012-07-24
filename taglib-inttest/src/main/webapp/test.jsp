@@ -15,7 +15,7 @@
     <reevoo:mark sku="10" trkref="REV" baseURI="http://mark.reevoo.com/reevoomark/embeddable_reviews/slim.html" />
 
     <h2>Valid(AAO):</h2>
-    <reevoo:mark sku="10" trkref="REV" baseURI="http://mark.reevoo.com/reevoomark/embeddable_conversations" />
+    <reevoo:mark sku="167823" trkref="REV" baseURI="http://mark.reevoo.com/reevoomark/embeddable_conversations" />
 
     <h2>404:</h2>
     <reevoo:mark sku="no-a-real-sku" trkref="REV" baseURI="http://mark.reevoo.com/reevoomark/embeddable_reviews.html" />
