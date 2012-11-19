@@ -13,7 +13,7 @@
   <parent>
       <groupId>com.reevoo.taglib</groupId>
       <artifactId>reevoo-taglib-root</artifactId>
-      <version>1.0</version>
+      <version>1.2</version>
   </parent>
 
   <dependencies>
