@@ -1,8 +1,8 @@
-import static org.junit.Assert.*;
+package com.reevoo.client;
 
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import com.reevoo.client.ReevooMarkRecord;
 
 public class ReevooMarkRecordTest {
 

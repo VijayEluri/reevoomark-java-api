@@ -1,17 +1,15 @@
 package com.reevoo.client;
 
-import com.reevoo.client.*;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
-import org.apache.commons.httpclient.URIException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
-import java.net.URLEncoder;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.io.IOException;
 
 /**
  * Hook between reevoo REST endpoint, and the rest of the general taglib code
@@ -65,10 +63,12 @@ public class ReevooMarkClient {
       int time_to_live = secondsToLive(request);
       int review_count = extractReviewCountHeader(request);
       String content;
-      if(status == 200 && review_count > 0)
-        content = request.getResponseBodyAsString();
-      else
-        content = null;
+      if(status == 200 && review_count > 0) {
+            content = request.getResponseBodyAsString();
+        }
+      else {
+            content = null;
+        }
 
       if(status >= 500 && cachedResponse != null){
         Cache.put(cacheKey, new ReevooMarkRecord(cachedResponse, time_to_live));

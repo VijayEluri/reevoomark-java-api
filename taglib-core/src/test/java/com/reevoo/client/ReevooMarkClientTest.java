@@ -1,18 +1,16 @@
 package com.reevoo.client;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import org.junit.Before;
-import org.junit.After;
-import org.junit.Test;
-
-import org.apache.commons.httpclient.methods.*;
-import org.apache.commons.httpclient.*;
-import java.util.Calendar;
-import java.util.Date;
 import java.io.IOException;
 import java.lang.reflect.*;
+import java.util.Calendar;
+import java.util.Date;
+import org.apache.commons.httpclient.*;
+import org.apache.commons.httpclient.methods.*;
+import org.junit.After;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 
 public class ReevooMarkClientTest {
