@@ -80,6 +80,14 @@ the alternative endpoint and include your trkref:
 <reevoo:mark trkref="<TRKREF>" baseURI="http://mark.dev/reevoomark/embedded_retailer_reviews.html" />
 ```
 
+## Reevoo Conversations
+
+You can also include content from Reevoo Conversations:
+
+``` java
+<reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/embeddable_conversations" />
+```
+
 ## Tracking
 
 If you display the reviews in a tabbed display, or otherwise require visitors to your site to click an element before seeing the embedded reviews, add the following onclick attribute to track the clickthroughs:
