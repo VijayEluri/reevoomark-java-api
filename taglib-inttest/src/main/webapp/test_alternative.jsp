@@ -1,4 +1,4 @@
-<%@ taglib prefix="reevoo" uri="http://reevoo.com/java-taglib/v1" %>
+<%@ taglib prefix="reevoo" uri="http://reevoo.com/java-taglib/v1.4" %>
 <html>
   <head>
     <title>Test page</title>
