@@ -71,6 +71,15 @@ avalible, just specify it within the tag:
 </reevoo:mark>
 ```
 
+## Reevoo Reputation
+
+If you would like to include retailer reviews from Reevoo Reputation use
+the alternative endpoint and include your trkref:
+
+``` java
+<reevoo:mark trkref="<TRKREF>" baseURI="http://mark.dev/reevoomark/embedded_retailer_reviews.html" />
+```
+
 ## Tracking
 
 If you display the reviews in a tabbed display, or otherwise require visitors to your site to click an element before seeing the embedded reviews, add the following onclick attribute to track the clickthroughs:

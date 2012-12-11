@@ -122,6 +122,12 @@ public class ReevooMarkClient {
     }
 
     private String generateReevooMarkQueryParams(String trkref, String sku) throws java.io.UnsupportedEncodingException {
-      return String.format("?sku=%s&retailer=%s", URLEncoder.encode(sku, "ISO-8859-1"), URLEncoder.encode(trkref, "ISO-8859-1"));
+      String trkrefParam = URLEncoder.encode(trkref, "ISO-8859-1");
+      if(sku != null){
+          String skuParm = URLEncoder.encode(sku, "ISO-8859-1");
+          return String.format("?sku=%s&retailer=%s", skuParm, trkrefParam);
+      } else {
+          return String.format("?retailer=%s", trkrefParam);
+      }
     }
 }

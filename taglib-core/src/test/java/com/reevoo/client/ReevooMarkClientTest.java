@@ -193,5 +193,6 @@ public class ReevooMarkClientTest {
     assertEquals("?sku=SKU+parts&retailer=TRKREF", buildParams("TRKREF", "SKU parts"));
     assertEquals("?sku=SKU%2Bparts&retailer=TRKREF", buildParams("TRKREF", "SKU+parts"));
     assertEquals("?sku=SKU%25parts&retailer=TRKREF", buildParams("TRKREF", "SKU%parts"));
+    assertEquals("?retailer=TRKREF", buildParams("TRKREF", null));
   }
 }
