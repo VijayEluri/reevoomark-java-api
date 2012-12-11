@@ -62,6 +62,15 @@ It is also possible to specify locale and the number of reviews you'd like in th
 <reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_reviews.html" />
 ```
 
+If you would like to fall back to some content when reevoo content is not
+avalible, just specify it within the tag:
+
+``` java
+<reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_reviews.html">
+  <p>Sorry we don't have any reviews avalible right now</p>
+</reevoo:mark>
+```
+
 ## Tracking
 
 If you display the reviews in a tabbed display, or otherwise require visitors to your site to click an element before seeing the embedded reviews, add the following onclick attribute to track the clickthroughs:

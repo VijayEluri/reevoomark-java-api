@@ -24,10 +24,10 @@ public class ReevooTaglib extends BodyTagSupport {
     public int doStartTag() throws JspException {
       String content = client.obtainReevooMarkData(trkref, sku, baseURI);
       if (content == null){
-          return SKIP_BODY;
+          return EVAL_BODY_INCLUDE;
       }else{
           try{ pageContext.getOut().write(content); }catch(IOException e){ throw new JspException(e); }
-          return EVAL_BODY_INCLUDE;
+          return SKIP_BODY;
       }
     }
     
