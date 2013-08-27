@@ -72,29 +72,12 @@ It is also possible to specify locale and the number of reviews you'd like in th
 ```
 
 If you would like to fall back to some content when reevoo content is not
-avalible, just specify it within the tag:
+available, just specify it within the tag:
 
 ``` java
 <reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_reviews.html">
-  <p>Sorry we don't have any reviews avalible right now</p>
+  <p>Sorry we don't have any reviews available right now</p>
 </reevoo:mark>
-```
-
-## Reevoo Reputation
-
-If you would like to include retailer reviews from Reevoo Reputation use
-the alternative endpoint and include your trkref:
-
-``` java
-<reevoo:mark trkref="<TRKREF>" baseURI="http://mark.dev/reevoomark/embedded_retailer_reviews.html" />
-```
-
-## Reevoo Conversations
-
-You can also include content from Reevoo Conversations:
-
-``` java
-<reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/embeddable_conversations" />
 ```
 
 ## Tracking
