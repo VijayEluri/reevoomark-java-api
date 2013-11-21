@@ -20,12 +20,9 @@ There is also a [bug tracker](http://github.com/reevoo/reevoomark-java-api/issue
 
 ##Installation
 
-Before you begin, as Github no longer supports hosting of binary archives. The easiest way to get the latest compiled version of the Reevoo taglib is to make sure you have an up to date versions of Maven and Git, then follow these steps:
+As Github no longer supports hosting of binary archives. The easiest way to get the latest compiled version of the Reevoo taglib is to download it from sourceforge:
 
-* Clone the Git repo with 'git clone git@github.com:reevoo/reevoomark-java-api.git'
-* cd into the project directory with 'cd reevoomark-java-api'
-* Build the package with 'mvn package'
-* You'll then find the compiled jar located in the taglib/target directory titled reevoo-taglib-{VERSION}.jar 
+* Download the file from [sourceforge](https://sourceforge.net/projects/reevoomarkjavaapi/files/)
 * Add this file to your projects classpath
 
 
