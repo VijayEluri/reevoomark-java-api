@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0  http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.reevoo.taglib</groupId>
   <artifactId>reevoo-taglib-root</artifactId>
   <packaging>pom</packaging>
-  <version>1.4</version>
+  <version>1.5</version>
   <name>reevoo-taglib-root</name>
   <description>The reevoomark-java-api is a Java tag library for ReevooMark and Reevoo Essentials customers who want to quickly and easily integrate Reevoo content in to their sites server-side.</description>
   <url>https://github.com/reevoo/reevoomark-java-api</url>
@@ -25,15 +25,9 @@
 
   <developers>
     <developer>
-      <id>PipT</id>
-      <name>Pip Taylor</name>
-      <email>pip@reevoo.com</email>
-    </developer>
-
-    <developer>
-      <id>TomLea</id>
-      <name>Tom Lea</name>
-      <email>tomlea@reevoo.com</email>
+      <id>Reevoo</id>
+      <name>Developers</name>
+      <email>developers@reevoo.com</email>
     </developer>
   </developers>
 

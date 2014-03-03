@@ -7,21 +7,21 @@
     <groupId>com.reevoo.taglib</groupId>
     <artifactId>reevoo-taglib</artifactId>
     <packaging>jar</packaging>
-    <version>1.4</version>
+    <version>1.5</version>
     <name>reevoo-taglib</name>
 
     <parent>
         <groupId>com.reevoo.taglib</groupId>
         <artifactId>reevoo-taglib-root</artifactId>
-        <version>1.4</version>
+        <version>1.5</version>
     </parent>
-    
+
     <dependencies>
 
         <dependency>
             <groupId>com.reevoo.taglib</groupId>
             <artifactId>reevoo-taglib-core</artifactId>
-            <version>1.4</version>
+            <version>1.5</version>
         </dependency>
 
         <dependency>

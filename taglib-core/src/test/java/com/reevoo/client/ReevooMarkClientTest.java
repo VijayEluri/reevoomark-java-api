@@ -73,7 +73,7 @@ public class ReevooMarkClientTest {
     assertEquals("cached_response", data);
   }
 
-  @Test  
+  @Test
   public void testWithStaleCacheAnd200Fresh() throws IOException {
     when(m.getStatusCode()).thenReturn(200);
     int[] cachedStatusCodes = {200, 404, 500};
@@ -104,7 +104,7 @@ public class ReevooMarkClientTest {
       assertNull(getCache());
     }
   }
-  
+
   @Test
   public void testEmptyCacheAnd404Fresh() throws IOException {
     when(m.getStatusCode()).thenReturn(404);
@@ -124,7 +124,7 @@ public class ReevooMarkClientTest {
       assertEquals("cached_response", getCache());
     }
   }
-  
+
   @Test
   public void testEmptyCacheAnd500Fresh() throws IOException {
     when(m.getStatusCode()).thenReturn(500);

@@ -4,29 +4,19 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
 
 /**
  * Hook between reevoo REST endpoint, and the rest of the general taglib code
  */
 public class ReevooMarkClient {
     protected HttpClient client;
-    private MultiThreadedHttpConnectionManager connectionManager;
 
     public ReevooMarkClient(int connectTimeout) {
-      HttpConnectionManagerParams params = new HttpConnectionManagerParams();
-      params.setConnectionTimeout(connectTimeout);
-      params.setLinger(-1);
-      params.setSoTimeout(connectTimeout);
-      params.setMaxTotalConnections(1000);
-      connectionManager = new MultiThreadedHttpConnectionManager();
-      connectionManager.setParams(params);
-      this.client = new HttpClient(connectionManager);
+      this.client = HttpClientFactory.build(connectTimeout);
     }
 
     public String obtainReevooMarkData(String trkref, String sku, String baseURI) {
@@ -48,7 +38,7 @@ public class ReevooMarkClient {
     String obtainReevooMarkData(GetMethod request) throws IOException {
       String cacheKey = request.getURI().getURI();
       ReevooMarkRecord cachedResponse = Cache.get(cacheKey);
-      
+
       if(cachedResponse != null && cachedResponse.fresh()){
         return cachedResponse.value;
       }
@@ -112,7 +102,7 @@ public class ReevooMarkClient {
       }
       return 0;
     }
-    
+
     private int safeStringToInt(String s){
       try {
         return s == null ? null : Integer.valueOf(s);

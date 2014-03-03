@@ -34,7 +34,7 @@ If you use Maven for your project add the following dependency to your `pom.xml`
 <dependency>
     <groupId>com.reevoo.taglib</groupId>
     <artifactId>reevoo-taglib</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
 </dependency>
 ```
 
@@ -109,6 +109,12 @@ available, just specify it within the tag:
   <p>Sorry we don't have any reviews available right now</p>
 </reevoo:mark>
 ```
+
+### Proxy Settings
+
+If you would like to use a proxy server to display the content, you need to set both ```http.proxyHost``` and
+```http.proxyPort``` when running your Java application. These are then used to pass proxy requests onto our
+servers.
 
 ### Rendering Issues
 

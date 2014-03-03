@@ -7,15 +7,15 @@
     <groupId>com.reevoo.taglib</groupId>
     <artifactId>reevoo-taglib-core</artifactId>
     <packaging>jar</packaging>
-    <version>1.4</version>
+    <version>1.5</version>
     <name>reevoo-taglib-core</name>
 
     <parent>
         <groupId>com.reevoo.taglib</groupId>
         <artifactId>reevoo-taglib-root</artifactId>
-        <version>1.4</version>
+        <version>1.5</version>
     </parent>
-    
+
     <dependencies>
 
         <dependency>
@@ -29,7 +29,7 @@
             <artifactId>google-collections</artifactId>
             <version>0.9</version>
         </dependency>
-        
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
