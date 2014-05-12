@@ -29,7 +29,6 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
-
     <tag>
         <name>assets</name>
         <tag-class>com.reevoo.taglib.ReevooAssets</tag-class>
@@ -71,5 +70,36 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
- 
+
+    <tag>
+        <name>productReviews</name>
+        <tag-class>com.reevoo.taglib.ProductReviews</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>sku</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>conversations</name>
+        <tag-class>com.reevoo.taglib.Conversations</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>sku</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+
+    <tag>
+        <name>customerExperienceReviews</name>
+        <tag-class>com.reevoo.taglib.CustomerExperienceReviews</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
+
 </taglib>

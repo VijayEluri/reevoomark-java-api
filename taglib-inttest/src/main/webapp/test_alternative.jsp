@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Test page</title>
-    <link rel="stylesheet" href="http://mark.reevoo.com/stylesheets/reevoomark/embedded_reviews.css" type="text/css" media="screen" title="no title" charset="utf-8">
+      <reevoo:assets trkref="REV" />
   </head>
 
   <body>

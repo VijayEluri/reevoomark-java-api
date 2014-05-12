@@ -8,6 +8,7 @@ import static org.mockito.Mockito.*;
 import com.mockrunner.tag.*;
 
 
+
 public class ReevooTaglibTest extends BasicTagTestCaseAdapter
 {
 
@@ -46,13 +47,20 @@ public class ReevooTaglibTest extends BasicTagTestCaseAdapter
     }
 
     @Test
-    public void testTagReturnsTagBodyWhenNoResponseFromClient()
-    {
-        when(markClient.obtainReevooMarkData(anyString(),anyString(),anyString())).thenReturn(null);
+    public void testTagReturnsTagBodyWhenNoResponseFromClient() {
+        when(markClient.obtainReevooMarkData(anyString(), anyString(), anyString())).thenReturn(null);
 
         setBody("There are no reviews");
         processTagLifecycle();
         verifyOutput("There are no reviews");
+    }
+
+    @Test
+    public void testTheTagPrintsTagBodyWhenServerDoesntReturnContent() {
+        NestedTag nestedTag = createNestedTag(ReevooTaglib.class, null);
+        nestedTag.addTextChild("the tag body");
+        processTagLifecycle();
+        verifyOutput("the tag body");
     }
 
 
