@@ -9,7 +9,7 @@
     <tag>
         <name>mark</name>
         <tag-class>com.reevoo.taglib.ReevooTaglib</tag-class>
-        <body-content>JSP</body-content>
+        <body-content>scriptless</body-content>
 
         <attribute>
             <name>sku</name>
@@ -26,6 +26,48 @@
         <attribute>
             <name>baseURI</name>
             <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>assets</name>
+        <tag-class>com.reevoo.taglib.ReevooAssets</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>trkref</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>productBadge</name>
+        <tag-class>com.reevoo.taglib.ReevooProductBadge</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>trkref</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>sku</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>customerExperienceBadge</name>
+        <tag-class>com.reevoo.taglib.ReevooCustomerExperienceBadge</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>trkref</name>
+            <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>

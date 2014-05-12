@@ -52,6 +52,13 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+          <groupId>com.mockrunner</groupId>
+          <artifactId>mockrunner-all</artifactId>
+          <version>1.0.0</version>
+          <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <!-- Regardless of the java deps that you have, this will build

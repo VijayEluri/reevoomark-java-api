@@ -2,11 +2,17 @@
 <html>
   <head>
     <title>Test page</title>
-    <link rel="stylesheet" href="http://mark.reevoo.com/stylesheets/reevoomark/embedded_reviews.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <reevoo:assets trkref="REV" />
   </head>
 
   <body>
     <h1>Test page</h1>
+
+    <h2>ReevooMark Badge</h2>
+    <reevoo:productBadge trkref="REV" sku="10" />
+
+    <h2>CX Badge</h2>
+    <reevoo:customerExperienceBadge trkref="REV"/>
 
     <h2>Valid:</h2>
     <reevoo:mark sku="10" trkref="REV" baseURI="http://mark.reevoo.com/reevoomark/embeddable_reviews" />
