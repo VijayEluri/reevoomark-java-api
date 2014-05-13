@@ -28,7 +28,7 @@ public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
     @Test
     public void testTagCallsClientWithCorrectAttributesAndTheConversationEndpoint() {
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", "ABC123", TaglibConfig.getProperty("conversations.url"));
+        verify(markClient).obtainReevooMarkData("FOO", "ABC123", conversationsTag.buildUrl(TaglibConfig.getProperty("conversations.url")));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
         conversationsTag.setClient(markClient);
         setTag(conversationsTag);
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData(TaglibConfig.getProperty("default.trkref"), null, TaglibConfig.getProperty("conversations.url"));
+        verify(markClient).obtainReevooMarkData(TaglibConfig.getProperty("default.trkref"), null, conversationsTag.buildUrl(TaglibConfig.getProperty("conversations.url")));
 
     }
 

@@ -28,7 +28,7 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
     @Test
     public void testTagCallsClientWithCorrectAttributesAndTheProductReviewsEndpoint() {
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", "12345", TaglibConfig.getProperty("product.reviews.url"));
+        verify(markClient).obtainReevooMarkData("FOO", "12345", productReviewsTag.buildUrl(TaglibConfig.getProperty("product.reviews.url")));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         productReviewsTag.setClient(markClient);
         setTag(productReviewsTag);
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData(TaglibConfig.getProperty("default.trkref"), null, TaglibConfig.getProperty("product.reviews.url"));
+        verify(markClient).obtainReevooMarkData(TaglibConfig.getProperty("default.trkref"), null, productReviewsTag.buildUrl(TaglibConfig.getProperty("product.reviews.url")));
     }
 
 

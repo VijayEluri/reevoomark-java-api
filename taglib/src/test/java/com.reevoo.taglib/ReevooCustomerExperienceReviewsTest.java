@@ -27,7 +27,7 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
     @Test
     public void testTagCallsClientWithCorrectAttributesAndTheCXEndpoint() {
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", null, TaglibConfig.getProperty("customer.experience.reviews.url"));
+        verify(markClient).obtainReevooMarkData("FOO", null, cxTag.buildUrl(TaglibConfig.getProperty("customer.experience.reviews.url")));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
         cxTag.setClient(markClient);
         setTag(cxTag);
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData(TaglibConfig.getProperty("default.trkref"), null, TaglibConfig.getProperty("customer.experience.reviews.url"));
+        verify(markClient).obtainReevooMarkData(TaglibConfig.getProperty("default.trkref"), null, cxTag.buildUrl(TaglibConfig.getProperty("customer.experience.reviews.url")));
     }
 
 

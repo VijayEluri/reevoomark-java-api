@@ -12,6 +12,8 @@ import java.io.IOException;
 public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
 
     protected ReevooMarkClient client = new ReevooMarkClient(2000); //2s timeout
+    protected String locale;
+    protected String numberOfReviews;
 
     @Override
     public void doTag() throws JspException {
@@ -34,4 +36,21 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
     }
 
     protected abstract String getContent();
+
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
+
+    public void setNumberOfReviews(String numberOfReviews) {
+        this.numberOfReviews = numberOfReviews;
+    }
+
+    protected String buildUrl(String url) {
+        String urlLocale = this.locale!=null && !locale.trim().isEmpty()?("/" + locale ):"";
+        String urlNumberOfReviews = this.numberOfReviews!=null && !numberOfReviews.trim().isEmpty()?("/" + numberOfReviews + "/"):"/";
+        return String.format(url,urlLocale,urlNumberOfReviews);
+    }
+
+
+
 }

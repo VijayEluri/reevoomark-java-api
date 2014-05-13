@@ -136,6 +136,18 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+
+        <attribute>
+            <name>locale</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>numberOfReviews</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
 
@@ -155,6 +167,18 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+
+        <attribute>
+            <name>locale</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>numberOfReviews</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
@@ -167,7 +191,19 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
-    </tag>
+
+        <attribute>
+            <name>locale</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>numberOfReviews</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+     </tag>
 
     <tag>
         <name>customerServiceRatingBadge</name>
