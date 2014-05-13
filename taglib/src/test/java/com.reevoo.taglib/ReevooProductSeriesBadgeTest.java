@@ -5,9 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 import com.mockrunner.tag.*;
 
-public class ReevooProductBadgeTest extends BasicTagTestCaseAdapter {
+public class ReevooProductSeriesBadgeTest extends BasicTagTestCaseAdapter {
 
-    private ReevooProductBadge reevooTag = new ReevooProductBadge();
+    private ReevooProductSeriesBadge reevooTag = new ReevooProductSeriesBadge();
 
     @Before
     public void setUp() throws Exception
@@ -22,24 +22,24 @@ public class ReevooProductBadgeTest extends BasicTagTestCaseAdapter {
     public void testFormatsTheCorrectAnchor()
     {
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark\" href=\"http://mark.reevoo.com/partner/FOO/ABC123\"></a>");
+        verifyOutput("<a class=\"reevoomark\" href=\"http://mark.reevoo.com/partner/FOO/series:ABC123\"></a>");
     }
 
     @Test
     public void testIfTrkrefNotSpecifyItWillUseTheOneDefinedInTheConfigurationFile()
     {
-        reevooTag = new ReevooProductBadge();
+        reevooTag = new ReevooProductSeriesBadge();
         reevooTag.setSku("ABC123");
         setTag(reevooTag);
         processTagLifecycle();
-        verifyOutput(String.format("<a class=\"reevoomark\" href=\"http://mark.reevoo.com/partner/%s/ABC123\"></a>", TaglibConfig.getProperty("default.trkref")));
+        verifyOutput(String.format("<a class=\"reevoomark\" href=\"http://mark.reevoo.com/partner/%s/series:ABC123\"></a>", TaglibConfig.getProperty("default.trkref")));
     }
 
     @Test
     public void testThatIfVariantNamePresentItPrintsTheRightAnchorClass(){
         reevooTag.setVariantName("undecorated");
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark undecorated\" href=\"http://mark.reevoo.com/partner/FOO/ABC123\"></a>");
+        verifyOutput("<a class=\"reevoomark undecorated\" href=\"http://mark.reevoo.com/partner/FOO/series:ABC123\"></a>");
     }
 
 
@@ -47,7 +47,7 @@ public class ReevooProductBadgeTest extends BasicTagTestCaseAdapter {
     public void testThatTheTagBodyGoesAsTheAnchorBody(){
         setBody("click here");
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark\" href=\"http://mark.reevoo.com/partner/FOO/ABC123\">click here</a>");
+        verifyOutput("<a class=\"reevoomark\" href=\"http://mark.reevoo.com/partner/FOO/series:ABC123\">click here</a>");
     }
 }
 

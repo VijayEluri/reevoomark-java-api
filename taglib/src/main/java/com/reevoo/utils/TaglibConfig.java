@@ -1,14 +1,19 @@
 package com.reevoo.utils;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 public class TaglibConfig {
 
     private static Properties properties = loadProperties();
 
+    private static String multitrkrefMarkloaderScript = loadResourceFile("multitrkrefMarkloader.script");
+
+    private static String singletrkrefMarkloaderScript = loadResourceFile("singletrkrefMarkloader.script");
 
     private static Properties loadProperties() {
 
@@ -36,13 +41,44 @@ public class TaglibConfig {
         return properties;
     }
 
+    private static String loadResourceFile(String filename) {
+        BufferedReader reader = null;
+        StringBuilder contentBuilder = new StringBuilder();
+        try {
+             reader = new BufferedReader(new InputStreamReader(TaglibConfig.class.getClassLoader().getResourceAsStream(filename)));
+             String line = reader.readLine();
+             while (line != null) {
+                contentBuilder.append(line).append("\n");
+                line = reader.readLine();
+             }
+
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Unable to load resource file [%s]", filename), e);
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {}
+            }
+        }
+        return contentBuilder.toString();
+    }
 
     public static String getProperty(String name) {
+
         String value = properties.getProperty(name);
         if (value == null) {
             value = "";
         }
         return value;
+    }
+
+    public static String getMultitrkrefMarkloaderScript() {
+        return multitrkrefMarkloaderScript;
+    }
+
+    public static String getSingletrkrefMarkloaderScript() {
+        return singletrkrefMarkloaderScript;
     }
 
 

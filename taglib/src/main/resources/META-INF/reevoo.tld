@@ -31,8 +31,20 @@
     </tag>
 
     <tag>
-        <name>assets</name>
-        <tag-class>com.reevoo.taglib.ReevooAssets</tag-class>
+        <name>javascriptAssets</name>
+        <tag-class>com.reevoo.taglib.ReevooJavascriptAssets</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>trkref</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>cssAssets</name>
+        <tag-class>com.reevoo.taglib.ReevooCssAssets</tag-class>
         <body-content>scriptless</body-content>
 
         <attribute>
@@ -58,15 +70,51 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+
+        <attribute>
+            <name>variantName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
-        <name>customerExperienceBadge</name>
-        <tag-class>com.reevoo.taglib.ReevooCustomerExperienceBadge</tag-class>
+        <name>productSeriesBadge</name>
+        <tag-class>com.reevoo.taglib.ReevooProductSeriesBadge</tag-class>
         <body-content>scriptless</body-content>
 
         <attribute>
             <name>trkref</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>sku</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>variantName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>overallServiceRatingBadge</name>
+        <tag-class>com.reevoo.taglib.ReevooOverallServiceRatingBadge</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>trkref</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>variantName</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -89,6 +137,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+
 
     <tag>
         <name>conversations</name>
@@ -119,5 +168,91 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+
+    <tag>
+        <name>customerServiceRatingBadge</name>
+        <tag-class>com.reevoo.taglib.ReevooCustomerServiceRatingBadge</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>trkref</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>variantName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>deliveryRatingBadge</name>
+        <tag-class>com.reevoo.taglib.ReevooDeliveryRatingBadge</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>trkref</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>variantName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>conversationsBadge</name>
+        <tag-class>com.reevoo.taglib.ReevooConversationsBadge</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>trkref</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>sku</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>variantName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>ConversationSeriesBadge</name>
+        <tag-class>com.reevoo.taglib.ReevooConversationSeriesBadge</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>trkref</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>sku</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>variantName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+
 
 </taglib>

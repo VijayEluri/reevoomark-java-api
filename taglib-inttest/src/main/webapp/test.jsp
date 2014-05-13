@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Test page</title>
-    <reevoo:assets trkref="  REV ,   CYS"/>
+      <reevoo:cssAssets/>
   </head>
 
   <body>
@@ -22,5 +22,10 @@
 
     <h2>Connect Failure:</h2>
     <reevoo:mark sku="10" trkref="REV" baseURI="http://mark.reevoo.com:1/reevoomark/embeddable_reviews.html" />
+    <reevoo:javascriptAssets trkref="REV"/>
+
+    <h2>ReevooMark Badge with default trkref</h2>
+    <reevoo:productBadge sku="10" />
+
   </body>
 </html>

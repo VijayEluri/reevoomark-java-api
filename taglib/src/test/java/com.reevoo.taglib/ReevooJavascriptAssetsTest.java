@@ -7,9 +7,9 @@ import com.mockrunner.tag.*;
 
 
 
-public class ReevooAssetsTest extends BasicTagTestCaseAdapter{
+public class ReevooJavascriptAssetsTest extends BasicTagTestCaseAdapter{
 
-    private ReevooAssets reevooTag = new ReevooAssets();
+    private ReevooJavascriptAssets reevooTag = new ReevooJavascriptAssets();
 
     @Before
     public void setUp() throws Exception
@@ -30,7 +30,7 @@ public class ReevooAssetsTest extends BasicTagTestCaseAdapter{
     public void testIncludesCorrectSingleTrkrefLoaderScript()
     {
         processTagLifecycle();
-        verifyOutput(String.format(TaglibConfig.getProperty("singletrackref.markloader"),"FOO"));
+        verifyOutput(String.format(TaglibConfig.getSingletrkrefMarkloaderScript(),"FOO"));
     }
 
 
@@ -39,14 +39,14 @@ public class ReevooAssetsTest extends BasicTagTestCaseAdapter{
     {
         reevooTag.setTrkref("FOO,BAR,CYS");
         processTagLifecycle();
-        verifyOutput(String.format(TaglibConfig.getProperty("multitrackref.markloader"),"FOO,BAR,CYS"));
+        verifyOutput(String.format(TaglibConfig.getMultitrkrefMarkloaderScript(),"FOO,BAR,CYS"));
     }
 
     @Test
     public void testIfTrkrefNotSpecifyItWillUseTheOneDefinedInTheConfigurationFile()
     {
-        setTag(new ReevooAssets());
+        setTag(new ReevooJavascriptAssets());
         processTagLifecycle();
-        verifyOutput(String.format(TaglibConfig.getProperty("singletrackref.markloader"),TaglibConfig.getProperty("default.trkref")));
+        verifyOutput(String.format(TaglibConfig.getSingletrkrefMarkloaderScript(),TaglibConfig.getProperty("default.trkref")));
     }
 }

@@ -20,4 +20,14 @@ public class TaglibConfigTest {
         Assert.assertEquals(TaglibConfig.getProperty("conversations.url"),"customer_overridden_url");
     }
 
+    @Test
+    public void theMultitrkrefMarkLoaderScriptIsLoadedCorrectly() {
+        Assert.assertTrue(TaglibConfig.getMultitrkrefMarkloaderScript().contains("ReevooApi.each"));
+    }
+
+    @Test
+    public void theSingletrkrefMarkLoaderScriptIsLoadedCorrectly() {
+        Assert.assertTrue(TaglibConfig.getSingletrkrefMarkloaderScript().contains("ReevooApi.load"));
+    }
+
 }

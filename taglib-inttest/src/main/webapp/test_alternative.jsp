@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Test page</title>
-      <reevoo:assets trkref="REV" />
+    <reevoo:cssAssets/>
   </head>
 
   <body>
@@ -32,5 +32,7 @@
     <reevoo:mark trkref="JSP" baseURI="http://mark.reevoo.com/reevoomark/embeddable_reviews">
       <p>You should never see this.</p>
     </reevoo:mark>
+
+    <reevoo:javascriptAssets trkref="REV" />
   </body>
 </html>
