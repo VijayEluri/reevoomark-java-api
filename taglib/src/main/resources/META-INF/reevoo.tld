@@ -230,7 +230,7 @@
     </tag>
 
     <tag>
-        <name>ConversationSeriesBadge</name>
+        <name>conversationSeriesBadge</name>
         <tag-class>com.reevoo.taglib.ReevooConversationSeriesBadge</tag-class>
         <body-content>scriptless</body-content>
 

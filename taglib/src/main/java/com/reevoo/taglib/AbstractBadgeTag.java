@@ -31,7 +31,13 @@ public class AbstractBadgeTag extends AbstractReevooTag {
 
 
     public void setVariantName(String variantName) {
-        this.variantName = variantName;
+        if (variantName != null && !variantName.trim().isEmpty()) {
+            if (!variantName.endsWith("_variant")  && !variantName.equals("undecorated")) {
+                this.variantName = variantName + "_variant";
+            } else {
+                this.variantName = variantName;
+            }
+        }
     }
 
     protected String getVariantName() {
