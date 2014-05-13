@@ -34,81 +34,224 @@ If you use Maven for your project add the following dependency to your `pom.xml`
 <dependency>
     <groupId>com.reevoo.taglib</groupId>
     <artifactId>reevoo-taglib</artifactId>
-    <version>1.5</version>
+    <version>1.6</version>
 </dependency>
 ```
 
+##Configuration
+
+The library comes with a number of default configuration values used by some or all of the different tags. This configuation values are:
+
+``` html
+default.trkref=REV
+reevoo.badges.base.url=//mark.reevoo.com
+product.reviews.url=http://mark.reevoo.com/reevoomark/embeddable_reviews
+conversations.url=http://mark.reevoo.com/reevoomark/embeddable_conversations
+customer.experience.reviews.url=http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews
+```
+
+The url properties are to configure the different endpoint in the reevoo servers where the tags will connect to get the reviews content, and the customer will not need to change these values.
+
+The "default.trkref" property however, is the trkref value that will be used by default every time the customer uses a tag without explicitly specifying the trkref attribute. For example, if the customer uses the following tag in their jsp page:
+
+``` html
+<reevoo:javascriptAssets/>
+```
+
+Then the markloader script will be initialized with the default.trkref value, which is "REV". The customer has the option of explicitly specifying the trckref value in the tag, like below:
+
+
+``` html
+<reevoo:javascriptAssets trkref="WAH"/>
+```
+or they can override the default trkref value by creating a properties file with the name "reevooTaglibConfig.properties" and overriding the "default.trkref" with their own trkref, for example if the customer trkref is WAH, the would put the following content in the file:
+
+``` html
+default.trkref=WAH
+```
+
+The customer needs to make sure the the "reevooTaglibConfig.properties" file is added to the classpath of their application server, for example by adding the file to the folder WEB-INF/classes of the web application where they are using the reevo tags library. If they do this they will not need to specify the "trkref" attribute explicitly in the different tags, the tags will use the value specified in the file by default.
+
+
 ##Implementation
 
-Include the relevant CSS. For product reviews use:
-
-``` html
-<link rel="stylesheet" href="http://mark.reevoo.com/stylesheets/reevoomark/embedded_reviews.css" type="text/css" />
-```
-
-Include your customer specific Reevoo JavaScript:
-
-If you don't need https you can include the JavaScript like this:
-
-``` html
-<script id="reevoomark-loader">
-  (function() {
-      var script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = 'http://cdn.mark.reevoo.com/assets/reevoo_mark.js';
-      var s = document.getElementById('reevoomark-loader');
-      s.parentNode.insertBefore(script, s);
-    })();
-    afterReevooMarkLoaded = [];
-    afterReevooMarkLoaded.push(function(){
-        ReevooApi.load('TRKREF', function(retailer){
-          retailer.init_badges();
-        });
-    });
-</script>
-```
-
-If you do need to use https you can include the JavaScript like this:
-
-``` html
-<script id="reevoomark-loader">
- (function() {
-   var trkref = 'TRKREF';
-   var myscript = document.createElement('script');
-   myscript.type = 'text/javascript';
-   myscript.src=('//mark.reevoo.com/reevoomark/'+trkref+'.js?async=true');
-   var s = document.getElementById('reevoomark-loader');
-   s.parentNode.insertBefore(myscript, s);
- })();
-</script>
-```
-
-Include the taglib:
+In any jsp page where you will be using reevoo tags, make sure to include the taglib like below:
 
 ``` java
 <%@ taglib prefix="reevoo" uri="http://reevoo.com/java-taglib/v1" %>
 ```
 
-Render embedded review content. Make sure to replace `<SKU>` and `<TRKREF>` with the appropriate values:
+Include the reevoo CSS like below:
 
-``` java
-<reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/embeddable_reviews.html" />
+``` html
+ <reevoo:cssAssets/>
 ```
 
-It is also possible to specify locale and the number of reviews you'd like in the baseURI:
+Include your customer specific Reevoo JavaScript:
 
-``` java
-<reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_reviews.html" />
+``` html
+<reevoo:javascriptAssets/>
 ```
+or if you don't want to use the default trkref and want to specify it explicitly:
+
+``` html
+<reevoo:javascriptAssets trkref="WAS" />
+```
+
+or you can have multiple trkrefs if you need by adding them all separated by comma like below:
+
+``` html
+<reevoo:javascriptAssets trkref="WAS,CYS,REV" />
+```
+
+### Product Badges
+
+To render "product badges" you can use any of the below, sku is compulsory but trkref and variantName are optional:
+
+Make sure to replace `<SKU>`,`<TRKREF>` and `<VARIANT_NAME>` with the appropiate value.
+
+``` html
+<reevoo:productBadge sku="<SKU>" />
+<reevoo:productBadge sku="<SKU>" trkref="<TRKREF>"/>
+<reevoo:productBadge sku="<SKU>" variantName="undecorated"/>
+<reevoo:productBadge sku="<SKU>" trkref="<TRKREF>" variantName="stars_only"/>
+```
+
+To render "product series badges" you can use any of the below, sku is compulsory and should be set to the series id. The trkref and variantName are optional:
+
+``` html
+<reevoo:productSeriesBadge sku="<SKU>" />
+<reevoo:productSeriesBadge sku="<SKU>" trkref="<TRKREF>"/>
+<reevoo:productSeriesBadge sku="<SKU>" variantName="undecorated"/>
+<reevoo:productSeriesBadge sku="<SKU>" trkref="<TRKREF>" variantName="<VARIANT_NAME>"/>
+```
+
+### Conversations Badges
+
+To render "conversations badges" you can use any of the below, sku is compulsory but trkref and variantName are optional:
+
+Make sure to replace `<SKU>`,`<TRKREF>` and `<VARIANT_NAME>` with the appropiate value.
+
+``` html
+<reevoo:conversationsBadge sku="<SKU>" />
+<reevoo:conversationsBadge sku="<SKU>" trkref="<TRKREF>"/>
+<reevoo:conversationsBadge sku="<SKU>" variantName="undecorated"/>
+<reevoo:conversationsBadge sku="<SKU>" trkref="<TRKREF>" variantName="<VARIANT_NAME>"/>
+```
+
+To render "conversation series badges" you can use any of the below, sku is compulsory and should be set to the series id. The trkref and variantName are optional:
+
+``` html
+<reevoo:conversationSeriesBadge sku="<SKU>" />
+<reevoo:conversationSeriesBadge sku="<SKU>" trkref="<TRKREF>"/>
+<reevoo:conversationSeriesBadge sku="<SKU>" variantName="undecorated"/>
+<reevoo:conversationSeriesBadge sku="<SKU>" trkref="<TRKREF>" variantName="<VARIANT_NAME>"/>
+```
+
+### Overal Service Rating Badges
+
+To render "Overal Service Rating badges" you can use any of the below, trkref and variantName are optional:
+
+Make sure to replace `<TRKREF>` and `<VARIANT_NAME>` with the appropiate value.
+
+``` html
+<reevoo:overallServiceRatingBadge/>
+<reevoo:overallServiceRatingBadge trkref="<TRKREF>"/>
+<reevoo:overallServiceRatingBadge variantName="undecorated"/>
+<reevoo:overallServiceRatingBadge trkref="<TRKREF>" variantName="<VARIANT_NAME>"/>
+```
+
+### Customer Service Rating Badges
+
+To render "Customer Service Rating badges" you can use any of the below, trkref and variantName are optional:
+
+Make sure to replace `<TRKREF>` and `<VARIANT_NAME>` with the appropiate value.
+
+``` html
+<reevoo:customerServiceRatingBadge/>
+<reevoo:customerServiceRatingBadge trkref="<TRKREF>"/>
+<reevoo:customerServiceRatingBadge variantName="undecorated"/>
+<reevoo:overallServiceRatingBadge trkref="<TRKREF>" variantName="<VARIANT_NAME>"/>
+```
+
+### Delivery Rating Badges
+
+To render "Delivery Rating badges" you can use any of the below, trkref and variantName are optional:
+
+Make sure to replace `<TRKREF>` and `<VARIANT_NAME>` with the appropiate value.
+
+``` html
+<reevoo:deliveryRatingBadge/>
+<reevoo:deliveryRatingBadge trkref="<TRKREF>"/>
+<reevoo:deliveryRatingBadge variantName="undecorated"/>
+<reevoo:deliveryRatingBadge trkref="<TRKREF>" variantName="<VARIANT_NAME>"/>
+```
+
+
+### Embedded Review Content
+
+Render embedded review content. Make sure to replace `<SKU>` and `<TRKREF>` with the appropriate values. The sku attribute is compulsory but trkref is optional:
+
+``` html
+<reevoo:productReviews sku="<SKU>" />
+<reevoo:productReviews sku="<SKU>" trkref="<TRKREF>"/>
+```
+
+TODO: Add support for locale and number of reviews!!!
+
 
 If you would like to fall back to some content when reevoo content is not
 available, just specify it within the tag:
 
 ``` java
-<reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_reviews.html">
+<reevoo:productReviews sku="<SKU>">
   <p>Sorry we don't have any reviews available right now</p>
-</reevoo:mark>
+</reevoo:productReviews>
 ```
+
+### Embedded Consversations Content
+
+Render embedded conversations content. Make sure to replace `<SKU>` and `<TRKREF>` with the appropriate values. The sku attribute is compulsory but trkref is optional:
+
+``` html
+<reevoo:conversations sku="<SKU>" />
+<reevoo:conversations sku="<SKU>" trkref="<TRKREF>"/>
+```
+
+TODO: Add support for locale and number of reviews!!!
+
+
+If you would like to fall back to some content when reevoo content is not
+available, just specify it within the tag:
+
+``` java
+<reevoo:conversations sku="<SKU>">
+  <p>Sorry we don't have any conversations available right now</p>
+</reevoo:conversations>
+```
+
+### Embedded Customer Experience Review Content
+
+Render embedded customer experience review content. Make sure to replace ``<TRKREF>` with the appropriate values. The trkref is optional:
+
+``` html
+<reevoo:customerExperienceReviews"/>
+<reevoo:customerExperienceReviews trkref="<TRKREF>"/>
+```
+
+TODO: Add support for locale and number of reviews!!!
+
+
+If you would like to fall back to some content when reevoo content is not
+available, just specify it within the tag:
+
+``` java
+<reevoo:customerExperienceReviews sku="<SKU>">
+  <p>Sorry we don't have any conversations available right now</p>
+</reevoo:customerExperienceReviews>
+```
+
+
 
 ### Proxy Settings
 

@@ -22,7 +22,7 @@ public class ReevooProductBadgeTest extends BasicTagTestCaseAdapter {
     public void testFormatsTheCorrectAnchor()
     {
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark\" href=\"http://mark.reevoo.com/partner/FOO/ABC123\"></a>");
+        verifyOutput("<a class=\"reevoomark\" href=\"//mark.reevoo.com/partner/FOO/ABC123\"></a>");
     }
 
     @Test
@@ -32,28 +32,28 @@ public class ReevooProductBadgeTest extends BasicTagTestCaseAdapter {
         reevooTag.setSku("ABC123");
         setTag(reevooTag);
         processTagLifecycle();
-        verifyOutput(String.format("<a class=\"reevoomark\" href=\"http://mark.reevoo.com/partner/%s/ABC123\"></a>", TaglibConfig.getProperty("default.trkref")));
+        verifyOutput(String.format("<a class=\"reevoomark\" href=\"//mark.reevoo.com/partner/%s/ABC123\"></a>", TaglibConfig.getProperty("default.trkref")));
     }
 
     @Test
     public void testThatIfUndecoratedItPrintsTheRightAnchorClass(){
         reevooTag.setVariantName("undecorated");
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark undecorated\" href=\"http://mark.reevoo.com/partner/FOO/ABC123\"></a>");
+        verifyOutput("<a class=\"reevoomark undecorated\" href=\"//mark.reevoo.com/partner/FOO/ABC123\"></a>");
     }
 
     @Test
     public void testThatIfVariantNameOtherThanUndecoratedItPrintsTheRightAnchorClass(){
         reevooTag.setVariantName("search_page");
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark search_page_variant\" href=\"http://mark.reevoo.com/partner/FOO/ABC123\"></a>");
+        verifyOutput("<a class=\"reevoomark search_page_variant\" href=\"//mark.reevoo.com/partner/FOO/ABC123\"></a>");
     }
 
     @Test
     public void testThatTheTagBodyGoesAsTheAnchorBody(){
         setBody("click here");
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark\" href=\"http://mark.reevoo.com/partner/FOO/ABC123\">click here</a>");
+        verifyOutput("<a class=\"reevoomark\" href=\"//mark.reevoo.com/partner/FOO/ABC123\">click here</a>");
     }
 }
 

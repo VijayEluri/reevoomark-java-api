@@ -21,7 +21,7 @@ public class ReevooDeliveryRatingBadgeTest extends BasicTagTestCaseAdapter {
     public void testFormatsTheCorrectAnchor()
     {
         processTagLifecycle();
-        verifyOutput("<a href=\"http://mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation delivery\"></a>");
+        verifyOutput("<a href=\"//mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation delivery\"></a>");
     }
 
     @Test
@@ -29,14 +29,14 @@ public class ReevooDeliveryRatingBadgeTest extends BasicTagTestCaseAdapter {
     {
         setTag(new ReevooDeliveryRatingBadge());
         processTagLifecycle();
-        verifyOutput(String.format("<a href=\"http://mark.reevoo.com/retailer/%s\" class=\"reevoo_reputation delivery\"></a>",TaglibConfig.getProperty("default.trkref")));
+        verifyOutput(String.format("<a href=\"//mark.reevoo.com/retailer/%s\" class=\"reevoo_reputation delivery\"></a>",TaglibConfig.getProperty("default.trkref")));
     }
 
     @Test
     public void testThatIfVariantNamePresentItPrintsTheRightAnchorClass(){
         deliveryTag.setVariantName("undecorated");
         processTagLifecycle();
-        verifyOutput("<a href=\"http://mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation delivery undecorated\"></a>");
+        verifyOutput("<a href=\"//mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation delivery undecorated\"></a>");
     }
 
 
@@ -44,6 +44,6 @@ public class ReevooDeliveryRatingBadgeTest extends BasicTagTestCaseAdapter {
     public void testThatTheTagBodyGoesAsTheAnchorBody(){
         setBody("click here");
         processTagLifecycle();
-        verifyOutput("<a href=\"http://mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation delivery\">click here</a>");
+        verifyOutput("<a href=\"//mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation delivery\">click here</a>");
     }
 }

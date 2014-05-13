@@ -21,7 +21,7 @@ public class ReevooCustomerServiceRatingBadgeTest extends BasicTagTestCaseAdapte
     public void testFormatsTheCorrectAnchor()
     {
         processTagLifecycle();
-        verifyOutput("<a href=\"http://mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation customer_service\"></a>");
+        verifyOutput("<a href=\"//mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation customer_service\"></a>");
     }
 
     @Test
@@ -29,14 +29,14 @@ public class ReevooCustomerServiceRatingBadgeTest extends BasicTagTestCaseAdapte
     {
         setTag(new ReevooCustomerServiceRatingBadge());
         processTagLifecycle();
-        verifyOutput(String.format("<a href=\"http://mark.reevoo.com/retailer/%s\" class=\"reevoo_reputation customer_service\"></a>",TaglibConfig.getProperty("default.trkref")));
+        verifyOutput(String.format("<a href=\"//mark.reevoo.com/retailer/%s\" class=\"reevoo_reputation customer_service\"></a>",TaglibConfig.getProperty("default.trkref")));
     }
 
     @Test
     public void testThatIfVariantNamePresentItPrintsTheRightAnchorClass(){
         customerServiceTag.setVariantName("undecorated");
         processTagLifecycle();
-        verifyOutput("<a href=\"http://mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation customer_service undecorated\"></a>");
+        verifyOutput("<a href=\"//mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation customer_service undecorated\"></a>");
     }
 
 
@@ -44,6 +44,6 @@ public class ReevooCustomerServiceRatingBadgeTest extends BasicTagTestCaseAdapte
     public void testThatTheTagBodyGoesAsTheAnchorBody(){
         setBody("click here");
         processTagLifecycle();
-        verifyOutput("<a href=\"http://mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation customer_service\">click here</a>");
+        verifyOutput("<a href=\"//mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation customer_service\">click here</a>");
     }
 }

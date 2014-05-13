@@ -22,7 +22,7 @@ public class ReevooConversationsBadgeTest extends BasicTagTestCaseAdapter {
     public void testFormatsTheCorrectAnchor()
     {
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark reevoo-conversations\" href=\"http://mark.reevoo.com/partner/FOO/ABC123\"></a>");
+        verifyOutput("<a class=\"reevoomark reevoo-conversations\" href=\"//mark.reevoo.com/partner/FOO/ABC123\"></a>");
     }
 
 
@@ -30,7 +30,7 @@ public class ReevooConversationsBadgeTest extends BasicTagTestCaseAdapter {
     public void testThatIfVariantNamePresentItPrintsTheRightAnchorClass(){
         conversationsBadgeTag.setVariantName("undecorated");
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark reevoo-conversations undecorated\" href=\"http://mark.reevoo.com/partner/FOO/ABC123\"></a>");
+        verifyOutput("<a class=\"reevoomark reevoo-conversations undecorated\" href=\"//mark.reevoo.com/partner/FOO/ABC123\"></a>");
     }
 
 
@@ -38,6 +38,6 @@ public class ReevooConversationsBadgeTest extends BasicTagTestCaseAdapter {
     public void testThatTheTagBodyGoesAsTheAnchorBody(){
         setBody("click here");
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark reevoo-conversations\" href=\"http://mark.reevoo.com/partner/FOO/ABC123\">click here</a>");
+        verifyOutput("<a class=\"reevoomark reevoo-conversations\" href=\"//mark.reevoo.com/partner/FOO/ABC123\">click here</a>");
     }
 }
