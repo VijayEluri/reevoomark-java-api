@@ -1,17 +1,17 @@
 package com.reevoo.taglib;
 
 import com.reevoo.client.ReevooMarkClient;
-import com.reevoo.utils.TaglibConfig;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
-public abstract class AbstractReevooMarkClientTag extends SimpleTagSupport {
+/**
+ * Abstract superclass that contains common functionality to "all" of reevoo the tag libs which
+ * need to use a <@link>ReevooMarkClient</@link> instance to get content from the reevoo servers.
+ */
+public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
 
     protected ReevooMarkClient client = new ReevooMarkClient(2000); //2s timeout
-    protected String trkref = TaglibConfig.getProperty("trkref");
-    protected String sku = null;
 
     @Override
     public void doTag() throws JspException {
@@ -29,14 +29,9 @@ public abstract class AbstractReevooMarkClientTag extends SimpleTagSupport {
         }
     }
 
-    protected abstract String getContent();
-
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
-
     protected void setClient(ReevooMarkClient client) {
         this.client = client;
     }
 
+    protected abstract String getContent();
 }

@@ -29,6 +29,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+
     <tag>
         <name>assets</name>
         <tag-class>com.reevoo.taglib.ReevooAssets</tag-class>
@@ -36,7 +37,7 @@
 
         <attribute>
             <name>trkref</name>
-            <required>true</required>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
@@ -48,7 +49,7 @@
 
         <attribute>
             <name>trkref</name>
-            <required>true</required>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
 
@@ -66,15 +67,21 @@
 
         <attribute>
             <name>trkref</name>
-            <required>true</required>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
 
     <tag>
         <name>productReviews</name>
-        <tag-class>com.reevoo.taglib.ProductReviews</tag-class>
+        <tag-class>com.reevoo.taglib.ReevooProductReviews</tag-class>
         <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>trkref</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
 
         <attribute>
             <name>sku</name>
@@ -85,8 +92,14 @@
 
     <tag>
         <name>conversations</name>
-        <tag-class>com.reevoo.taglib.Conversations</tag-class>
+        <tag-class>com.reevoo.taglib.ReevooConversations</tag-class>
         <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>trkref</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
 
         <attribute>
             <name>sku</name>
@@ -95,11 +108,16 @@
         </attribute>
     </tag>
 
-
     <tag>
         <name>customerExperienceReviews</name>
-        <tag-class>com.reevoo.taglib.CustomerExperienceReviews</tag-class>
+        <tag-class>com.reevoo.taglib.ReevooCustomerExperienceReviews</tag-class>
         <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>trkref</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
 </taglib>

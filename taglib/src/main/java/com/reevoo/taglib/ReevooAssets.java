@@ -1,43 +1,37 @@
 package com.reevoo.taglib;
 
+import com.reevoo.utils.TaglibConfig;
+
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
-public class ReevooAssets extends SimpleTagSupport {
 
-    protected static String ASSETLOADER = "<script id=\"reevoomark-loader\">\n" +
-            "  (function() {\n" +
-            "      var script = document.createElement('script');\n" +
-            "      script.type = 'text/javascript';\n" +
-            "      script.src = '//cdn.mark.reevoo.com/assets/reevoo_mark.js';\n" +
-            "      var s = document.getElementById('reevoomark-loader');\n" +
-            "      s.parentNode.insertBefore(script, s);\n" +
-            "    })();\n" +
-            "    afterReevooMarkLoaded = [];\n" +
-            "    afterReevooMarkLoaded.push(function(){\n" +
-            "        ReevooApi.load('%s', function(retailer){\n" +
-            "          retailer.init_badges();\n" +
-            "          retailer.init_reevoo_reputation_badges();\n" +
-            "        });\n" +
-            "    });\n" +
-            "</script>\n" +
-            "<link rel=\"stylesheet\" href=\"http://mark.reevoo.com/stylesheets/reevoomark/embedded_reviews.css\" type=\"text/css\" />";
-
-    private String trkref;
-
-
+/**
+ * Tag for adding markloader script and css.
+ *
+ * Usage:
+ *
+ *      <reevoo:assets/> // will use the default.trkref set in the configuration properties file.
+ *      <reevoo:assets trkref="REV"/>
+ *      <reevoo:assets trkref="REV,CYS"/> // you can specify multiple trkrefs separated by commas.
+ *
+ */
+public class ReevooAssets extends AbstractReevooTag {
 
     public void doTag() throws JspException {
         try {
-            String content = String.format(ASSETLOADER,trkref);
-            getJspContext().getOut().write(content);
+            getJspContext().getOut().write(getMarkloaderScript());
         } catch (IOException e) {
             throw new JspException(e);
         }
     }
 
-    public void setTrkref(String trkref) {
-        this.trkref = trkref;
+    private String getMarkloaderScript() {
+        String script = TaglibConfig.getProperty("singletrackref.markloader");
+        if (this.trkref.contains(",")) {
+            script = TaglibConfig.getProperty("multitrackref.markloader");
+        }
+        return String.format(script,trkref);
     }
+
 }

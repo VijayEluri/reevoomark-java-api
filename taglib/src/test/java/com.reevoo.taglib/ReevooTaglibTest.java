@@ -31,9 +31,7 @@ public class ReevooTaglibTest extends BasicTagTestCaseAdapter
     public void testTagCallsClientWithCorrectAttributes()
     {
         when(markClient.obtainReevooMarkData(anyString(),anyString(),anyString())).thenReturn("FOO");
-
         processTagLifecycle();
-
         verify(markClient).obtainReevooMarkData("FOO", "ABC123", "http://mark.reevoo.com/endpoint");
     }
 
@@ -41,7 +39,6 @@ public class ReevooTaglibTest extends BasicTagTestCaseAdapter
     public void testTagRespondsWithContentFromClient()
     {
         when(markClient.obtainReevooMarkData(anyString(),anyString(),anyString())).thenReturn("FOO");
-
         processTagLifecycle();
         verifyOutput("FOO");
     }
@@ -49,19 +46,11 @@ public class ReevooTaglibTest extends BasicTagTestCaseAdapter
     @Test
     public void testTagReturnsTagBodyWhenNoResponseFromClient() {
         when(markClient.obtainReevooMarkData(anyString(), anyString(), anyString())).thenReturn(null);
-
         setBody("There are no reviews");
         processTagLifecycle();
         verifyOutput("There are no reviews");
     }
 
-    @Test
-    public void testTheTagPrintsTagBodyWhenServerDoesntReturnContent() {
-        NestedTag nestedTag = createNestedTag(ReevooTaglib.class, null);
-        nestedTag.addTextChild("the tag body");
-        processTagLifecycle();
-        verifyOutput("the tag body");
-    }
 
 
 }

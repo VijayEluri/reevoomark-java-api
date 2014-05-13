@@ -4,12 +4,16 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
-public class ReevooProductBadge extends SimpleTagSupport {
-
-    private String trkref;
-    private String sku;
-
-
+/**
+ * Tag for adding a product badge.
+ *
+ * Usage:
+ *
+ *      <reevoo:productBadge sku="167823"/>  // will use the default.trkref set in the configuration properties file.
+ *      <reevoo:productBadge trkref="REV" sku="167823"/>
+ *
+ */
+public class ReevooProductBadge extends AbstractReevooTag {
 
     public void doTag() throws JspException {
         try {
@@ -19,11 +23,4 @@ public class ReevooProductBadge extends SimpleTagSupport {
         }
     }
 
-    public void setTrkref(String trkref) {
-        this.trkref = trkref;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
 }

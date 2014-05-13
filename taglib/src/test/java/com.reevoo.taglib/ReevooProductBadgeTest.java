@@ -1,5 +1,6 @@
 package com.reevoo.taglib;
 
+import com.reevoo.utils.TaglibConfig;
 import org.junit.Before;
 import org.junit.Test;
 import com.mockrunner.tag.*;
@@ -23,4 +24,15 @@ public class ReevooProductBadgeTest extends BasicTagTestCaseAdapter {
         processTagLifecycle();
         verifyOutput("<a class=\"reevoomark\" href=\"http://mark.reevoo.com/partner/FOO/ABC123\"></a>");
     }
+
+    @Test
+    public void testIfTrkrefNotSpecifyItWillUseTheOneDefinedInTheConfigurationFile()
+    {
+        reevooTag = new ReevooProductBadge();
+        reevooTag.setSku("ABC123");
+        setTag(reevooTag);
+        processTagLifecycle();
+        verifyOutput(String.format("<a class=\"reevoomark\" href=\"http://mark.reevoo.com/partner/%s/ABC123\"></a>", TaglibConfig.getProperty("default.trkref")));
+    }
 }
+

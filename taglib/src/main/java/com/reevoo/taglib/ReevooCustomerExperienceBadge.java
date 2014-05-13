@@ -4,9 +4,16 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
-public class ReevooCustomerExperienceBadge extends SimpleTagSupport {
-
-    private String trkref;
+/**
+ * Tag for adding a customer experience badge.
+ *
+ * Usage:
+ *
+ *      <reevoo:customerExperienceBadge/>  // will use the default.trkref set in the configuration properties file.
+ *      <reevoo:customerExperienceBadge trkref="REV"/>
+ *
+ */
+public class ReevooCustomerExperienceBadge extends AbstractReevooTag {
 
     public void doTag() throws JspException {
         try {
@@ -14,10 +21,6 @@ public class ReevooCustomerExperienceBadge extends SimpleTagSupport {
         } catch (IOException e) {
             throw new JspException(e);
         }
-    }
-
-    public void setTrkref(String trkref) {
-        this.trkref = trkref;
     }
 
 }

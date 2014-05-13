@@ -7,12 +7,12 @@ public class TaglibConfigTest {
 
     @Test
     public void weCanAccessTheValueOfExistingPropertiesIn() {
-        Assert.assertEquals(TaglibConfig.getProperty("trkref"),"REV");
+        Assert.assertEquals(TaglibConfig.getProperty("default.trkref"),"REV");
     }
 
     @Test
-    public void ifThePropertyDoesNotExistWeGetNull() {
-        Assert.assertEquals(TaglibConfig.getProperty("whatever"),null);
+    public void ifThePropertyDoesNotExistWeGetEmptyString() {
+        Assert.assertEquals(TaglibConfig.getProperty("whatever"),"");
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.reevoo.taglib;
 
+import com.reevoo.utils.TaglibConfig;
 import org.junit.Before;
 import org.junit.Test;
 import com.mockrunner.tag.*;
@@ -26,9 +27,26 @@ public class ReevooAssetsTest extends BasicTagTestCaseAdapter{
     }
 
     @Test
-    public void testIncludesCorrectHTMLLoader()
+    public void testIncludesCorrectSingleTrkrefLoaderScript()
     {
         processTagLifecycle();
-        verifyOutput(String.format(ReevooAssets.ASSETLOADER,"FOO"));
+        verifyOutput(String.format(TaglibConfig.getProperty("singletrackref.markloader"),"FOO"));
+    }
+
+
+    @Test
+    public void testIncludesCorrectMultipleTrkrefLoaderScript()
+    {
+        reevooTag.setTrkref("FOO,BAR,CYS");
+        processTagLifecycle();
+        verifyOutput(String.format(TaglibConfig.getProperty("multitrackref.markloader"),"FOO,BAR,CYS"));
+    }
+
+    @Test
+    public void testIfTrkrefNotSpecifyItWillUseTheOneDefinedInTheConfigurationFile()
+    {
+        setTag(new ReevooAssets());
+        processTagLifecycle();
+        verifyOutput(String.format(TaglibConfig.getProperty("singletrackref.markloader"),TaglibConfig.getProperty("default.trkref")));
     }
 }

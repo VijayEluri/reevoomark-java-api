@@ -24,7 +24,7 @@ public class TaglibConfig {
             throw new RuntimeException(String.format("Unable to load configuration properties for file [%s]", "tablibConfig.properties"), e);
         }
 
-        // look if the client has defined their own properties and override them if so.
+        // look if the client has defined their own properties and if so override the default internal values with any values provided by the customer.
         try {
             InputStream configValues = TaglibConfig.class.getClassLoader().getResourceAsStream("reevooTaglibConfig.properties");
             if (configValues != null) {
@@ -38,9 +38,12 @@ public class TaglibConfig {
 
 
     public static String getProperty(String name) {
-        return properties.getProperty(name);
+        String value = properties.getProperty(name);
+        if (value == null) {
+            value = "";
+        }
+        return value;
     }
-
 
 
 }
