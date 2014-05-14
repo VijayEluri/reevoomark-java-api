@@ -47,6 +47,6 @@ public class ReevooJavascriptAssetsTest extends BasicTagTestCaseAdapter{
     {
         setTag(new ReevooJavascriptAssets());
         processTagLifecycle();
-        verifyOutput(String.format(TaglibConfig.getSingletrkrefMarkloaderScript(),TaglibConfig.getProperty("default.trkref")));
+        verifyOutput(String.format(TaglibConfig.getSingletrkrefMarkloaderScript(),"REV"));
     }
 }

@@ -19,7 +19,7 @@ public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        conversationsTag.setSku("ABC123");
+        conversationsTag.setSku("12345");
         conversationsTag.setTrkref("FOO");
         conversationsTag.setClient(markClient);
         setTag(conversationsTag);
@@ -28,7 +28,29 @@ public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
     @Test
     public void testTagCallsClientWithCorrectAttributesAndTheConversationEndpoint() {
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", "ABC123", conversationsTag.buildUrl(TaglibConfig.getProperty("conversations.url")));
+        verify(markClient).obtainReevooMarkData("FOO", "12345", "http://mark.reevoo.com/reevoomark/embeddable_conversations");
+    }
+
+    @Test
+    public void testTagCallsClientWithCorrectAttributesAndEndpointWhenUsingLocale() {
+        conversationsTag.setLocale("fr-FR");
+        processTagLifecycle();
+        verify(markClient).obtainReevooMarkData("FOO", "12345", "http://mark.reevoo.com/reevoomark/fr-FR/embeddable_conversations");
+    }
+
+    @Test
+    public void testTagCallsClientWithCorrectAttributesAndEndpointWhenUsingNumberOfReviews() {
+        conversationsTag.setNumberOfReviews("10");
+        processTagLifecycle();
+        verify(markClient).obtainReevooMarkData("FOO", "12345", "http://mark.reevoo.com/reevoomark/10/embeddable_conversations");
+    }
+
+    @Test
+    public void testTagCallsClientWithCorrectAttributesAndEndpointWhenUsingLocaleAndNumberOfReviews() {
+        conversationsTag.setNumberOfReviews("10");
+        conversationsTag.setLocale("fr-FR");
+        processTagLifecycle();
+        verify(markClient).obtainReevooMarkData("FOO", "12345", "http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_conversations");
     }
 
     @Test
@@ -53,7 +75,7 @@ public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
         conversationsTag.setClient(markClient);
         setTag(conversationsTag);
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData(TaglibConfig.getProperty("default.trkref"), null, conversationsTag.buildUrl(TaglibConfig.getProperty("conversations.url")));
+        verify(markClient).obtainReevooMarkData("REV", null, "http://mark.reevoo.com/reevoomark/embeddable_conversations");
 
     }
 

@@ -22,7 +22,7 @@ public class ReevooProductSeriesBadgeTest extends BasicTagTestCaseAdapter {
     public void testFormatsTheCorrectAnchor()
     {
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark\" href=\"//mark.reevoo.com/partner/FOO/series:ABC123\"></a>");
+        verifyOutput("<a class=\"reevoomark\" href=\"//test.reevoo.com/partner/FOO/series:ABC123\"></a>");
     }
 
     @Test
@@ -32,14 +32,14 @@ public class ReevooProductSeriesBadgeTest extends BasicTagTestCaseAdapter {
         reevooTag.setSku("ABC123");
         setTag(reevooTag);
         processTagLifecycle();
-        verifyOutput(String.format("<a class=\"reevoomark\" href=\"//mark.reevoo.com/partner/%s/series:ABC123\"></a>", TaglibConfig.getProperty("default.trkref")));
+        verifyOutput(String.format("<a class=\"reevoomark\" href=\"//test.reevoo.com/partner/%s/series:ABC123\"></a>", TaglibConfig.getProperty("default.trkref")));
     }
 
     @Test
     public void testThatIfVariantNamePresentItPrintsTheRightAnchorClass(){
         reevooTag.setVariantName("undecorated");
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark undecorated\" href=\"//mark.reevoo.com/partner/FOO/series:ABC123\"></a>");
+        verifyOutput("<a class=\"reevoomark undecorated\" href=\"//test.reevoo.com/partner/FOO/series:ABC123\"></a>");
     }
 
 
@@ -47,7 +47,7 @@ public class ReevooProductSeriesBadgeTest extends BasicTagTestCaseAdapter {
     public void testThatTheTagBodyGoesAsTheAnchorBody(){
         setBody("click here");
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark\" href=\"//mark.reevoo.com/partner/FOO/series:ABC123\">click here</a>");
+        verifyOutput("<a class=\"reevoomark\" href=\"//test.reevoo.com/partner/FOO/series:ABC123\">click here</a>");
     }
 }
 

@@ -28,7 +28,29 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
     @Test
     public void testTagCallsClientWithCorrectAttributesAndTheProductReviewsEndpoint() {
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", "12345", productReviewsTag.buildUrl(TaglibConfig.getProperty("product.reviews.url")));
+        verify(markClient).obtainReevooMarkData("FOO", "12345", "http://mark.reevoo.com/reevoomark/embeddable_reviews");
+    }
+
+    @Test
+    public void testTagCallsClientWithCorrectAttributesAndEndpointWhenUsingLocale() {
+        productReviewsTag.setLocale("fr-FR");
+        processTagLifecycle();
+        verify(markClient).obtainReevooMarkData("FOO", "12345", "http://mark.reevoo.com/reevoomark/fr-FR/embeddable_reviews");
+    }
+
+    @Test
+    public void testTagCallsClientWithCorrectAttributesAndEndpointWhenUsingNumberOfReviews() {
+        productReviewsTag.setNumberOfReviews("10");
+        processTagLifecycle();
+        verify(markClient).obtainReevooMarkData("FOO", "12345", "http://mark.reevoo.com/reevoomark/10/embeddable_reviews");
+    }
+
+    @Test
+    public void testTagCallsClientWithCorrectAttributesAndEndpointWhenUsingLocaleAndNumberOfReviews() {
+        productReviewsTag.setNumberOfReviews("10");
+        productReviewsTag.setLocale("fr-FR");
+        processTagLifecycle();
+        verify(markClient).obtainReevooMarkData("FOO", "12345", "http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_reviews");
     }
 
     @Test
@@ -52,7 +74,7 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         productReviewsTag.setClient(markClient);
         setTag(productReviewsTag);
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData(TaglibConfig.getProperty("default.trkref"), null, productReviewsTag.buildUrl(TaglibConfig.getProperty("product.reviews.url")));
+        verify(markClient).obtainReevooMarkData("REV", null, "http://mark.reevoo.com/reevoomark/embeddable_reviews");
     }
 
 

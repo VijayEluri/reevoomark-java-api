@@ -27,7 +27,29 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
     @Test
     public void testTagCallsClientWithCorrectAttributesAndTheCXEndpoint() {
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", null, cxTag.buildUrl(TaglibConfig.getProperty("customer.experience.reviews.url")));
+        verify(markClient).obtainReevooMarkData("FOO", null, "http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews");
+    }
+
+    @Test
+    public void testTagCallsClientWithCorrectAttributesAndTheCXEndpointWhenUsingLocale() {
+        cxTag.setLocale("fr-FR");
+        processTagLifecycle();
+        verify(markClient).obtainReevooMarkData("FOO", null, "http://mark.reevoo.com/reevoomark/fr-FR/embeddable_customer_experience_reviews");
+    }
+
+    @Test
+    public void testTagCallsClientWithCorrectAttributesAndTheCXEndpointWhenUsingNumberOfReviews() {
+        cxTag.setNumberOfReviews("10");
+        processTagLifecycle();
+        verify(markClient).obtainReevooMarkData("FOO", null, "http://mark.reevoo.com/reevoomark/10/embeddable_customer_experience_reviews");
+    }
+
+    @Test
+    public void testTagCallsClientWithCorrectAttributesAndTheCXEndpointWhenUsingLocaleAndNumberOfReviews() {
+        cxTag.setNumberOfReviews("10");
+        cxTag.setLocale("fr-FR");
+        processTagLifecycle();
+        verify(markClient).obtainReevooMarkData("FOO", null, "http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_customer_experience_reviews");
     }
 
     @Test
@@ -52,7 +74,7 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
         cxTag.setClient(markClient);
         setTag(cxTag);
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData(TaglibConfig.getProperty("default.trkref"), null, cxTag.buildUrl(TaglibConfig.getProperty("customer.experience.reviews.url")));
+        verify(markClient).obtainReevooMarkData("REV", null, "http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews");
     }
 
 

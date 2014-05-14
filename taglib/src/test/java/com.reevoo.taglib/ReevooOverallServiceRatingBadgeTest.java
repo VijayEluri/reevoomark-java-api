@@ -21,7 +21,7 @@ public class ReevooOverallServiceRatingBadgeTest extends BasicTagTestCaseAdapter
     public void testFormatsTheCorrectAnchor()
     {
         processTagLifecycle();
-        verifyOutput("<a href=\"//mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation\"></a>");
+        verifyOutput("<a href=\"//test.reevoo.com/retailer/FOO\" class=\"reevoo_reputation\"></a>");
     }
 
     @Test
@@ -29,14 +29,14 @@ public class ReevooOverallServiceRatingBadgeTest extends BasicTagTestCaseAdapter
     {
         setTag(new ReevooOverallServiceRatingBadge());
         processTagLifecycle();
-        verifyOutput(String.format("<a href=\"//mark.reevoo.com/retailer/%s\" class=\"reevoo_reputation\"></a>",TaglibConfig.getProperty("default.trkref")));
+        verifyOutput(String.format("<a href=\"//test.reevoo.com/retailer/%s\" class=\"reevoo_reputation\"></a>",TaglibConfig.getProperty("default.trkref")));
     }
 
     @Test
     public void testThatIfVariantNamePresentItPrintsTheRightAnchorClass(){
         reevooTag.setVariantName("undecorated");
         processTagLifecycle();
-        verifyOutput("<a href=\"//mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation undecorated\"></a>");
+        verifyOutput("<a href=\"//test.reevoo.com/retailer/FOO\" class=\"reevoo_reputation undecorated\"></a>");
     }
 
 
@@ -44,6 +44,6 @@ public class ReevooOverallServiceRatingBadgeTest extends BasicTagTestCaseAdapter
     public void testThatTheTagBodyGoesAsTheAnchorBody(){
         setBody("click here");
         processTagLifecycle();
-        verifyOutput("<a href=\"//mark.reevoo.com/retailer/FOO\" class=\"reevoo_reputation\">click here</a>");
+        verifyOutput("<a href=\"//test.reevoo.com/retailer/FOO\" class=\"reevoo_reputation\">click here</a>");
     }
 }

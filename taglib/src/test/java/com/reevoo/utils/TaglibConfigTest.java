@@ -17,7 +17,7 @@ public class TaglibConfigTest {
 
     @Test
     public void ifTheCustomerProvidesTheirOwnPropertiesFileWeGivePreferenceToTheCustomerValues() {
-        Assert.assertEquals(TaglibConfig.getProperty("conversations.url"),"customer_overridden_url");
+        Assert.assertEquals(TaglibConfig.getProperty("reevoo.badges.base.url"),"//test.reevoo.com");
     }
 
     @Test

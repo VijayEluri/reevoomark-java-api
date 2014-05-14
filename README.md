@@ -45,9 +45,9 @@ The library comes with a number of default configuration values used by some or 
 ``` html
 default.trkref=REV
 reevoo.badges.base.url=//mark.reevoo.com
-product.reviews.url=http://mark.reevoo.com/reevoomark/embeddable_reviews
-conversations.url=http://mark.reevoo.com/reevoomark/embeddable_conversations
-customer.experience.reviews.url=http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews
+product.reviews.url=http://mark.reevoo.com/reevoomark%s%sembeddable_reviews
+conversations.url=http://mark.reevoo.com/reevoomark%s%sembeddable_conversations
+customer.experience.reviews.url=http://mark.reevoo.comreevoomark%s%sembeddable_customer_experience_reviews
 ```
 
 The url properties are to configure the different endpoint in the reevoo servers where the tags will connect to get the reviews content, and the customer will not need to change these values.
@@ -70,7 +70,7 @@ or they can override the default trkref value by creating a properties file with
 default.trkref=WAH
 ```
 
-The customer needs to make sure the the "reevooTaglibConfig.properties" file is added to the classpath of their application server, for example by adding the file to the folder WEB-INF/classes of the web application where they are using the reevo tags library. If they do this they will not need to specify the "trkref" attribute explicitly in the different tags, the tags will use the value specified in the file by default.
+The customer needs to make sure the "reevooTaglibConfig.properties" file, if they decide to create one, is added to the classpath of their application server, for example by adding the file to the folder WEB-INF/classes of the web application where they are using the reevo tags library. If they do this they will not need to specify the "trkref" attribute explicitly in the different tags, the tags will use the value specified in the file by default.
 
 
 ##Implementation
@@ -190,15 +190,15 @@ Make sure to replace `<TRKREF>` and `<VARIANT_NAME>` with the appropiate value.
 
 ### Embedded Review Content
 
-Render embedded review content. Make sure to replace `<SKU>` and `<TRKREF>` with the appropriate values. The sku attribute is compulsory but trkref is optional:
+Render embedded review content. Make sure to replace `<SKU>` and `<TRKREF>` with the appropriate values. The sku attribute is compulsory but trkref, locale and numberOfReviews are optional:
 
 ``` html
 <reevoo:productReviews sku="<SKU>" />
 <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>"/>
+<reevoo:productReviews sku="<SKU>" locale="fr-FR"/>
+<reevoo:productReviews sku="<SKU>" numberOfReviews="10"/>
+<reevoo:productReviews sku="<SKU>" trkref="<TRKREF>" locale="fr-FR" numberOfReviews="10"/>
 ```
-
-TODO: Add support for locale and number of reviews!!!
-
 
 If you would like to fall back to some content when reevoo content is not
 available, just specify it within the tag:
@@ -211,15 +211,15 @@ available, just specify it within the tag:
 
 ### Embedded Consversations Content
 
-Render embedded conversations content. Make sure to replace `<SKU>` and `<TRKREF>` with the appropriate values. The sku attribute is compulsory but trkref is optional:
+Render embedded conversations content. Make sure to replace `<SKU>` and `<TRKREF>` with the appropriate values. The sku attribute is compulsory but trkref, locale and numberOfReviews are optional:
 
 ``` html
 <reevoo:conversations sku="<SKU>" />
 <reevoo:conversations sku="<SKU>" trkref="<TRKREF>"/>
+<reevoo:conversations sku="<SKU>" locale="fr-FR"/>
+<reevoo:conversations sku="<SKU>" numberOfReviews="10"/>
+<reevoo:conversations sku="<SKU>" trkref="<TRKREF>" locale="fr-FR" numberOfReviews="10"/>
 ```
-
-TODO: Add support for locale and number of reviews!!!
-
 
 If you would like to fall back to some content when reevoo content is not
 available, just specify it within the tag:
@@ -232,14 +232,14 @@ available, just specify it within the tag:
 
 ### Embedded Customer Experience Review Content
 
-Render embedded customer experience review content. Make sure to replace ``<TRKREF>` with the appropriate values. The trkref is optional:
+Render embedded customer experience review content. Make sure to replace ``<TRKREF>` with the appropriate values. The trkref and locale are optional:
 
 ``` html
 <reevoo:customerExperienceReviews"/>
 <reevoo:customerExperienceReviews trkref="<TRKREF>"/>
+<reevoo:customerExperienceReviews locale="fr-FR"/>
+<reevoo:customerExperienceReviews trkref="<TRKREF>" locale="fr-FR"/>
 ```
-
-TODO: Add support for locale and number of reviews!!!
 
 
 If you would like to fall back to some content when reevoo content is not
@@ -252,6 +252,32 @@ available, just specify it within the tag:
 ```
 
 
+### Generic Mark Embeddable Content Tag
+
+
+There is a generic tag that allows to specify the base url to call on the reevoo server for generic embeddable content that is 
+not provided by any of the previous tags. The tag name is "mark" and you can use it in the following way:
+
+Make sure to replace `<SKU>` and `<TRKREF>` with the appropriate values:
+
+``` java
+<reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/embeddable_reviews.html" />
+```
+
+It is also possible to specify locale and the number of reviews you'd like in the baseURI:
+
+``` java
+<reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_reviews.html" />
+```
+
+If you would like to fall back to some content when reevoo content is not
+available, just specify it within the tag:
+
+``` java
+<reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_reviews.html">
+  <p>Sorry we don't have any reviews available right now</p>
+</reevoo:mark>
+```
 
 ### Proxy Settings
 
