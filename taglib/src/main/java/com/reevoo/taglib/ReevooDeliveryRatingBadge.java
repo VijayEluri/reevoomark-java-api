@@ -5,13 +5,12 @@ import java.io.IOException;
 
 /**
  * Tag for adding an delivery rating badge.
- *
+ * <p/>
  * Usage:
- *
- *      <reevoo:deliveryRatingBadge/>  // will use the default.trkref set in the configuration properties file.
- *      <reevoo:deliveryRatingBadge trkref="REV"/>
- *      <reevoo:deliveryRatingBadge trkref="REV" variantName="undecorated"/>
- *
+ * <p/>
+ * <reevoo:deliveryRatingBadge/>  // will use the default.trkref set in the configuration properties file.
+ * <reevoo:deliveryRatingBadge trkref="REV"/>
+ * <reevoo:deliveryRatingBadge trkref="REV" variantName="undecorated"/>
  */
 public class ReevooDeliveryRatingBadge extends AbstractBadgeTag {
 
@@ -19,7 +18,7 @@ public class ReevooDeliveryRatingBadge extends AbstractBadgeTag {
         super.doTag();
         try {
             getJspContext().getOut().write(String.format("<a href=\"%s/retailer/%s\" class=\"reevoo_reputation delivery%s\">%s</a>",
-                    getBaseUrl(),trkref, getVariantName(),jspBody));
+                    getBaseUrl(), trkref, getVariantName(), jspBody));
         } catch (IOException e) {
             throw new JspException(e);
         }

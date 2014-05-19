@@ -6,13 +6,12 @@ import java.io.IOException;
 
 /**
  * Tag for adding a series product badge, using the parent SKU.
- *
+ * <p/>
  * Usage:
- *
- *      <reevoo:productSeriesBadge sku="167823"/>  // will use the default.trkref set in the configuration properties file.
- *      <reevoo:productSeriesBadge trkref="REV" sku="167823"/>
- *      <reevoo:productSeriesBadge trkref="REV" sku="167823" variantName="undecorated"/>
- *
+ * <p/>
+ * <reevoo:productSeriesBadge sku="167823"/>  // will use the default.trkref set in the configuration properties file.
+ * <reevoo:productSeriesBadge trkref="REV" sku="167823"/>
+ * <reevoo:productSeriesBadge trkref="REV" sku="167823" variantName="undecorated"/>
  */
 public class ReevooProductSeriesBadge extends AbstractBadgeTag {
 

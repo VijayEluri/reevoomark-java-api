@@ -10,8 +10,7 @@ public class ReevooProductSeriesBadgeTest extends BasicTagTestCaseAdapter {
     private ReevooProductSeriesBadge reevooTag = new ReevooProductSeriesBadge();
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         super.setUp();
         reevooTag.setTrkref("FOO");
         reevooTag.setSku("ABC123");
@@ -19,15 +18,13 @@ public class ReevooProductSeriesBadgeTest extends BasicTagTestCaseAdapter {
     }
 
     @Test
-    public void testFormatsTheCorrectAnchor()
-    {
+    public void testFormatsTheCorrectAnchor() {
         processTagLifecycle();
         verifyOutput("<a class=\"reevoomark\" href=\"//test.reevoo.com/partner/FOO/series:ABC123\"></a>");
     }
 
     @Test
-    public void testIfTrkrefNotSpecifyItWillUseTheOneDefinedInTheConfigurationFile()
-    {
+    public void testIfTrkrefNotSpecifyItWillUseTheOneDefinedInTheConfigurationFile() {
         reevooTag = new ReevooProductSeriesBadge();
         reevooTag.setSku("ABC123");
         setTag(reevooTag);
@@ -36,7 +33,7 @@ public class ReevooProductSeriesBadgeTest extends BasicTagTestCaseAdapter {
     }
 
     @Test
-    public void testThatIfVariantNamePresentItPrintsTheRightAnchorClass(){
+    public void testThatIfVariantNamePresentItPrintsTheRightAnchorClass() {
         reevooTag.setVariantName("undecorated");
         processTagLifecycle();
         verifyOutput("<a class=\"reevoomark undecorated\" href=\"//test.reevoo.com/partner/FOO/series:ABC123\"></a>");
@@ -44,7 +41,7 @@ public class ReevooProductSeriesBadgeTest extends BasicTagTestCaseAdapter {
 
 
     @Test
-    public void testThatTheTagBodyGoesAsTheAnchorBody(){
+    public void testThatTheTagBodyGoesAsTheAnchorBody() {
         setBody("click here");
         processTagLifecycle();
         verifyOutput("<a class=\"reevoomark\" href=\"//test.reevoo.com/partner/FOO/series:ABC123\">click here</a>");

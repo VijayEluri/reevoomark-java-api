@@ -5,13 +5,12 @@ import java.io.IOException;
 
 /**
  * Tag for adding an overall service rating badge.
- *
+ * <p/>
  * Usage:
- *
- *      <reevoo:overallServiceRatingBadge/>  // will use the default.trkref set in the configuration properties file.
- *      <reevoo:overallServiceRatingBadge trkref="REV"/>
- *      <reevoo:overallServiceRatingBadge trkref="REV" variantName="undecorated"/>
- *
+ * <p/>
+ * <reevoo:overallServiceRatingBadge/>  // will use the default.trkref set in the configuration properties file.
+ * <reevoo:overallServiceRatingBadge trkref="REV"/>
+ * <reevoo:overallServiceRatingBadge trkref="REV" variantName="undecorated"/>
  */
 public class ReevooOverallServiceRatingBadge extends AbstractBadgeTag {
 

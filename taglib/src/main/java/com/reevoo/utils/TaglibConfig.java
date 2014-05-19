@@ -45,12 +45,12 @@ public class TaglibConfig {
         BufferedReader reader = null;
         StringBuilder contentBuilder = new StringBuilder();
         try {
-             reader = new BufferedReader(new InputStreamReader(TaglibConfig.class.getClassLoader().getResourceAsStream(filename)));
-             String line = reader.readLine();
-             while (line != null) {
+            reader = new BufferedReader(new InputStreamReader(TaglibConfig.class.getClassLoader().getResourceAsStream(filename)));
+            String line = reader.readLine();
+            while (line != null) {
                 contentBuilder.append(line).append("\n");
                 line = reader.readLine();
-             }
+            }
 
         } catch (Exception e) {
             throw new RuntimeException(String.format("Unable to load resource file [%s]", filename), e);
@@ -58,7 +58,8 @@ public class TaglibConfig {
             if (reader != null) {
                 try {
                     reader.close();
-                } catch (IOException e) {}
+                } catch (IOException e) {
+                }
             }
         }
         return contentBuilder.toString();

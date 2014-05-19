@@ -6,8 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.mockito.Mockito.*;
-import com.mockrunner.tag.*;
 
+import com.mockrunner.tag.*;
 
 
 public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
@@ -55,7 +55,7 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
 
     @Test
     public void testTagRespondsWithContentFromClient() {
-        when(markClient.obtainReevooMarkData(anyString(),anyString(),anyString())).thenReturn("FOO");
+        when(markClient.obtainReevooMarkData(anyString(), anyString(), anyString())).thenReturn("FOO");
         processTagLifecycle();
         verifyOutput("FOO");
     }
@@ -76,7 +76,6 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         processTagLifecycle();
         verify(markClient).obtainReevooMarkData("REV", null, "http://mark.reevoo.com/reevoomark/embeddable_reviews");
     }
-
 
 
 }

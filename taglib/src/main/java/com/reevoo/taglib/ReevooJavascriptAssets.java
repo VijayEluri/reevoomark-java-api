@@ -8,13 +8,12 @@ import java.io.IOException;
 
 /**
  * Tag for adding markloader script.
- *
+ * <p/>
  * Usage:
- *
- *      <reevoo:javascriptAssets/> // will use the default.trkref set in the configuration properties file.
- *      <reevoo:javascriptAssets trkref="REV"/>
- *      <reevoo:javascriptAssets trkref="REV,CYS"/> // you can specify multiple trkrefs separated by commas.
- *
+ * <p/>
+ * <reevoo:javascriptAssets/> // will use the default.trkref set in the configuration properties file.
+ * <reevoo:javascriptAssets trkref="REV"/>
+ * <reevoo:javascriptAssets trkref="REV,CYS"/> // you can specify multiple trkrefs separated by commas.
  */
 public class ReevooJavascriptAssets extends AbstractReevooTag {
 
@@ -31,7 +30,7 @@ public class ReevooJavascriptAssets extends AbstractReevooTag {
         if (this.trkref.contains(",")) {
             script = TaglibConfig.getMultitrkrefMarkloaderScript();
         }
-        return String.format(script,trkref);
+        return String.format(script, trkref);
     }
 
 }

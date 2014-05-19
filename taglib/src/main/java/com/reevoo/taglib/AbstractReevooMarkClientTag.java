@@ -50,21 +50,29 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
      * Builds the complete url to call through the ReevooMarkClient. The url is based on one of the properties
      * in the TaglibConfig with some substitutions applied to it depending on whether the user has specified
      * locale and number or reviews.
+     *
      * @param urlPropertySelector Name of the property in TaglibConfig that provides the base url.
      * @return The complete url to call through ReevooMarkClient.
      */
     protected String buildUrl(String urlPropertySelector) {
-        return String.format(TaglibConfig.getProperty(urlPropertySelector),getUrlLocaleComponent(),getUrlNumberOfReviewsComponent());
+        return String.format(TaglibConfig.getProperty(urlPropertySelector), getUrlLocaleComponent(), getUrlNumberOfReviewsComponent());
     }
 
     private String getUrlLocaleComponent() {
-        return this.locale!=null && !locale.trim().isEmpty()?("/" + locale ):"";
+        String locale = "";
+        if (this.locale != null && !this.locale.trim().isEmpty()) {
+            locale = "/" + this.locale;
+        }
+        return locale;
     }
 
     private String getUrlNumberOfReviewsComponent() {
-        return this.numberOfReviews!=null && !numberOfReviews.trim().isEmpty()?("/" + numberOfReviews + "/"):"/";
+        String numberOfReviews = "/";
+        if (this.numberOfReviews != null && !this.numberOfReviews.trim().isEmpty()) {
+            numberOfReviews += this.numberOfReviews + "/";
+        }
+        return numberOfReviews;
     }
-
 
 
 }

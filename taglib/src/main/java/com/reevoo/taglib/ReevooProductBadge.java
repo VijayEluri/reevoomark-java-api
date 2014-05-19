@@ -5,13 +5,12 @@ import java.io.IOException;
 
 /**
  * Tag for adding a product badge.
- *
+ * <p/>
  * Usage:
- *
- *      <reevoo:productBadge sku="167823"/>  // will use the default.trkref set in the configuration properties file.
- *      <reevoo:productBadge trkref="REV" sku="167823"/>
- *      <reevoo:productBadge trkref="REV" sku="167823" variantName="undecorated"/>
- *
+ * <p/>
+ * <reevoo:productBadge sku="167823"/>  // will use the default.trkref set in the configuration properties file.
+ * <reevoo:productBadge trkref="REV" sku="167823"/>
+ * <reevoo:productBadge trkref="REV" sku="167823" variantName="undecorated"/>
  */
 public class ReevooProductBadge extends AbstractBadgeTag {
 

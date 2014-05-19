@@ -5,11 +5,10 @@ import java.io.IOException;
 
 /**
  * Tag for adding the reevoo css link.
- *
+ * <p/>
  * Usage:
- *
- *      <reevoo:cssAssets/>
- *
+ * <p/>
+ * <reevoo:cssAssets/>
  */
 public class ReevooCssAssets extends AbstractReevooTag {
 

@@ -8,7 +8,7 @@
 <body>
 
 <h2>ReevooMark Badge</h2>
-<reevoo:productBadge sku="10" />
+<reevoo:productBadge sku="10"/>
 
 <h2>Undecorated ReevooMark Badge</h2>
 <reevoo:productBadge trkref="CYS" variantName="undecorated" sku="006566">Click to see reviews</reevoo:productBadge>
@@ -34,7 +34,7 @@
 <h2>Conversation Series Badge</h2>
 <reevoo:conversationSeriesBadge trkref="HYU" sku="i20"/>
 
-<reevoo:javascriptAssets trkref="REV,CYS,EBU,PIU,HYU" />
+<reevoo:javascriptAssets trkref="REV,CYS,EBU,PIU,HYU"/>
 
 <h2>Product Reviews</h2>
 <reevoo:productReviews sku="10"/>
@@ -43,8 +43,7 @@
 <reevoo:conversations sku="167823"/>
 
 <h2>Customer Experience Reviews</h2>
-<reevoo:customerExperienceReviews trkref="CYS"/>
-
+<reevoo:customerExperienceReviews trkref="CYS" numberOfReviews="10"/>
 
 </body>
 </html>

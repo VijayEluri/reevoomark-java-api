@@ -10,8 +10,7 @@ public class ReevooProductBadgeTest extends BasicTagTestCaseAdapter {
     private ReevooProductBadge reevooTag = new ReevooProductBadge();
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         super.setUp();
         reevooTag.setTrkref("FOO");
         reevooTag.setSku("ABC123");
@@ -19,15 +18,13 @@ public class ReevooProductBadgeTest extends BasicTagTestCaseAdapter {
     }
 
     @Test
-    public void testFormatsTheCorrectAnchor()
-    {
+    public void testFormatsTheCorrectAnchor() {
         processTagLifecycle();
         verifyOutput("<a class=\"reevoomark\" href=\"//test.reevoo.com/partner/FOO/ABC123\"></a>");
     }
 
     @Test
-    public void testIfTrkrefNotSpecifyItWillUseTheOneDefinedInTheConfigurationFile()
-    {
+    public void testIfTrkrefNotSpecifyItWillUseTheOneDefinedInTheConfigurationFile() {
         reevooTag = new ReevooProductBadge();
         reevooTag.setSku("ABC123");
         setTag(reevooTag);
@@ -36,21 +33,21 @@ public class ReevooProductBadgeTest extends BasicTagTestCaseAdapter {
     }
 
     @Test
-    public void testThatIfUndecoratedItPrintsTheRightAnchorClass(){
+    public void testThatIfUndecoratedItPrintsTheRightAnchorClass() {
         reevooTag.setVariantName("undecorated");
         processTagLifecycle();
         verifyOutput("<a class=\"reevoomark undecorated\" href=\"//test.reevoo.com/partner/FOO/ABC123\"></a>");
     }
 
     @Test
-    public void testThatIfVariantNameOtherThanUndecoratedItPrintsTheRightAnchorClass(){
+    public void testThatIfVariantNameOtherThanUndecoratedItPrintsTheRightAnchorClass() {
         reevooTag.setVariantName("search_page");
         processTagLifecycle();
         verifyOutput("<a class=\"reevoomark search_page_variant\" href=\"//test.reevoo.com/partner/FOO/ABC123\"></a>");
     }
 
     @Test
-    public void testThatTheTagBodyGoesAsTheAnchorBody(){
+    public void testThatTheTagBodyGoesAsTheAnchorBody() {
         setBody("click here");
         processTagLifecycle();
         verifyOutput("<a class=\"reevoomark\" href=\"//test.reevoo.com/partner/FOO/ABC123\">click here</a>");

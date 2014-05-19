@@ -13,7 +13,7 @@ public class ReevooTaglib extends AbstractReevooMarkClientTag {
 
     @Override
     protected String getContent() {
-      return client.obtainReevooMarkData(trkref, sku, baseURI);
+        return client.obtainReevooMarkData(trkref, sku, baseURI);
     }
 
     public void setBaseURI(String baseURI) {
