@@ -273,7 +273,7 @@ The ```trkref``` and ```numberOfReviews``` are optional.
 Make sure to replace `<TRKREF>` and `<NUMBEROFREVIEWS>` with the appropriate values.
 
 ```JSP
-  <reevoo:customerExperienceReviews"/>
+  <reevoo:customerExperienceReviews />
   <reevoo:customerExperienceReviews trkref="<TRKREF>"/>
   <reevoo:customerExperienceReviews numberOfReviews="<NUMBEROFREVIEWS>"/>
   <reevoo:customerExperienceReviews trkref="<TRKREF>" numberOfReviews="<NUMBEROFREVIEWS>"/>
