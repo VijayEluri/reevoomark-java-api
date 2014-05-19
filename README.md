@@ -123,7 +123,7 @@ Make sure to replace `<SKU>`,`<TRKREF>` and `<VARIANT_NAME>` with the appropriat
   <reevoo:productBadge sku="<SKU>" trkref="<TRKREF>"/>
   <reevoo:productBadge sku="<SKU>" variantName="undecorated"/>
   <reevoo:productBadge sku="<SKU>" trkref="<TRKREF>" variantName="stars_only"/>
-``
+```
 
 #### Conversations Badge
 
