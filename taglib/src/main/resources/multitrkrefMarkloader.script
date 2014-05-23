@@ -9,7 +9,6 @@
     afterReevooMarkLoaded = [
         function () {
             ReevooApi.each("%s".split(/[ ,]+/), function (retailer) {
-                var unrendered_badge_count = document.getElementsByClassName('reevoomark').length;
                 retailer.init_badges();
                 retailer.init_reevoo_reputation_badges();
             });
