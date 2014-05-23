@@ -31,27 +31,6 @@ public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
         verify(markClient).obtainReevooMarkData("FOO", "12345", "http://mark.reevoo.com/reevoomark/embeddable_conversations");
     }
 
-    @Test
-    public void testTagCallsClientWithCorrectAttributesAndEndpointWhenUsingLocale() {
-        conversationsTag.setLocale("fr-FR");
-        processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", "12345", "http://mark.reevoo.com/reevoomark/fr-FR/embeddable_conversations");
-    }
-
-    @Test
-    public void testTagCallsClientWithCorrectAttributesAndEndpointWhenUsingNumberOfReviews() {
-        conversationsTag.setNumberOfReviews("10");
-        processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", "12345", "http://mark.reevoo.com/reevoomark/10/embeddable_conversations");
-    }
-
-    @Test
-    public void testTagCallsClientWithCorrectAttributesAndEndpointWhenUsingLocaleAndNumberOfReviews() {
-        conversationsTag.setNumberOfReviews("10");
-        conversationsTag.setLocale("fr-FR");
-        processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", "12345", "http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_conversations");
-    }
 
     @Test
     public void testTagRespondsWithContentFromClient() {

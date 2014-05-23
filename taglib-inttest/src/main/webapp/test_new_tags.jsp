@@ -39,6 +39,13 @@
 <h2>Product Reviews</h2>
 <reevoo:productReviews sku="10"/>
 
+<h2>Product Reviews with zero reviews</h2>
+<reevoo:productReviews sku="10" locale="fr-FR" />
+
+<h2>Unsuccessful Product Reviews should show the fallback text</h2>
+<reevoo:productReviews sku="10" locale="fr-FR" numberOfReviews="23">THIS IS THE FALLBACK TEXT</reevoo:productReviews>
+
+
 <h2>Conversations</h2>
 <reevoo:conversations sku="167823"/>
 

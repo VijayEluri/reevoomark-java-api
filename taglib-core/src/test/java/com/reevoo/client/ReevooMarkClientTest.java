@@ -197,4 +197,20 @@ public class ReevooMarkClientTest {
         assertEquals("?sku=SKU%25parts&retailer=TRKREF", buildParams("TRKREF", "SKU%parts"));
         assertEquals("?retailer=TRKREF", buildParams("TRKREF", null));
     }
+
+    @Test
+    public void ifResponse200ReturnResponseBodyIndependentlyOfTheNumberOfReviews() throws IOException {
+        when(m.getStatusCode()).thenReturn(200);
+        when(m.getResponseHeader("X-Reevoo-ReviewCount")).thenReturn(
+                new Header("X-Reevoo-ReviewCount", "0"),
+                new Header("X-Reevoo-ReviewCount", "-2"),
+                new Header("X-Reevoo-ReviewCount", "10"));
+        for (int i=0; i<3; i++) {
+            String data = c.obtainReevooMarkData(m);
+            assertEquals("fresh_response", data);
+        }
+
+    }
+
+
 }

@@ -11,14 +11,7 @@
             ReevooApi.each("%s".split(/[ ,]+/), function (retailer) {
                 var unrendered_badge_count = document.getElementsByClassName('reevoomark').length;
                 retailer.init_badges();
-                unrendered_badge_count += document.getElementsByClassName('reevoo_reputation').length;
                 retailer.init_reevoo_reputation_badges();
-                var interval = window.setInterval(function () {
-                    var rendered_badges = document.getElementsByClassName('reevoomark_badge');
-                    if (rendered_badges.length == unrendered_badge_count) {
-                        window.clearInterval(interval);
-                    }
-                }, 200);
             });
         }
     ];

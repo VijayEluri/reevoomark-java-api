@@ -54,7 +54,7 @@ public class ReevooMarkClient {
         int time_to_live = secondsToLive(request);
         int review_count = extractReviewCountHeader(request);
         String content;
-        if (status == 200 && review_count > 0) {
+        if (status == 200) {
             content = request.getResponseBodyAsString();
         } else {
             content = null;

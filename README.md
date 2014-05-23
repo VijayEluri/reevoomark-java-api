@@ -216,13 +216,14 @@ Make sure to replace `<TRKREF>` and `<VARIANT_NAME>` with the appropriate values
 To render "embedded review content" you can use any of the below.
 The ```sku``` attribute is compulsory but ```trkref```, ```locale``` and ```numberOfReviews``` are optional.
 
-If you wish to use ```locale``` or ```numberOfReviews``` you must include the other.
+If you wish to use ```numberOfReviews``` you must include ```locale``` as well.
 
 Make sure to replace `<SKU>` and `<TRKREF>`, `<LOCALE>` and `<NUMBEROFREVIEWS>` with the appropriate values.
 
 ```JSP
   <reevoo:productReviews sku="<SKU>" />
   <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>"/>
+  <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>" locale="<LOCALE>" />
   <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>" locale="<LOCALE>" numberOfReviews="<NUMBEROFREVIEWS>"/>
 ```
 
@@ -243,16 +244,13 @@ If you would like to fall back to some content when Reevoo content is not availa
 ### Embedded Conversation Content
 
 To render "embedded conversations content" you can use any of the below.
-The ```sku``` attribute is compulsory but ```trkref```, ```locale``` and ```numberOfReviews``` are optional.
+The ```sku``` attribute is compulsory but ```trkref```is optional.
 
-If you wish to use ```locale``` or ```numberOfReviews``` you must include the other.
-
-Make sure to replace `<SKU>` and `<TRKREF>`, `<LOCALE>` and `<NUMBEROFREVIEWS>` with the appropriate values.
+Make sure to replace `<SKU>` and `<TRKREF>` with the appropriate values.
 
 ```JSP
   <reevoo:conversations sku="<SKU>" />
   <reevoo:conversations sku="<SKU>" trkref="<TRKREF>"/>
-  <reevoo:conversations sku="<SKU>" trkref="<TRKREF>" locale="<LOCALE>" numberOfReviews="<NUMBEROFREVIEWS>"/>
 ```
 
 #### Fallback
