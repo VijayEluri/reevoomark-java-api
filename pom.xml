@@ -5,7 +5,7 @@
   <groupId>com.reevoo.taglib</groupId>
   <artifactId>reevoo-taglib-root</artifactId>
   <packaging>pom</packaging>
-  <version>1.6</version>
+  <version>1.7-SNAPSHOT</version>
   <name>reevoo-taglib-root</name>
   <description>The reevoomark-java-api is a Java tag library for ReevooMark and Reevoo Essentials customers who want to quickly and easily integrate Reevoo content in to their sites server-side.</description>
   <url>https://github.com/reevoo/reevoomark-java-api</url>

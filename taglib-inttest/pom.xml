@@ -5,13 +5,13 @@
   <groupId>com.reevoo.taglib</groupId>
   <artifactId>reevoo-taglib-inttest</artifactId>
   <packaging>war</packaging>
-  <version>1.6</version>
+  <version>1.7-SNAPSHOT</version>
   <name>reevoo-taglib-inttest</name>
 
   <parent>
       <groupId>com.reevoo.taglib</groupId>
       <artifactId>reevoo-taglib-root</artifactId>
-      <version>1.6</version>
+      <version>1.7-SNAPSHOT</version>
   </parent>
 
   <dependencies>
@@ -19,7 +19,7 @@
     <dependency>
       <groupId>com.reevoo.taglib</groupId>
       <artifactId>reevoo-taglib</artifactId>
-      <version>1.6</version>
+      <version>1.7-SNAPSHOT</version>
     </dependency>
 
     <dependency>
