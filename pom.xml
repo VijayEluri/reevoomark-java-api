@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0  http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0  http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.reevoo.taglib</groupId>
   <artifactId>reevoo-taglib-root</artifactId>
   <packaging>pom</packaging>
-  <version>1.5</version>
+  <version>1.6-SNAPSHOT</version>
   <name>reevoo-taglib-root</name>
   <description>The reevoomark-java-api is a Java tag library for ReevooMark and Reevoo Essentials customers who want to quickly and easily integrate Reevoo content in to their sites server-side.</description>
   <url>https://github.com/reevoo/reevoomark-java-api</url>
+
   <licenses>
       <license>
           <name>MIT license</name>
           <url>http://www.opensource.org/licenses/mit-license.php</url>
       </license>
   </licenses>
+
   <scm>
     <connection>scm:git:git@github.com:reevoo/reevoomark-java-api.git</connection>
     <developerConnection>scm:git:git@github.com:reevoo/reevoomark-java-api.git</developerConnection>
@@ -47,6 +47,18 @@
     <module>taglib-inttest</module>
   </modules>
 
+  <profiles>
+    <profile>
+      <id>java8-disable-strict-javadoc</id>
+      <activation>
+        <jdk>[1.8,)</jdk>
+      </activation>
+      <properties>
+        <javadoc.doclint.none>-Xdoclint:none</javadoc.doclint.none>
+      </properties>
+    </profile>
+  </profiles>
+
   <build>
       <plugins>
         <plugin>
@@ -57,6 +69,22 @@
                 <source>1.5</source>
                 <target>1.5</target>
             </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.9.1</version>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <additionalparam>${javadoc.doclint.none}</additionalparam>
+          </configuration>
         </plugin>
         <plugin>
             <groupId>org.mortbay.jetty</groupId>
@@ -81,6 +109,23 @@
 	          </execution>
 	        </executions>
 	      </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>1.5</version>
+          <configuration>
+            <passphrase>${gpg.passphrase}</passphrase>
+          </configuration>
+          <executions>
+            <execution>
+              <id>sign-artifacts</id>
+              <phase>deploy</phase>
+              <goals>
+                <goal>sign</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
   </build>
 
