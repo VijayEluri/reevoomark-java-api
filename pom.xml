@@ -47,6 +47,18 @@
     <module>taglib-inttest</module>
   </modules>
 
+  <profiles>
+    <profile>
+      <id>java8-disable-strict-javadoc</id>
+      <activation>
+        <jdk>[1.8,)</jdk>
+      </activation>
+      <properties>
+        <javadoc.doclint.none>-Xdoclint:none</javadoc.doclint.none>
+      </properties>
+    </profile>
+  </profiles>
+
   <build>
       <plugins>
         <plugin>
@@ -71,6 +83,7 @@
             </execution>
           </executions>
           <configuration>
+            <additionalparam>${javadoc.doclint.none}</additionalparam>
           </configuration>
         </plugin>
         <plugin>
