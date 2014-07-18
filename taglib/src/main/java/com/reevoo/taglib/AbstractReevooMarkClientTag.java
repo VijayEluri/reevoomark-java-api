@@ -58,6 +58,10 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
         return String.format(TaglibConfig.getProperty(urlPropertySelector), getUrlLocaleComponent(), getUrlNumberOfReviewsComponent());
     }
 
+    protected String customParams(String custsomParamsPropertySelector) {
+        return TaglibConfig.getProperty(custsomParamsPropertySelector);
+    }
+
     private String getUrlLocaleComponent() {
         String locale = "";
         if (this.locale != null && !this.locale.trim().isEmpty()) {

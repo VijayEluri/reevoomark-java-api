@@ -13,7 +13,7 @@ public class ReevooCustomerExperienceReviews extends AbstractReevooMarkClientTag
 
     @Override
     protected String getContent() {
-        return client.obtainReevooMarkData(trkref, null, buildUrl("customer.experience.reviews.url"));
+        return client.obtainReevooMarkData(trkref, null, buildUrl("customer.experience.reviews.url"), customParams("customer.experience.reviews.custom"));
     }
 
 }
