@@ -189,14 +189,14 @@ public class ReevooMarkClientTest {
 
     @Test
     public void testURLEscaping() throws Exception {
-        assertEquals("?sku=SKU%3Bparts&retailer=TRKREF&", buildParams("TRKREF", "SKU;parts", null));
-        assertEquals("?sku=SKU%2Fparts&retailer=TRKREF&", buildParams("TRKREF", "SKU/parts", null));
-        assertEquals("?sku=SKU%26parts&retailer=TRKREF&", buildParams("TRKREF", "SKU&parts", null));
+        assertEquals("?sku=SKU%3Bparts&retailer=TRKREF&", buildParams("TRKREF", "SKU;parts", ""));
+        assertEquals("?sku=SKU%2Fparts&retailer=TRKREF&", buildParams("TRKREF", "SKU/parts", ""));
+        assertEquals("?sku=SKU%26parts&retailer=TRKREF&", buildParams("TRKREF", "SKU&parts", ""));
         assertEquals("?sku=SKU%A3parts&retailer=TRKREF&disable_product_microdata=true", buildParams("TRKREF", "SKU£parts", "disable_product_microdata=true"));
         assertEquals("?sku=SKU+parts&retailer=TRKREF&enable_awesome=true&pink=false", buildParams("TRKREF", "SKU parts", "enable_awesome=true&pink=false"));
-        assertEquals("?sku=SKU%2Bparts&retailer=TRKREF&", buildParams("TRKREF", "SKU+parts", null));
-        assertEquals("?sku=SKU%25parts&retailer=TRKREF&", buildParams("TRKREF", "SKU%parts", null));
-        assertEquals("?retailer=TRKREF&", buildParams("TRKREF", null, null));
+        assertEquals("?sku=SKU%2Bparts&retailer=TRKREF&", buildParams("TRKREF", "SKU+parts", ""));
+        assertEquals("?sku=SKU%25parts&retailer=TRKREF&", buildParams("TRKREF", "SKU%parts", ""));
+        assertEquals("?retailer=TRKREF&", buildParams("TRKREF", null, ""));
     }
 
     @Test
