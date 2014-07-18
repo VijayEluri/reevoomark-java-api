@@ -27,21 +27,21 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
     @Test
     public void testTagCallsClientWithCorrectAttributesAndTheCXEndpoint() {
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", null, "http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews");
+        verify(markClient).obtainReevooMarkData("FOO", null, "http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", "");
     }
 
     @Test
     public void testTagCallsClientWithCorrectAttributesAndTheCXEndpointWhenUsingLocale() {
         cxTag.setLocale("fr-FR");
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", null, "http://mark.reevoo.com/reevoomark/fr-FR/embeddable_customer_experience_reviews");
+        verify(markClient).obtainReevooMarkData("FOO", null, "http://mark.reevoo.com/reevoomark/fr-FR/embeddable_customer_experience_reviews", "");
     }
 
     @Test
     public void testTagCallsClientWithCorrectAttributesAndTheCXEndpointWhenUsingNumberOfReviews() {
         cxTag.setNumberOfReviews("10");
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", null, "http://mark.reevoo.com/reevoomark/10/embeddable_customer_experience_reviews");
+        verify(markClient).obtainReevooMarkData("FOO", null, "http://mark.reevoo.com/reevoomark/10/embeddable_customer_experience_reviews", "");
     }
 
     @Test
@@ -49,19 +49,19 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
         cxTag.setNumberOfReviews("10");
         cxTag.setLocale("fr-FR");
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", null, "http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_customer_experience_reviews");
+        verify(markClient).obtainReevooMarkData("FOO", null, "http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_customer_experience_reviews", "");
     }
 
     @Test
     public void testTagRespondsWithContentFromClient() {
-        when(markClient.obtainReevooMarkData(anyString(), anyString(), anyString())).thenReturn("FOO");
+        when(markClient.obtainReevooMarkData(anyString(), anyString(), anyString(), anyString())).thenReturn("FOO");
         processTagLifecycle();
         verifyOutput("FOO");
     }
 
     @Test
     public void testTagReturnsTagBodyWhenNoResponseFromClient() {
-        when(markClient.obtainReevooMarkData(anyString(), anyString(), anyString())).thenReturn(null);
+        when(markClient.obtainReevooMarkData(anyString(), anyString(), anyString(), anyString())).thenReturn(null);
         setBody("There are no reviews");
         processTagLifecycle();
         verifyOutput("There are no reviews");
@@ -74,7 +74,7 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
         cxTag.setClient(markClient);
         setTag(cxTag);
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("REV", null, "http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews");
+        verify(markClient).obtainReevooMarkData("REV", null, "http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", "");
     }
 
 

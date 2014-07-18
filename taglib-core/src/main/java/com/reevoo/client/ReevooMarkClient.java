@@ -21,11 +21,15 @@ public class ReevooMarkClient {
     }
 
     public String obtainReevooMarkData(String trkref, String sku, String baseURI) {
+      return obtainReevooMarkData(trkref, sku, "");
+    }
+
+    public String obtainReevooMarkData(String trkref, String sku, String baseURI, String customParms) {
         GetMethod method = null;
         try {
             method = new GetMethod(baseURI);
             method.setFollowRedirects(true);
-            method.setQueryString(generateReevooMarkQueryParams(trkref, sku));
+            method.setQueryString(generateReevooMarkQueryParams(trkref, sku, customParms));
             return obtainReevooMarkData(method);
         } catch (Exception e) {
             return null;
@@ -111,13 +115,13 @@ public class ReevooMarkClient {
         }
     }
 
-    private String generateReevooMarkQueryParams(String trkref, String sku) throws java.io.UnsupportedEncodingException {
+    private String generateReevooMarkQueryParams(String trkref, String sku, String customParms) throws java.io.UnsupportedEncodingException {
         String trkrefParam = URLEncoder.encode(trkref, "ISO-8859-1");
         if (sku != null) {
             String skuParm = URLEncoder.encode(sku, "ISO-8859-1");
-            return String.format("?sku=%s&retailer=%s", skuParm, trkrefParam);
+            return String.format("?sku=%s&retailer=%s&%s", skuParm, trkrefParam, customParms) ;
         } else {
-            return String.format("?retailer=%s", trkrefParam);
+            return String.format("?retailer=%s&%s", trkrefParam, customParms);
         }
     }
 }
