@@ -21,7 +21,7 @@ public class ReevooMarkClient {
     }
 
     public String obtainReevooMarkData(String trkref, String sku, String baseURI) {
-      return obtainReevooMarkData(trkref, sku, "");
+      return obtainReevooMarkData(trkref, sku, baseURI, "");
     }
 
     public String obtainReevooMarkData(String trkref, String sku, String baseURI, String customParms) {

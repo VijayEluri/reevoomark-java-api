@@ -271,6 +271,14 @@
         </attribute>
     </tag>
 
+    <tag-file>
+      <name>purchaseTrackingEvent</name>
+      <path>/META-INF/tags/purchaseTrackingEvent.tag</path>
+    </tag-file>
 
+    <tag-file>
+      <name>propensityToBuyTrackingEvent</name>
+      <path>/META-INF/tags/propensityToBuyTrackingEvent.tag</path>
+    </tag-file>
 
 </taglib>

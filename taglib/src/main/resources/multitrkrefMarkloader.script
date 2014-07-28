@@ -6,12 +6,15 @@
         var s = document.getElementById('reevoomark-loader');
         s.parentNode.insertBefore(script, s);
     })();
-    afterReevooMarkLoaded = [
+    if (typeof afterReevooMarkLoaded === 'undefined') {
+      var afterReevooMarkLoaded = [];
+    }
+    afterReevooMarkLoaded.push(
         function () {
             ReevooApi.each("%s".split(/[ ,]+/), function (retailer) {
                 retailer.init_badges();
                 retailer.init_reevoo_reputation_badges();
             });
         }
-    ];
+    );
 </script>

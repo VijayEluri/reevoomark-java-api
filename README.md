@@ -35,7 +35,7 @@ If you use Maven for your project add the following dependency to your `pom.xml`
   <dependency>
     <groupId>com.reevoo.taglib</groupId>
     <artifactId>reevoo-taglib</artifactId>
-    <version>1.9</version>
+    <version>1.11</version>
   </dependency>
 ```
 
@@ -85,13 +85,13 @@ In any JSP page where you will be using Reevoo tags please ensure to include the
   <%@ taglib prefix="reevoo" uri="http://reevoo.com/java-taglib/v1" %>
 ```
 
-You should include the Reevoo specific CSS in your header
+You should include the Reevoo specific CSS in your header using the tag below
 
 ```JSP
  <reevoo:cssAssets/>
 ```
 
-You should include the Reevoo specific JavaScript at the bottom of your body
+You should include the Reevoo specific JavaScript **at the bottom of your body, just before the closing body tag </body>**, usting the tag below
 
 ```JSP
   <reevoo:javascriptAssets/>
@@ -329,6 +329,41 @@ seeing the embedded reviews, add the following onclick attribute to track the cl
 ```HTML
   onclick="ReevooMark.track_click_through(‘<SKU>’)”
 ```
+
+### Purchase Tracking
+
+If your site includes online shopping functionality add Reevoo's purchase tracking to your store by including the following tag in your "Order Confirmation Page":
+
+``` html
+<reevoo:purchaseTrackingEvent trkref="REV" skus="999,222,3373" value="342.00"/>
+```
+
+In the tag above:
+* Make sure to replace the value of the "trkref" attribute with your own trkref.
+* Replace the value of the "skus" attribute with a comma separated list of all the skus that have been purchased as part of the order.
+* Replace the value of the "value" attribute with the total value of the order, you don't need to include currency symbol.
+
+All this tracking information will be available to you on your Reevoo Analytics account.
+
+### Propensity to Buy Tracking
+
+This type of tracking is used as a substitute of purchase tracking, detailed in the section above, for retailers that do not offer online purchase in their stores and therefore do not have an order confirmation page.
+
+These retailers can use <reevoo:propensityToBuyTrackingEvent>, which can be added to any page they wish on the site.
+
+To add a propensity to buy event to a page use the following tag:
+
+``` html
+<reevoo:propensityToBuyTrackingEvent trkref="REV" action="Requested Brochure" sku="234"/>
+```
+
+In the tag above:
+* Make sure to replace the value of the "trkref" attribute with your own trkref.
+* Replace the value of the "action" attribute with a string desccribing the type of event that you want to track, can be anything you want like "user visited the buy now page" or "user requested brochure" or "user requested a test drive", etc...
+* The "sku" attribute is optional, you only have to include it if you want to link the tracking event to a specific product sku, otherwise just leave it empty.
+
+All this tracking information will be available to you on your Google Analitycs account. 
+
 
 ##License
 
