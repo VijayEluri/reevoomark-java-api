@@ -34,7 +34,6 @@
 <h2>Conversation Series Badge</h2>
 <reevoo:conversationSeriesBadge trkref="HYU" sku="i20"/>
 
-<reevoo:javascriptAssets trkref="REV,CYS,EBU,PIU,HYU"/>
 
 <h2>Product Reviews</h2>
 <reevoo:productReviews sku="10"/>
@@ -52,5 +51,15 @@
 <h2>Customer Experience Reviews</h2>
 <reevoo:customerExperienceReviews trkref="CYS" numberOfReviews="10"/>
 
+<h2>Tracking events</h2>
+
+<reevoo:purchaseTrackingEvent trkref="REV" skus="999,222,888" value="342.00"/>
+
+<reevoo:propensityToBuyTrackingEvent trkref="REV" action="Requested_Brochure" sku="234"/>
+
+<reevoo:propensityToBuyTrackingEvent trkref="REV" action="Searched_for_branch" />
+
+
+<reevoo:javascriptAssets trkref="REV,CYS,EBU,PIU,HYU"/>
 </body>
 </html>

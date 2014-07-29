@@ -6,7 +6,9 @@
         var s = document.getElementById('reevoomark-loader');
         s.parentNode.insertBefore(script, s);
     })();
-    afterReevooMarkLoaded = [];
+    if (typeof afterReevooMarkLoaded === 'undefined') {
+      var afterReevooMarkLoaded = [];
+    }
     afterReevooMarkLoaded.push(function () {
         ReevooApi.load( "%s", function (retailer) {
             retailer.init_badges();
