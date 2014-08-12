@@ -20,8 +20,8 @@ import static org.mockito.Mockito.*;
 public class ReevooMarkClientTest {
 
     private class ReevooMarkTestClient extends ReevooMarkClient {
-        public ReevooMarkTestClient(int connectTimeout) {
-            super(connectTimeout);
+        public ReevooMarkTestClient(int connectTimeout, String proxyHost, String proxyPort) {
+            super(connectTimeout, proxyHost, proxyPort);
         }
 
         public void setClient(HttpClient client) {
@@ -61,7 +61,7 @@ public class ReevooMarkClientTest {
         when(m.getResponseHeader("X-Reevoo-ReviewCount")).thenReturn(new Header("X-Reevoo-ReviewCount", "8"));
         h = mock(HttpClient.class);
         when(h.executeMethod(m)).thenReturn(1);
-        c = new ReevooMarkTestClient(2000);
+        c = new ReevooMarkTestClient(2000, null, null);
         c.setClient(h);
     }
 

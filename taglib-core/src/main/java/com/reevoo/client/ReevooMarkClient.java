@@ -16,8 +16,8 @@ import org.apache.commons.httpclient.methods.GetMethod;
 public class ReevooMarkClient {
     protected HttpClient client;
 
-    public ReevooMarkClient(int connectTimeout) {
-        this.client = HttpClientFactory.build(connectTimeout);
+    public ReevooMarkClient(int connectTimeout, String proxyHost, String proxyPort) {
+        this.client = HttpClientFactory.build(connectTimeout, proxyHost, proxyPort);
     }
 
     public String obtainReevooMarkData(String trkref, String sku, String baseURI) {

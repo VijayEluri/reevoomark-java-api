@@ -12,7 +12,11 @@ import java.io.IOException;
  */
 public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
 
-    protected ReevooMarkClient client = new ReevooMarkClient(2000); //2s timeout
+    protected ReevooMarkClient client = new ReevooMarkClient(
+        Integer.valueOf(TaglibConfig.getProperty("http.timeout")),
+        TaglibConfig.getProperty("http.proxyHost"),
+        TaglibConfig.getProperty("http.proxyPort")
+    );
     protected String locale;
     protected String numberOfReviews;
 
