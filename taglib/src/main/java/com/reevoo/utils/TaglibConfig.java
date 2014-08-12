@@ -74,6 +74,10 @@ public class TaglibConfig {
         return value;
     }
 
+    public static void setProperty(String name, String value) {
+        properties.setProperty(name, value);
+    }
+
     public static String getMultitrkrefMarkloaderScript() {
         return multitrkrefMarkloaderScript;
     }

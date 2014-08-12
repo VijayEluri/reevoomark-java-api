@@ -15,6 +15,8 @@ Tag libraries are also available for [.NET](https://github.com/reevoo/reevoomark
 * Server-side inclusion of Reevoo content.
 * Included CSS for display of Reevoo content.
 * Server-side caching of content that respects the cache control rules set by Reevoo.
+* Product and customer experience rating and conversation badges.
+* Purchase tracking.
 
 ## Support
 
@@ -41,41 +43,37 @@ If you use Maven for your project add the following dependency to your `pom.xml`
 
 ## Configuration
 
-The library comes with a number of default configuration values used by some or all of the different tags.
+#### Global Tracking Reference
+
+The different jsp tags allow you to explicitly specify your tracking reference (trkref) as an attribute every time you use one of them. But if you prefer, you can set the trkref value in a global property, in which case you would not have to specify it each time you use one of the jsp tags.
+
+If you want to set the trkref value as a global property, you need to create a file named "reevooTablibConfig.properties" and place this file somewhere within you web application classpath. You can set your trkref value in a property within this file by the name "default.trkref".
+
+For example, if your trkref is "REV" and you want to set it as a global property, create the "reevooTablibConfig.properties" file and add the following property to it.
 
 ```
   default.trkref=REV
-  reevoo.badges.base.url=//mark.reevoo.com
-  product.reviews.url=http://mark.reevoo.com/reevoomark%s%sembeddable_reviews
-  conversations.url=http://mark.reevoo.com/reevoomark%s%sembeddable_conversations
-  customer.experience.reviews.url=http://mark.reevoo.comreevoomark%s%sembeddable_customer_experience_reviews
 ```
 
-The url properties point to the various endpoints in the Reevoo architecture and should not require changes from
-the customer.
-
-You should change the ```default.trkref``` to your provided TRKREF given to by us. This will then be used throughout
-your web server wherever you use a Reevoo asset without specifying an alternative TRKREF.
-
-For example:
+Once you have done this, you can use the different jsp tags libraries without the need to specify the trkref attribute each time. For example you would use 
 
 ```JSP
   <reevoo:javascriptAssets/>
 ```
 
-This will initialize our Reevoo JavaScript with the ```default.trkref```. However if you want to set it you can
-with the following
+instead of
 
 ```JSP
-  <reevoo:javascriptAssets trkref="WAH"/>
+  <reevoo:javascriptAssets trkref="REV"/>
 ```
 
-You may also override the ```default.trkref``` by creating a properties file named: ```reevooTaglibConfig.properties```.
-This file must be added to the classpath of your application server, for example by adding the file to the folder WEB-INF/classes.
 
-```
-  default.trkref=WAH
-```
+#### Proxy Settings
+
+To display embedded reviews, the tag library will need to make an httpClient request to our "mark.reevoo.com" domain from within your application server box. You need to make sure this domain is reachable from within the box. If you use a proxy you need to set the proxy host and port in the "reevooTaglibConfig.properties" file.
+
+If you've already created the "reevooTaglibConfig.properties" file to add the "default.trkref" property as detailed in the previous section, then you just need to add the following two extra properties below. Otherwise if you had no created the file before just create it and add the two properties below. Make sure the file is added to the classpath of your web application.
+
 
 ## Implementation
 
@@ -303,12 +301,6 @@ It is also possible to specify locale and the number of reviews you'd like in th
 ```JSP
   <reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_reviews.html" />
 ```
-
-### Proxy Settings
-
-If you would like to use a proxy server to display the content, you need to set both ```http.proxyHost``` and
-```http.proxyPort``` when running your Java application. These are then used to pass proxy requests onto our
-servers.
 
 ### Rendering Issues
 
