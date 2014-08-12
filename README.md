@@ -77,7 +77,7 @@ If you've already created the "reevooTaglibConfig.properties" file to add the "d
 ```
   http.proxyHost=www.myproxyhost.com
   http.proxyPort=9999
-```
+``` 
 
 Make sure to replace "www.myproxyhost.com" and "9999" for the real values of your proxy.
 
