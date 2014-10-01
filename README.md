@@ -282,7 +282,7 @@ Make sure to replace `<TRKREF>` and `<NUMBEROFREVIEWS>` with the appropriate val
 If you would like to fall back to some content when Reevoo content is not available, just specify it within the tag:
 
 ```JSP
-  <reevoo:customerExperienceReviews sku="<SKU>">
+  <reevoo:customerExperienceReviews trkref="<TRKREF>">
     <p>Sorry we don't have any customer experience reviews available right now</p>
   </reevoo:customerExperienceReviews>
 ```
