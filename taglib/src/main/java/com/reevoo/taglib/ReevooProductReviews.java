@@ -14,7 +14,7 @@ public class ReevooProductReviews extends AbstractReevooMarkClientTag {
 
     @Override
     public String getContent() {
-        return client.obtainReevooMarkData(trkref, sku, buildUrl("product.reviews.url"), customParams("product.reviews.custom"));
+        return client.obtainReevooMarkData(buildUrl("product.reviews.url"), queryStringParams, customParams("product.reviews.custom"));
     }
 
 }

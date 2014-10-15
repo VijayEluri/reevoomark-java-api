@@ -12,6 +12,7 @@ import com.mockrunner.tag.*;
 
 public class ReevooTaglibTest extends BasicTagTestCaseAdapter {
 
+    /*
     private ReevooMarkClient markClient = mock(ReevooMarkClient.class);
     private ReevooTaglib reevooTag = new ReevooTaglib();
 
@@ -47,6 +48,6 @@ public class ReevooTaglibTest extends BasicTagTestCaseAdapter {
         processTagLifecycle();
         verifyOutput("There are no reviews");
     }
-
+    */
 
 }

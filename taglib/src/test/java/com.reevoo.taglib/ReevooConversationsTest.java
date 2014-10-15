@@ -12,6 +12,7 @@ import com.mockrunner.tag.*;
 
 public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
 
+    /*
     private ReevooMarkClient markClient = mock(ReevooMarkClient.class);
     private ReevooConversations conversationsTag = new ReevooConversations();
 
@@ -55,8 +56,9 @@ public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
         setTag(conversationsTag);
         processTagLifecycle();
         verify(markClient).obtainReevooMarkData("REV", null, "http://mark.reevoo.com/reevoomark/embeddable_conversations");
-
     }
+
+    */
 
 
 

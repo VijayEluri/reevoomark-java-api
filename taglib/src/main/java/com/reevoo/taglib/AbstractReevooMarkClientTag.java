@@ -3,8 +3,14 @@ package com.reevoo.taglib;
 import com.reevoo.client.ReevooMarkClient;
 import com.reevoo.utils.TaglibConfig;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Abstract superclass that contains common functionality to "all" of reevoo the tag libs which
@@ -19,9 +25,12 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
     );
     protected String locale;
     protected String numberOfReviews;
+    protected String pageNumber;
+    protected Map<String,String> queryStringParams;
 
     @Override
     public void doTag() throws JspException {
+        queryStringParams = getQueryStringParams();
         String content = getContent();
         try {
             if (content != null) {
@@ -41,6 +50,7 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
     }
 
     protected abstract String getContent();
+
 
     public void setLocale(String locale) {
         this.locale = locale;
@@ -80,6 +90,15 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
             numberOfReviews += this.numberOfReviews + "/";
         }
         return numberOfReviews;
+    }
+
+    private Map<String,String> getQueryStringParams() {
+        Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
+        queryStringParams.put("trkref", trkref);
+        queryStringParams.put("sku",sku);
+        //queryStringParams.put("page", ((HttpServletRequest) ((PageContext) getJspContext()).getRequest()).getParameter("reviews_page"));
+        //queryStringParams.put("per_page", numberOfReviews);
+        return queryStringParams;
     }
 
 
