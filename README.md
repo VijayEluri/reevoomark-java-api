@@ -307,7 +307,7 @@ It is also possible to specify locale and the number of reviews you'd like in th
 ### Proxy Settings
 
 If you would like to use a proxy server to display the content, you need to set both ```http.proxyHost``` and
-```http.proxyPort``` when running your Java application. These are then used to pass proxy requests onto our
+```http.proxyPort``` as system properties when running your Java application. These are then used to pass proxy requests onto our
 servers.
 
 ### Rendering Issues
