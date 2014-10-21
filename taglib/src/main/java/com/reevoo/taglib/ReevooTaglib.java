@@ -13,7 +13,7 @@ public class ReevooTaglib extends AbstractReevooMarkClientTag {
 
     @Override
     protected String getContent() {
-        return client.obtainReevooMarkData(baseURI, queryStringParams, customParams("customer.experience.reviews.custom"));
+        return client.obtainReevooMarkData(baseURI, queryStringParams);
     }
 
     public void setBaseURI(String baseURI) {

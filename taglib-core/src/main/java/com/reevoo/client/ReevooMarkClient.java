@@ -30,7 +30,6 @@ public class ReevooMarkClient {
         try {
             method = new GetMethod(baseURI);
             method.setFollowRedirects(true);
-            System.out.println(baseURI + generateReevooMarkQueryParams(queryStringParams, customParams));
             method.setQueryString(generateReevooMarkQueryParams(queryStringParams, customParams));
             return obtainReevooMarkData(method);
         } catch (Exception e) {
@@ -44,7 +43,7 @@ public class ReevooMarkClient {
 
     String obtainReevooMarkData(GetMethod request) throws IOException {
         String cacheKey = request.getURI().getURI();
-        ReevooMarkRecord cachedResponse = null; //#################### DISABLE CACHE FOR TESTING, DON'T FORGET TO UNDO
+        ReevooMarkRecord cachedResponse = Cache.get(cacheKey);
 
         if (cachedResponse != null && cachedResponse.fresh()) {
             return cachedResponse.value;

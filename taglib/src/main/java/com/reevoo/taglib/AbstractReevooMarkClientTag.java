@@ -25,6 +25,7 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
     );
     protected String locale;
     protected String numberOfReviews;
+    protected boolean paginated;
     protected String pageNumber;
     protected Map<String,String> queryStringParams;
 
@@ -45,13 +46,6 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
         }
     }
 
-    protected void setClient(ReevooMarkClient client) {
-        this.client = client;
-    }
-
-    protected abstract String getContent();
-
-
     public void setLocale(String locale) {
         this.locale = locale;
     }
@@ -59,6 +53,14 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
     public void setNumberOfReviews(String numberOfReviews) {
         this.numberOfReviews = numberOfReviews;
     }
+
+    public void setPaginated(boolean paginated) { this.paginated = paginated; }
+
+    protected void setClient(ReevooMarkClient client) {
+        this.client = client;
+    }
+
+    protected abstract String getContent();
 
     /**
      * Builds the complete url to call through the ReevooMarkClient. The url is based on one of the properties
@@ -86,7 +88,8 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
 
     private String getUrlNumberOfReviewsComponent() {
         String numberOfReviews = "/";
-        if (this.numberOfReviews != null && !this.numberOfReviews.trim().isEmpty()) {
+        if (!this.paginated && this.numberOfReviews != null &&
+            !this.numberOfReviews.trim().isEmpty()) {
             numberOfReviews += this.numberOfReviews + "/";
         }
         return numberOfReviews;
@@ -96,8 +99,10 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", trkref);
         queryStringParams.put("sku",sku);
-        //queryStringParams.put("page", ((HttpServletRequest) ((PageContext) getJspContext()).getRequest()).getParameter("reviews_page"));
-        //queryStringParams.put("per_page", numberOfReviews);
+        if (paginated) {
+            queryStringParams.put("page", ((HttpServletRequest) ((PageContext) getJspContext()).getRequest()).getParameter("reviews_page"));
+            queryStringParams.put("per_page", numberOfReviews);
+        }
         return queryStringParams;
     }
 

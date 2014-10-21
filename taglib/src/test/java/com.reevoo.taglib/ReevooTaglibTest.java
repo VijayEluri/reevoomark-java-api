@@ -9,10 +9,12 @@ import static org.mockito.Mockito.*;
 
 import com.mockrunner.tag.*;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 
 public class ReevooTaglibTest extends BasicTagTestCaseAdapter {
 
-    /*
     private ReevooMarkClient markClient = mock(ReevooMarkClient.class);
     private ReevooTaglib reevooTag = new ReevooTaglib();
 
@@ -29,25 +31,26 @@ public class ReevooTaglibTest extends BasicTagTestCaseAdapter {
 
     @Test
     public void testTagCallsClientWithCorrectAttributes() {
-        when(markClient.obtainReevooMarkData(anyString(), anyString(), anyString())).thenReturn("FOO");
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", "ABC123", "http://mark.reevoo.com/endpoint");
+        Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
+        queryStringParams.put("trkref", "FOO");
+        queryStringParams.put("sku", "ABC123");
+        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/endpoint", queryStringParams);
     }
 
     @Test
     public void testTagRespondsWithContentFromClient() {
-        when(markClient.obtainReevooMarkData(anyString(), anyString(), anyString())).thenReturn("FOO");
+        when(markClient.obtainReevooMarkData(anyString(), anyMap())).thenReturn("FOO");
         processTagLifecycle();
         verifyOutput("FOO");
     }
 
     @Test
     public void testTagReturnsTagBodyWhenNoResponseFromClient() {
-        when(markClient.obtainReevooMarkData(anyString(), anyString(), anyString())).thenReturn(null);
+        when(markClient.obtainReevooMarkData(anyString(), anyMap())).thenReturn(null);
         setBody("There are no reviews");
         processTagLifecycle();
         verifyOutput("There are no reviews");
     }
-    */
 
 }

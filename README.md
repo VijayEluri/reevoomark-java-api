@@ -231,6 +231,14 @@ Make sure to replace `<SKU>` and `<TRKREF>`, `<LOCALE>` and `<NUMBEROFREVIEWS>` 
   <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>" locale="<LOCALE>" numberOfReviews="<NUMBEROFREVIEWS>"/>
 ```
 
+Paginated product reviews are also supported , make sure you specify the "numberOfReviews" attribute (which will be the number of reviews displayed per page), and the "paginated" attribute set to true, as in the example below:
+
+```JSP
+  <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>" 
+  numberOfReviews="<NUMBEROFREVIEWS>" paginated="true"/>
+```
+
+
 #### Overall rating
 
 The overall rating section at the top of inline reviews contains an overall score, a summary and the score breakdowns.

@@ -12,10 +12,8 @@ import java.io.StringWriter;
  */
 public class AbstractBadgeTag extends AbstractReevooTag {
 
-
     protected String jspBody = "";
-
-    protected String variantName;
+    private String variantName;
 
     public void doTag() throws JspException {
         try {
@@ -28,7 +26,6 @@ public class AbstractBadgeTag extends AbstractReevooTag {
             throw new JspException(e);
         }
     }
-
 
     public void setVariantName(String variantName) {
         if (variantName != null && !variantName.trim().isEmpty()) {
