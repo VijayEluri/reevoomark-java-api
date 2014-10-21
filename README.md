@@ -95,7 +95,7 @@ You should include the Reevoo specific CSS in your header using the tag below
  <reevoo:cssAssets/>
 ```
 
-You should include the Reevoo specific JavaScript **at the bottom of your body, just before the closing body tag </body>**, usting the tag below
+You should include the Reevoo specific JavaScript **at the bottom of your body, just before closing the body tag**, using the tag below
 
 ```JSP
   <reevoo:javascriptAssets/>
