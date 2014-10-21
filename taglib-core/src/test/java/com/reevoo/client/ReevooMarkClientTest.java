@@ -178,8 +178,8 @@ public class ReevooMarkClientTest {
 
     private String buildParams(String trkref, String sku, String customParms) throws Exception {
         Map<String,String> queryStringParams = new HashMap<String,String>();
-        queryStringParams.put("sku",sku);
         queryStringParams.put("retailer",trkref);
+        queryStringParams.put("sku",sku);
 
         Class argClasses[] = new Class[2];
         argClasses[0] = Map.class;
