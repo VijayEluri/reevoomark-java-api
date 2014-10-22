@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.*;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.httpclient.*;
@@ -177,9 +177,9 @@ public class ReevooMarkClientTest {
     }
 
     private String buildParams(String trkref, String sku, String customParms) throws Exception {
-        Map<String,String> queryStringParams = new HashMap<String,String>();
-        queryStringParams.put("retailer",trkref);
+        Map<String,String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("sku",sku);
+        queryStringParams.put("retailer",trkref);
 
         Class argClasses[] = new Class[2];
         argClasses[0] = Map.class;
