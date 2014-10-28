@@ -8,6 +8,7 @@ import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -100,10 +101,25 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
         queryStringParams.put("trkref", trkref);
         queryStringParams.put("sku",sku);
         if (paginated) {
-            queryStringParams.put("page", ((HttpServletRequest) ((PageContext) getJspContext()).getRequest()).getParameter("reviews_page"));
+            queryStringParams.put("page", ((HttpServletRequest) ((PageContext) getJspContext()).
+                getRequest()).getParameter("reevoo_page"));
             queryStringParams.put("per_page", numberOfReviews);
+            try {
+                queryStringParams.put("client_url", URLEncoder.encode(getClientUrl((HttpServletRequest)
+                    ((PageContext) getJspContext()).getRequest()),"UTF-8"));
+            } catch (Exception e) {}
         }
         return queryStringParams;
+    }
+
+    private String getClientUrl(HttpServletRequest request) {
+        String uri = request.getScheme() + "://" + request.getServerName() +
+            (("http".equals(request.getScheme()) && request.getServerPort() == 80 ||
+                "https".equals(request.getScheme()) &&
+                    request.getServerPort() == 443) ? "" : ":" + request.getServerPort()) +
+            (request.getRequestURI() != null? request.getRequestURI(): "") +
+            (request.getQueryString() != null ? "?" + request.getQueryString() : "");
+        return uri;
     }
 
 

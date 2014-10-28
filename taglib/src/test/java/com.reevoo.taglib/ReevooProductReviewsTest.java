@@ -105,6 +105,7 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         queryStringParams.put("sku", "12345");
         queryStringParams.put("page", null);
         queryStringParams.put("per_page", "5");
+        queryStringParams.put("client_url", "http%3A%2F%2Flocalhost%3A8080");
         verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
     }
 

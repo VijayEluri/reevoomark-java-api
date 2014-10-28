@@ -94,4 +94,19 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
         verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
     }
 
+    @Test
+    public void testTagCallsClientWithCorrectAttributesWhenPaginated() {
+        cxTag.setPaginated(true);
+        cxTag.setNumberOfReviews("5");
+        processTagLifecycle();
+        Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
+        queryStringParams.put("trkref", "FOO");
+        queryStringParams.put("sku", null);
+        queryStringParams.put("page", null);
+        queryStringParams.put("per_page", "5");
+        queryStringParams.put("client_url", "http%3A%2F%2Flocalhost%3A8080");
+        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
+    }
+
+
 }

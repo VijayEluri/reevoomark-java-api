@@ -22,7 +22,7 @@ public class ReevooMarkClient {
     }
 
     public String obtainReevooMarkData(String baseURI, Map<String,String> queryStringParams) {
-      return obtainReevooMarkData(baseURI, queryStringParams, null);
+        return obtainReevooMarkData(baseURI, queryStringParams, null);
     }
 
     public String obtainReevooMarkData(String baseURI, Map<String,String> queryStringParams, String customParams) {
@@ -121,7 +121,8 @@ public class ReevooMarkClient {
         if (queryStringParams != null && !queryStringParams.isEmpty()) {
             for (Map.Entry<String, String> entry : queryStringParams.entrySet()) {
                 if (entry.getKey() != null && !entry.getKey().isEmpty() && entry.getValue() != null && !entry.getValue().isEmpty()) {
-                    queryString = String.format("%s%s%s=%s", queryString, getQueryStringSeparator(queryString), entry.getKey(), URLEncoder.encode(entry.getValue(), "ISO-8859-1"));
+                    queryString = String.format("%s%s%s=%s", queryString, getQueryStringSeparator(queryString),
+                        entry.getKey(), URLEncoder.encode(entry.getValue(), "ISO-8859-1"));
                 }
             }
         }
@@ -133,7 +134,7 @@ public class ReevooMarkClient {
 
     private String getQueryStringSeparator(String queryString) {
         if (queryString.isEmpty()) {
-            return "?";
+            return "";
         } else {
             return "&";
         }
