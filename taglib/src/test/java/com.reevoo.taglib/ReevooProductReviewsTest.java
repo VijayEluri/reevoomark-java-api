@@ -1,7 +1,6 @@
 package com.reevoo.taglib;
 
 import com.reevoo.client.ReevooMarkClient;
-import com.reevoo.utils.TaglibConfig;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,7 +53,7 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", "FOO");
         queryStringParams.put("sku", "12345");
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/10/embeddable_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/en-GB/10/embeddable_reviews", queryStringParams, "");
     }
 
     @Test
@@ -95,17 +94,57 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
     }
 
+
     @Test
-    public void testTagCallsClientWithCorrectAttributesWhenPaginated() {
-        productReviewsTag.setPaginated(true);
+    public void testWhenNumberReviewsPresentAndLocaleMissingWeSetADefaultLocale() {
+        productReviewsTag = new ReevooProductReviews();
+        productReviewsTag.setClient(markClient);
         productReviewsTag.setNumberOfReviews("5");
+        setTag(productReviewsTag);
         processTagLifecycle();
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
-        queryStringParams.put("trkref", "FOO");
-        queryStringParams.put("sku", "12345");
+        queryStringParams.put("trkref", "REV");
+        queryStringParams.put("sku", null);
+        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/en-GB/5/embeddable_reviews", queryStringParams, "");
+    }
+
+    @Test
+    public void testWhenBothNumberReviewsAndLocalePresentBothValuesAreSubstitutedInTheUrl() {
+        productReviewsTag = new ReevooProductReviews();
+        productReviewsTag.setClient(markClient);
+        productReviewsTag.setNumberOfReviews("5");
+        productReviewsTag.setLocale("en-GB");
+        setTag(productReviewsTag);
+        processTagLifecycle();
+        Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
+        queryStringParams.put("trkref", "REV");
+        queryStringParams.put("sku", null);
+        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/en-GB/5/embeddable_reviews", queryStringParams, "");
+    }
+
+    @Test
+    public void testCorrectQueryStringParamsAreSentWhenPaginationEnabled() {
+        productReviewsTag = new ReevooProductReviews();
+        productReviewsTag.setClient(markClient);
+        productReviewsTag.setPaginated(true);
+        productReviewsTag.setNumberOfReviews("5");
+        productReviewsTag.setLocale("en-GB");
+        setTag(productReviewsTag);
+        processTagLifecycle();
+        Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
+        queryStringParams.put("trkref", "REV");
+        queryStringParams.put("sku", null);
         queryStringParams.put("page", null);
         queryStringParams.put("per_page", "5");
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
+        queryStringParams.put("client_url", "http%3A%2F%2Flocalhost%3A8080");
+        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/en-GB/5/embeddable_reviews", queryStringParams, "");
+
+        // when paginated and numberOfReviews missing we set the per_page param to default
+        productReviewsTag.setNumberOfReviews(null);
+        processTagLifecycle();
+        queryStringParams.put("per_page", "default");
+        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/en-GB/embeddable_reviews", queryStringParams, "");
     }
+
 
 }

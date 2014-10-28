@@ -37,16 +37,6 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
     }
 
     @Test
-    public void testTagCallsClientWithCorrectAttributesAndTheCXEndpointWhenUsingLocale() {
-        cxTag.setLocale("fr-FR");
-        processTagLifecycle();
-        Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
-        queryStringParams.put("trkref", "FOO");
-        queryStringParams.put("sku", null);
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/fr-FR/embeddable_customer_experience_reviews", queryStringParams, "");
-    }
-
-    @Test
     public void testTagCallsClientWithCorrectAttributesAndTheCXEndpointWhenUsingNumberOfReviews() {
         cxTag.setNumberOfReviews("10");
         processTagLifecycle();
@@ -54,17 +44,6 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
         queryStringParams.put("trkref", "FOO");
         queryStringParams.put("sku", null);
         verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/10/embeddable_customer_experience_reviews", queryStringParams, "");
-    }
-
-    @Test
-    public void testTagCallsClientWithCorrectAttributesAndTheCXEndpointWhenUsingLocaleAndNumberOfReviews() {
-        cxTag.setNumberOfReviews("10");
-        cxTag.setLocale("fr-FR");
-        processTagLifecycle();
-        Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
-        queryStringParams.put("trkref", "FOO");
-        queryStringParams.put("sku", null);
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_customer_experience_reviews", queryStringParams, "");
     }
 
     @Test
@@ -93,5 +72,29 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
         queryStringParams.put("sku", null);
         verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
     }
+
+    @Test
+    public void testCorrectQueryStringParamsAreSentWhenPaginationEnabled() {
+        cxTag = new ReevooCustomerExperienceReviews();
+        cxTag.setClient(markClient);
+        cxTag.setPaginated(true);
+        cxTag.setNumberOfReviews("5");
+        setTag(cxTag);
+        processTagLifecycle();
+        Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
+        queryStringParams.put("trkref", "REV");
+        queryStringParams.put("sku", null);
+        queryStringParams.put("page", null);
+        queryStringParams.put("per_page", "5");
+        queryStringParams.put("client_url", "http%3A%2F%2Flocalhost%3A8080");
+        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/5/embeddable_customer_experience_reviews", queryStringParams, "");
+
+        // when paginated and numberOfReviews missing we set the per_page param to default
+        cxTag.setNumberOfReviews(null);
+        processTagLifecycle();
+        queryStringParams.put("per_page", "default");
+        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
+    }
+
 
 }

@@ -12,8 +12,12 @@ import java.io.StringWriter;
  */
 public class AbstractBadgeTag extends AbstractReevooTag {
 
-    protected String jspBody = "";
+
+    // will be initialized to the value of teh "variantName" attribute in the jsp tag.
     private String variantName;
+
+    // will be initialized to the html contained in between the opening and closing of the jsp tag.
+    protected String jspBody = "";
 
     public void doTag() throws JspException {
         try {
@@ -27,6 +31,11 @@ public class AbstractBadgeTag extends AbstractReevooTag {
         }
     }
 
+    /**
+     * Method called automatically by the jsp engine to set the value of the
+     * "variantName" attribute in the jsp tag.
+     * @param variantName
+     */
     public void setVariantName(String variantName) {
         if (variantName != null && !variantName.trim().isEmpty()) {
             if (!variantName.endsWith("_variant")  && !variantName.equals("undecorated")) {

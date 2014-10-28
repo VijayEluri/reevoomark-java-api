@@ -1,7 +1,5 @@
 package com.reevoo.taglib;
 
-import com.reevoo.utils.TaglibConfig;
-
 /**
  * Tag for adding embeddable conversations.
  *

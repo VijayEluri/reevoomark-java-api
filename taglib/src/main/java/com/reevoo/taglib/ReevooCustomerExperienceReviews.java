@@ -1,7 +1,6 @@
 package com.reevoo.taglib;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.reevoo.utils.TaglibConfig;
 
 /**
  * Tag for adding embeddable customer experience reviews.
@@ -16,7 +15,8 @@ public class ReevooCustomerExperienceReviews extends AbstractReevooMarkClientTag
 
     @Override
     protected String getContent() {
-        return client.obtainReevooMarkData(buildUrl("customer.experience.reviews.url"), queryStringParams, customParams("customer.experience.reviews.custom"));
+        return client.obtainReevooMarkData(buildUrl("customer.experience.reviews.url"), queryStringParams,
+            TaglibConfig.getProperty("customer.experience.reviews.custom"));
     }
 
 }
