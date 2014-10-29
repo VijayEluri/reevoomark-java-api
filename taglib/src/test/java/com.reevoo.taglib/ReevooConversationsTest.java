@@ -31,10 +31,15 @@ public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
 
     @Test
     public void testTagCallsClientWithCorrectAttributesAndTheConversationEndpoint() {
+
+        conversationsTag.setNumberOfConversations("3");
         processTagLifecycle();
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", "FOO");
         queryStringParams.put("sku", "12345");
+        queryStringParams.put("locale", null);
+        queryStringParams.put("reviews", null);
+        queryStringParams.put("conversations", "3");
         verify(markClient).obtainReevooMarkData(
             "http://mark.reevoo.com/reevoomark/embeddable_conversations",
             queryStringParams);
@@ -64,6 +69,9 @@ public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", "REV");
         queryStringParams.put("sku", null);
+        queryStringParams.put("locale", null);
+        queryStringParams.put("reviews", null);
+        queryStringParams.put("conversations",null);
         verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_conversations", queryStringParams);
     }
 

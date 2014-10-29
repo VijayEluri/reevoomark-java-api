@@ -15,8 +15,8 @@ public class ReevooCustomerExperienceReviews extends AbstractReevooMarkClientTag
 
     @Override
     protected String getContent() {
-        return client.obtainReevooMarkData(buildUrl("customer.experience.reviews.url"), queryStringParams,
-            TaglibConfig.getProperty("customer.experience.reviews.custom"));
+        return client.obtainReevooMarkData(TaglibConfig.getProperty("customer.experience.reviews.url"),
+            queryStringParams, TaglibConfig.getProperty("customer.experience.reviews.custom"));
     }
 
 }

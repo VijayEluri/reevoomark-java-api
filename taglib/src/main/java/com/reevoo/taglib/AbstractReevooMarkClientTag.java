@@ -101,35 +101,6 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
         this.client = client;
     }
 
-    /**
-     * Builds the complete url to call through the ReevooMarkClient. The url is based on one of the properties
-     * in the TaglibConfig with some substitutions applied to it depending on whether the user has specified
-     * locale and number or reviews.
-     *
-     * @param urlPropertySelector Name of the property in TaglibConfig that provides the base url.
-     * @return The complete url to call through ReevooMarkClient.
-     */
-    protected String buildUrl(String urlPropertySelector) {
-        return String.format(TaglibConfig.getProperty(urlPropertySelector),
-            buildLocaleUrlComponent(), buildNumberOfReviewsUrlComponent());
-    }
-
-    private String buildNumberOfReviewsUrlComponent() {
-        String numberOfReviewsUrlPart = "/";
-        if (this.numberOfReviews != null &&
-            !this.numberOfReviews.trim().isEmpty()) {
-            numberOfReviewsUrlPart += this.numberOfReviews + "/";
-        }
-        return numberOfReviewsUrlPart;
-    }
-
-    private String buildLocaleUrlComponent() {
-        String locale = "";
-        if (this.locale != null && !this.locale.trim().isEmpty()) {
-            locale = "/" + this.locale;
-        }
-        return locale;
-    }
 
     /**
      * Builds and return a Map with all the query string parameters to be sent along with the url
@@ -140,10 +111,15 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", trkref);
         queryStringParams.put("sku",sku);
+        queryStringParams.put("locale",this.locale);
         if (this.paginated) {
             queryStringParams.put("page", request.getParameter("reevoo_page"));
             queryStringParams.put("per_page", StringUtils.isEmpty(this.numberOfReviews)?"default":this.numberOfReviews);
             queryStringParams.put("client_url", RequestUtils.buildEncodedClientRequestUrl(request,"UTF-8"));
+        } else {
+            // for non paginated reviews the number of reviews to show is sent to the server
+            // with the parameter "reviews" instead of the parameter "per_page".
+            queryStringParams.put("reviews",this.numberOfReviews);
         }
         return queryStringParams;
     }

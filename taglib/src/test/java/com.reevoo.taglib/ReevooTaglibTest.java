@@ -35,6 +35,8 @@ public class ReevooTaglibTest extends BasicTagTestCaseAdapter {
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", "FOO");
         queryStringParams.put("sku", "ABC123");
+        queryStringParams.put("locale", null);
+        queryStringParams.put("reviews", null);
         verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/endpoint", queryStringParams);
     }
 

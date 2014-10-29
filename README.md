@@ -55,7 +55,7 @@ For example, if your trkref is "REV" and you want to set it as a global property
   default.trkref=REV
 ```
 
-Once you have done this, you can use the different jsp tags libraries without the need to specify the trkref attribute each time. For example you would use 
+Once you have done this, you can use all the jsp tags offered by the library without the need to specify the trkref attribute each time. For example you would use 
 
 ```JSP
   <reevoo:javascriptAssets/>
@@ -72,7 +72,7 @@ instead of
 
 To display embedded reviews, the tag library will need to make an httpClient request to our "mark.reevoo.com" domain from within your application server box. You need to make sure this domain is reachable from within the box. If you use a proxy you need to set the proxy host and port in the "reevooTaglibConfig.properties" file.
 
-If you've already created the "reevooTaglibConfig.properties" file to add the "default.trkref" property as detailed in the previous section, then you just need to add the following two extra properties below. Otherwise if you had no created the file before just create it and add the two properties below. Make sure the file is added to the classpath of your web application.
+If you've already created the "reevooTaglibConfig.properties" file to add the "default.trkref" property as detailed in the previous section, then you just need to add the following two extra properties below. Otherwise, if you had not created the file before, just create it and add to it the two properties below. Make sure the file is added to the classpath of your web application.
 
 ```
   http.proxyHost=www.myproxyhost.com
@@ -89,19 +89,19 @@ In any JSP page where you will be using Reevoo tags please ensure to include the
   <%@ taglib prefix="reevoo" uri="http://reevoo.com/java-taglib/v1" %>
 ```
 
-You should include the Reevoo specific CSS in your header using the tag below
+You should include the Reevoo specific CSS in your html header using the tag below
 
 ```JSP
  <reevoo:cssAssets/>
 ```
 
-You should include the Reevoo specific JavaScript **at the bottom of your body, just before closing the body tag**, using the tag below
+You should include the Reevoo specific JavaScript **at the bottom of your html body, just before closing the body tag**, using the tag below
 
 ```JSP
   <reevoo:javascriptAssets/>
 ```
 
-As before you may set an explicit TRKREF if you wish.
+As before you may set an explicit TRKREF if you haven't set the default one in the properties file.
 
 ```JSP
   <reevoo:javascriptAssets trkref="WAS" />
@@ -215,35 +215,24 @@ Make sure to replace `<TRKREF>` and `<VARIANT_NAME>` with the appropriate values
   <reevoo:deliveryRatingBadge trkref="<TRKREF>" variantName="<VARIANT_NAME>"/>
 ```
 
-### Embedded Review Content
+### Embedded Product Review Content
 
 To render "embedded review content" you can use any of the below.
-The ```sku``` attribute is compulsory but ```trkref```, ```locale``` and ```numberOfReviews``` are optional.
-
-If you wish to use ```numberOfReviews``` you must include ```locale``` as well.
+The ```sku``` attribute is compulsory but ```trkref```, ```locale```, ```numberOfReviews```  and ```paginated``` are optional.
 
 Make sure to replace `<SKU>` and `<TRKREF>`, `<LOCALE>` and `<NUMBEROFREVIEWS>` with the appropriate values.
+Any combination of the optional attributes is possible. Below we show some examples:
 
 ```JSP
   <reevoo:productReviews sku="<SKU>" />
   <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>"/>
   <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>" locale="<LOCALE>" />
-  <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>" locale="<LOCALE>" numberOfReviews="<NUMBEROFREVIEWS>"/>
+  <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>" locale="en-GB" numberOfReviews="<NUMBEROFREVIEWS>"/>
+  <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>" numberOfReviews="<NUMBEROFREVIEWS>" paginated="true"/>
 ```
 
-Paginated product reviews are also supported , make sure you specify the "numberOfReviews" attribute (which will be the number of reviews displayed per page), and the "paginated" attribute set to true, as in the example below:
+If you set the ```paginated``` attribute to true, the embedded reviews will show pagination links.
 
-```JSP
-  <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>" 
-  numberOfReviews="<NUMBEROFREVIEWS>" paginated="true"/>
-```
-
-
-#### Overall rating
-
-The overall rating section at the top of inline reviews contains an overall score, a summary and the score breakdowns.
-
-#### Fallback
 
 If you would like to fall back to some content when Reevoo content is not available, just specify it within the tag:
 
@@ -252,20 +241,48 @@ If you would like to fall back to some content when Reevoo content is not availa
     <p>Sorry we don't have any reviews available right now</p>
   </reevoo:productReviews>
 ```
+### Embedded Customer Experience Review Content
+
+To render "embedded customer experience review content" you can use any of the below.
+The ```trkref```, ```locale```, ```numberOfReviews``` and ```paginated``` a attributes are optional.
+
+
+Make sure to replace `<TRKREF>`, `<LOCALE>` and `<NUMBEROFREVIEWS>` with the appropriate values.
+Any combination of the optional attributes is possible. Below we show some examples:
+
+```JSP
+  <reevoo:customerExperienceReviews />
+  <reevoo:customerExperienceReviews trkref="<TRKREF>"/>
+  <reevoo:customerExperienceReviews numberOfReviews="<NUMBEROFREVIEWS>"/>
+  <reevoo:customerExperienceReviews locale="<LOCALE>"/>
+  <reevoo:customerExperienceReviews trkref="<TRKREF>" locale="en-GB" numberOfReviews="<NUMBEROFREVIEWS>"/>
+  <reevoo:customerExperienceReviews trkref="<TRKREF>" numberOfReviews="<NUMBEROFREVIEWS>" paginated="true"/>
+```
+
+If you set the ```paginated``` attribute to true, the embedded reviews will show pagination links.
+
+
+If you would like to fall back to some content when Reevoo content is not available, just specify it within the tag:
+
+```JSP
+  <reevoo:customerExperienceReviews sku="<SKU>">
+    <p>Sorry we don't have any customer experience reviews available right now</p>
+  </reevoo:customerExperienceReviews>
+```
 
 ### Embedded Conversation Content
 
 To render "embedded conversations content" you can use any of the below.
-The ```sku``` attribute is compulsory but ```trkref```is optional.
+The ```sku``` attribute is compulsory but ```trkref``` and ```locale``` are optional.
 
-Make sure to replace `<SKU>` and `<TRKREF>` with the appropriate values.
+Make sure to replace `<SKU>` , `<TRKREF>` and `<LOCALE>` with the appropriate values.
+Any combination of the optional attributes is possible. Below we show some examples:
 
 ```JSP
   <reevoo:conversations sku="<SKU>" />
   <reevoo:conversations sku="<SKU>" trkref="<TRKREF>"/>
+  <reevoo:conversations sku="<SKU>" trkref="<TRKREF>" locale="<LOCALE>"/>
 ```
-
-#### Fallback
 
 If you would like to fall back to some content when Reevoo content is not available, just specify it within the tag:
 
@@ -275,29 +292,6 @@ If you would like to fall back to some content when Reevoo content is not availa
   </reevoo:conversations>
 ```
 
-### Embedded Customer Experience Review Content
-
-To render "embedded customer experience review content" you can use any of the below.
-The ```trkref``` and ```numberOfReviews``` are optional.
-
-Make sure to replace `<TRKREF>` and `<NUMBEROFREVIEWS>` with the appropriate values.
-
-```JSP
-  <reevoo:customerExperienceReviews />
-  <reevoo:customerExperienceReviews trkref="<TRKREF>"/>
-  <reevoo:customerExperienceReviews numberOfReviews="<NUMBEROFREVIEWS>"/>
-  <reevoo:customerExperienceReviews trkref="<TRKREF>" numberOfReviews="<NUMBEROFREVIEWS>"/>
-```
-
-#### Fallback
-
-If you would like to fall back to some content when Reevoo content is not available, just specify it within the tag:
-
-```JSP
-  <reevoo:customerExperienceReviews sku="<SKU>">
-    <p>Sorry we don't have any customer experience reviews available right now</p>
-  </reevoo:customerExperienceReviews>
-```
 
 ### Generic Mark Embeddable Content Tag
 
@@ -316,25 +310,24 @@ It is also possible to specify locale and the number of reviews you'd like in th
   <reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_reviews.html" />
 ```
 
-### Rendering Issues
-
-Any changes to the visibility settings of the 'traffic reviews solution' will require you to call the code below to
-ensure the correct formatting is applied.
-
-NOTE: This assumes you are using the latest version of the Reevoo JS library.
-
-```Javascript
-  ReevooMark.auto_scale()
-```
-
 ## Tracking
 
 If you display the reviews in a tabbed display, or otherwise require visitors to your site to click an element before
 seeing the embedded reviews, add the following onclick attribute to track the clickthroughs:
 
+If your trkref value is for example "REV" you would add:
+
 ```HTML
-  onclick="ReevooMark.track_click_through(‘<SKU>’)”
+  onclick="ReevooMark_REV.track_click_through(‘<SKU>’)”
 ```
+
+If your trkref value is for example "PIU" you would add:
+
+```HTML
+  onclick="ReevooMark_PIU.track_click_through(‘<SKU>’)”
+```
+
+See how in examples above you need to put your trkref value as a suffix to the ReevooMark_ bit. Also remember to replace <SKU> by the sku of the product to which the reviews belong.
 
 ### Purchase Tracking
 

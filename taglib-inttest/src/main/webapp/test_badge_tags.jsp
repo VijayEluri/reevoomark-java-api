@@ -1,3 +1,4 @@
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="reevoo" uri="http://reevoo.com/java-taglib/v1" %>
 <html>
 <head>
