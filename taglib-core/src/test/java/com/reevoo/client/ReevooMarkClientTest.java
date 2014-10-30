@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.lang.reflect.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.methods.*;
@@ -19,9 +21,10 @@ import static org.mockito.Mockito.*;
 
 public class ReevooMarkClientTest {
 
+
     private class ReevooMarkTestClient extends ReevooMarkClient {
-        public ReevooMarkTestClient(int connectTimeout) {
-            super(connectTimeout);
+        public ReevooMarkTestClient(int connectTimeout, String proxyHost, String proxyPort) {
+            super(connectTimeout, proxyHost, proxyPort);
         }
 
         public void setClient(HttpClient client) {
@@ -61,7 +64,7 @@ public class ReevooMarkClientTest {
         when(m.getResponseHeader("X-Reevoo-ReviewCount")).thenReturn(new Header("X-Reevoo-ReviewCount", "8"));
         h = mock(HttpClient.class);
         when(h.executeMethod(m)).thenReturn(1);
-        c = new ReevooMarkTestClient(2000);
+        c = new ReevooMarkTestClient(2000, null, null);
         c.setClient(h);
     }
 
@@ -174,29 +177,34 @@ public class ReevooMarkClientTest {
     }
 
     private String buildParams(String trkref, String sku, String customParms) throws Exception {
-        Class argClasses[] = new Class[3];
-        argClasses[0] = argClasses[1] = argClasses[2] = String.class;
+        Map<String,String> queryStringParams = new LinkedHashMap<String,String>();
+        queryStringParams.put("sku",sku);
+        queryStringParams.put("retailer",trkref);
 
-        String params[] = new String[3];
-        params[0] = trkref;
-        params[1] = sku;
-        params[2] = customParms;
+        Class argClasses[] = new Class[2];
+        argClasses[0] = Map.class;
+        argClasses[1] = String.class;
+
+        Object params[] = new Object[2];
+        params[0] = queryStringParams;
+        params[1] = customParms;
         Method method = ReevooMarkClient.class.getDeclaredMethod("generateReevooMarkQueryParams", argClasses);
 
         method.setAccessible(true);
         return (String) method.invoke(c, params);
+
     }
 
     @Test
     public void testURLEscaping() throws Exception {
-        assertEquals("?sku=SKU%3Bparts&retailer=TRKREF&", buildParams("TRKREF", "SKU;parts", ""));
-        assertEquals("?sku=SKU%2Fparts&retailer=TRKREF&", buildParams("TRKREF", "SKU/parts", ""));
-        assertEquals("?sku=SKU%26parts&retailer=TRKREF&", buildParams("TRKREF", "SKU&parts", ""));
-        assertEquals("?sku=SKU%A3parts&retailer=TRKREF&disable_product_microdata=true", buildParams("TRKREF", "SKU£parts", "disable_product_microdata=true"));
-        assertEquals("?sku=SKU+parts&retailer=TRKREF&enable_awesome=true&pink=false", buildParams("TRKREF", "SKU parts", "enable_awesome=true&pink=false"));
-        assertEquals("?sku=SKU%2Bparts&retailer=TRKREF&", buildParams("TRKREF", "SKU+parts", ""));
-        assertEquals("?sku=SKU%25parts&retailer=TRKREF&", buildParams("TRKREF", "SKU%parts", ""));
-        assertEquals("?retailer=TRKREF&", buildParams("TRKREF", null, ""));
+        assertEquals("sku=SKU%3Bparts&retailer=TRKREF", buildParams("TRKREF", "SKU;parts", ""));
+        assertEquals("sku=SKU%2Fparts&retailer=TRKREF", buildParams("TRKREF", "SKU/parts", ""));
+        assertEquals("sku=SKU%26parts&retailer=TRKREF", buildParams("TRKREF", "SKU&parts", ""));
+        assertEquals("sku=SKU%A3parts&retailer=TRKREF&disable_product_microdata=true", buildParams("TRKREF", "SKU£parts", "disable_product_microdata=true"));
+        assertEquals("sku=SKU+parts&retailer=TRKREF&enable_awesome=true&pink=false", buildParams("TRKREF", "SKU parts", "enable_awesome=true&pink=false"));
+        assertEquals("sku=SKU%2Bparts&retailer=TRKREF", buildParams("TRKREF", "SKU+parts", ""));
+        assertEquals("sku=SKU%25parts&retailer=TRKREF", buildParams("TRKREF", "SKU%parts", ""));
+        assertEquals("retailer=TRKREF", buildParams("TRKREF", null, ""));
     }
 
     @Test
@@ -212,6 +220,5 @@ public class ReevooMarkClientTest {
         }
 
     }
-
 
 }

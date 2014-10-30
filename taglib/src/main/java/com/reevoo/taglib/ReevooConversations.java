@@ -2,6 +2,8 @@ package com.reevoo.taglib;
 
 import com.reevoo.utils.TaglibConfig;
 
+import javax.swing.text.html.HTML;
+
 /**
  * Tag for adding embeddable conversations.
  *
@@ -13,9 +15,23 @@ import com.reevoo.utils.TaglibConfig;
  */
 public class ReevooConversations extends AbstractReevooMarkClientTag {
 
+    // will be initialized to the value of the "numberOfConversations" attribute in the jsp tag.
+    protected String numberOfConversations;
+
+    /**
+     * Method called automatically by the jps engine to set the value of the
+     * "numberOfConversations" attribute in the jsp tag
+     * @param numberOfConversations
+     */
+    public void setNumberOfConversations(String numberOfConversations) {
+        this.numberOfConversations = numberOfConversations;
+    }
+
+
     @Override
     protected String getContent() {
-        return client.obtainReevooMarkData(trkref, sku, buildUrl("conversations.url"));
+        queryStringParams.put("conversations", this.numberOfConversations);
+        return client.obtainReevooMarkData(TaglibConfig.getProperty("conversations.url"), queryStringParams);
     }
 
 }

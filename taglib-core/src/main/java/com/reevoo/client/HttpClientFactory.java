@@ -5,10 +5,11 @@ import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
 
 public class HttpClientFactory {
-    public static HttpClient build(int connectTimeout) {
+
+    public static HttpClient build(int connectTimeout, String proxyHost, String proxyPort) {
         HttpConnectionManagerParams params = buildParams(connectTimeout);
         MultiThreadedHttpConnectionManager connectionManager = buildConnectionManager(params);
-        HttpClient client = buildClient(connectionManager);
+        HttpClient client = buildClient(connectionManager, proxyHost, proxyPort);
 
         return client;
     }
@@ -30,11 +31,16 @@ public class HttpClientFactory {
         return params;
     }
 
-    private static HttpClient buildClient(MultiThreadedHttpConnectionManager connectionManager) {
+    private static HttpClient buildClient(MultiThreadedHttpConnectionManager connectionManager, String proxyHost, String proxyPort) {
         HttpClient client = new HttpClient(connectionManager);
 
-        String proxyHost = System.getProperty("http.proxyHost");
-        String proxyPort = System.getProperty("http.proxyPort");
+        if (proxyHost == null || proxyHost.isEmpty()) {
+            proxyHost = System.getProperty("http.proxyHost");
+        }
+
+        if (proxyPort == null || proxyPort.isEmpty()) {
+            proxyPort = System.getProperty("http.proxyPort");
+        }
 
         if (proxyHost != null && proxyPort != null) {
             client.getHostConfiguration().setProxy(proxyHost, Integer.parseInt(proxyPort));
@@ -42,4 +48,5 @@ public class HttpClientFactory {
 
         return client;
     }
+
 }

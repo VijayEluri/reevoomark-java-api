@@ -2,6 +2,7 @@ package com.reevoo.client;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,20 +17,20 @@ import org.apache.commons.httpclient.methods.GetMethod;
 public class ReevooMarkClient {
     protected HttpClient client;
 
-    public ReevooMarkClient(int connectTimeout) {
-        this.client = HttpClientFactory.build(connectTimeout);
+    public ReevooMarkClient(int connectTimeout, String proxyHost, String proxyPort) {
+        this.client = HttpClientFactory.build(connectTimeout, proxyHost, proxyPort);
     }
 
-    public String obtainReevooMarkData(String trkref, String sku, String baseURI) {
-      return obtainReevooMarkData(trkref, sku, baseURI, "");
+    public String obtainReevooMarkData(String baseURI, Map<String,String> queryStringParams) {
+        return obtainReevooMarkData(baseURI, queryStringParams, null);
     }
 
-    public String obtainReevooMarkData(String trkref, String sku, String baseURI, String customParms) {
+    public String obtainReevooMarkData(String baseURI, Map<String,String> queryStringParams, String customParams) {
         GetMethod method = null;
         try {
             method = new GetMethod(baseURI);
             method.setFollowRedirects(true);
-            method.setQueryString(generateReevooMarkQueryParams(trkref, sku, customParms));
+            method.setQueryString(generateReevooMarkQueryParams(queryStringParams, customParams));
             return obtainReevooMarkData(method);
         } catch (Exception e) {
             return null;
@@ -115,13 +116,28 @@ public class ReevooMarkClient {
         }
     }
 
-    private String generateReevooMarkQueryParams(String trkref, String sku, String customParms) throws java.io.UnsupportedEncodingException {
-        String trkrefParam = URLEncoder.encode(trkref, "ISO-8859-1");
-        if (sku != null) {
-            String skuParm = URLEncoder.encode(sku, "ISO-8859-1");
-            return String.format("?sku=%s&retailer=%s&%s", skuParm, trkrefParam, customParms) ;
+    private String generateReevooMarkQueryParams(Map<String,String> queryStringParams, String customParams) throws java.io.UnsupportedEncodingException {
+        String queryString = "";
+        if (queryStringParams != null && !queryStringParams.isEmpty()) {
+            for (Map.Entry<String, String> entry : queryStringParams.entrySet()) {
+                if (entry.getKey() != null && !entry.getKey().isEmpty() && entry.getValue() != null && !entry.getValue().isEmpty()) {
+                    queryString = String.format("%s%s%s=%s", queryString, getQueryStringSeparator(queryString),
+                        entry.getKey(), URLEncoder.encode(entry.getValue(), "ISO-8859-1"));
+                }
+            }
+        }
+        if (customParams != null && !customParams.isEmpty()) {
+            queryString = String.format("%s%s%s", queryString, getQueryStringSeparator(queryString), customParams);
+        }
+        return queryString;
+    }
+
+    private String getQueryStringSeparator(String queryString) {
+        if (queryString.isEmpty()) {
+            return "";
         } else {
-            return String.format("?retailer=%s&%s", trkrefParam, customParms);
+            return "&";
         }
     }
+
 }

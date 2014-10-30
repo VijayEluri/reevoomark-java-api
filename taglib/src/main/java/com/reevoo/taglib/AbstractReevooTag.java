@@ -18,6 +18,10 @@ public abstract class AbstractReevooTag extends SimpleTagSupport {
      */
     protected String trkref = TaglibConfig.getProperty("default.trkref");
 
+    /**
+     * This variable will be populated automatically with the value of the "sku" attribute, if
+     * such attribute is found in the jsp tag, or left empty otherwise.
+     */
     protected String sku = null;
 
 

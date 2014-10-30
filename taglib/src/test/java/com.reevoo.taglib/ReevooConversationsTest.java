@@ -8,6 +8,10 @@ import org.junit.Test;
 import static org.mockito.Mockito.*;
 import com.mockrunner.tag.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.PageContext;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 
 public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
@@ -27,26 +31,34 @@ public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
 
     @Test
     public void testTagCallsClientWithCorrectAttributesAndTheConversationEndpoint() {
-        processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("FOO", "12345", "http://mark.reevoo.com/reevoomark/embeddable_conversations");
-    }
 
+        conversationsTag.setNumberOfConversations("3");
+        processTagLifecycle();
+        Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
+        queryStringParams.put("trkref", "FOO");
+        queryStringParams.put("sku", "12345");
+        queryStringParams.put("locale", null);
+        queryStringParams.put("reviews", null);
+        queryStringParams.put("conversations", "3");
+        verify(markClient).obtainReevooMarkData(
+            "http://mark.reevoo.com/reevoomark/embeddable_conversations",
+            queryStringParams);
+    }
 
     @Test
     public void testTagRespondsWithContentFromClient() {
-        when(markClient.obtainReevooMarkData(anyString(),anyString(),anyString())).thenReturn("FOO");
+        when(markClient.obtainReevooMarkData(anyString(),anyMap())).thenReturn("FOO");
         processTagLifecycle();
         verifyOutput("FOO");
     }
 
     @Test
     public void testTagReturnsTagBodyWhenNoResponseFromClient() {
-        when(markClient.obtainReevooMarkData(anyString(), anyString(), anyString())).thenReturn(null);
+        when(markClient.obtainReevooMarkData(anyString(), anyMap())).thenReturn(null);
         setBody("There are no reviews");
         processTagLifecycle();
         verifyOutput("There are no reviews");
     }
-
 
     @Test
     public void testTagUsesDefaultTrkrefIfNoExplicitOneSpecified() {
@@ -54,10 +66,13 @@ public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
         conversationsTag.setClient(markClient);
         setTag(conversationsTag);
         processTagLifecycle();
-        verify(markClient).obtainReevooMarkData("REV", null, "http://mark.reevoo.com/reevoomark/embeddable_conversations");
-
+        Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
+        queryStringParams.put("trkref", "REV");
+        queryStringParams.put("sku", null);
+        queryStringParams.put("locale", null);
+        queryStringParams.put("reviews", null);
+        queryStringParams.put("conversations",null);
+        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_conversations", queryStringParams);
     }
-
-
 
 }
