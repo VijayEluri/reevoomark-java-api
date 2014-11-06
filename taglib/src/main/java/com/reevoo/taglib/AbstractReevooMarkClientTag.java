@@ -1,14 +1,13 @@
 package com.reevoo.taglib;
 
 import com.reevoo.client.ReevooMarkClient;
-import com.reevoo.utils.RequestUtils;
-import com.reevoo.utils.StringUtils;
 import com.reevoo.utils.TaglibConfig;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -114,14 +113,36 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
         queryStringParams.put("locale",this.locale);
         if (this.paginated) {
             queryStringParams.put("page", request.getParameter("reevoo_page"));
-            queryStringParams.put("per_page", StringUtils.isEmpty(this.numberOfReviews)?"default":this.numberOfReviews);
-            queryStringParams.put("client_url", RequestUtils.buildEncodedClientRequestUrl(request,"UTF-8"));
+            queryStringParams.put("per_page", (this.numberOfReviews==null || this.numberOfReviews.trim().equals(""))?"default":this.numberOfReviews);
+            queryStringParams.put("client_url", getClientUrl());
         } else {
             // for non paginated reviews the number of reviews to show is sent to the server
             // with the parameter "reviews" instead of the parameter "per_page".
             queryStringParams.put("reviews",this.numberOfReviews);
         }
         return queryStringParams;
+    }
+
+
+    /**
+     * Gets the current client url, we send this to reevoo for generating the pagination links.
+     * @return
+     */
+    private String getClientUrl() {
+        // when there is an internal forward within the  java application server, the original
+        // client url is kept in the "javax.servlet.forward.request_uri" attribute.
+        Object clientUrl = request.getAttribute("javax.servlet.forward.request_uri");
+        if (clientUrl == null) {
+            clientUrl = request.getRequestURL();
+        }
+        if (clientUrl != null) {
+            try {
+                clientUrl = URLEncoder.encode(clientUrl.toString(), "UTF-8");
+            } catch (Exception e) {
+                clientUrl = "";
+            }
+        }
+        return clientUrl != null? clientUrl.toString():"";
     }
 
 
