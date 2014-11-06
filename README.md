@@ -37,7 +37,7 @@ If you use Maven for your project add the following dependency to your `pom.xml`
   <dependency>
     <groupId>com.reevoo.taglib</groupId>
     <artifactId>reevoo-taglib</artifactId>
-    <version>1.12</version>
+    <version>1.13</version>
   </dependency>
 ```
 
