@@ -105,6 +105,7 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
         queryStringParams.put("locale", null);
         queryStringParams.put("page", null);
         queryStringParams.put("per_page", "5");
+        queryStringParams.put("sort_by", "seo_boost");
         queryStringParams.put("client_url", "");
         verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
 
