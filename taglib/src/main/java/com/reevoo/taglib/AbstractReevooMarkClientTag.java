@@ -115,6 +115,9 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
             queryStringParams.put("page", request.getParameter("reevoo_page"));
             queryStringParams.put("per_page", (this.numberOfReviews==null || this.numberOfReviews.trim().equals(""))?"default":this.numberOfReviews);
             queryStringParams.put("sort_by" , (request.getParameter("reevoo_sort_by")==null || request.getParameter("reevoo_sort_by").trim().equals(""))?"seo_boost":request.getParameter("reevoo_sort_by"));
+            if (request.getParameter("reevoo_filter")!=null && !request.getParameter("reevoo_filter").trim().isEmpty()) {
+                queryStringParams.put("filter", request.getParameter("reevoo_filter"));
+            }
             queryStringParams.put("client_url", getClientUrl());
         } else {
             // for non paginated reviews the number of reviews to show is sent to the server
