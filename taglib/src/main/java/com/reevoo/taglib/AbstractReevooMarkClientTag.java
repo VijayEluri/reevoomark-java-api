@@ -138,12 +138,15 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
         String clientUrl = (String)request.getAttribute("javax.servlet.forward.request_uri");
         if (clientUrl == null && request.getRequestURL() != null) {
             clientUrl = request.getRequestURL().toString();
-            String queryString = request.getQueryString();
-            if (queryString != null) {
-                clientUrl = clientUrl +  '?' + queryString.toString();
-            }
         }
         if (clientUrl != null) {
+            String queryString = (String)request.getAttribute("javax.servlet.forward.query_string");
+            if (queryString == null || queryString.trim().equals("")) {
+                queryString = request.getQueryString();
+            }
+            if (queryString != null && !queryString.trim().equals("")) {
+                clientUrl = clientUrl +  '?' + queryString.toString();
+            }
             try {
                 clientUrl = URLEncoder.encode(clientUrl.toString(), "UTF-8");
             } catch (Exception e) {
@@ -152,6 +155,7 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
         }
         return clientUrl != null? clientUrl.toString():"";
     }
+
 
 
 }
