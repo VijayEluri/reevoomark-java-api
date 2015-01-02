@@ -361,7 +361,7 @@ In the tag above:
 * Replace the value of the "action" attribute with a string desccribing the type of event that you want to track, can be anything you want like "user visited the buy now page" or "user requested brochure" or "user requested a test drive", etc...
 * The "sku" attribute is optional, you only have to include it if you want to link the tracking event to a specific product sku, otherwise just leave it empty.
 
-All this tracking information will be available to you on your Google Analitycs account. 
+All this tracking information will be available to you on your Google Analytics account. 
 
 
 ##License
