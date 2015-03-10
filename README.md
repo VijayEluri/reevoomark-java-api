@@ -37,7 +37,7 @@ If you use Maven for your project add the following dependency to your `pom.xml`
   <dependency>
     <groupId>com.reevoo.taglib</groupId>
     <artifactId>reevoo-taglib</artifactId>
-    <version>1.15</version>
+    <version>1.16</version>
   </dependency>
 ```
 
@@ -363,7 +363,19 @@ In the tag above:
 
 All this tracking information will be available to you on your Google Analytics account. 
 
+### OSGI Support
 
+Our tag library jar can be deployed as an OSGI bundle as well.
+
+In order to do that download the jar from the following sourceforge link and deploy it into your OSGI container: https://sourceforge.net/projects/reevoomarkjavaapi/files/latest/download?source=files
+
+After deploying  the bundle, your client WAB bundle will need to require it by adding the following lines to the MANIFEST.MF file:
+
+```
+Import-Package:javax.servlet,javax.servlet.http
+Require-Bundle: com.reevoo.taglib.reevoo-taglib
+Require-TldBundle: com.reevoo.taglib.reevoo-taglib
+```
 ##License
 
 This software is released under the MIT license.  Only certified ReevooMark partners
