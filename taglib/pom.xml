@@ -5,13 +5,13 @@
     <groupId>com.reevoo.taglib</groupId>
     <artifactId>reevoo-taglib</artifactId>
     <packaging>bundle</packaging>
-    <version>1.16-SNAPSHOT</version>
+    <version>1.16</version>
     <name>reevoo-taglib</name>
 
     <parent>
         <groupId>com.reevoo.taglib</groupId>
         <artifactId>reevoo-taglib-root</artifactId>
-        <version>1.16-SNAPSHOT</version>
+        <version>1.16</version>
     </parent>
 
     <dependencies>
@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.reevoo.taglib</groupId>
             <artifactId>reevoo-taglib-core</artifactId>
-            <version>1.16-SNAPSHOT</version>
+            <version>1.16</version>
         </dependency>
 
         <dependency>
@@ -133,7 +133,7 @@
                 <Bundle-Version>${pom.version}</Bundle-Version>
                 <Export-Package>com.reevoo.taglib, com.reevoo.utils</Export-Package>
                 <DynamicImport-Package>*</DynamicImport-Package>
-                <Import-Package></Import-Package>
+                <Import-Package />
               </instructions>
             </configuration>
           </plugin>        
