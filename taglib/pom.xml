@@ -134,6 +134,7 @@
                 <Export-Package>com.reevoo.taglib, com.reevoo.utils</Export-Package>
                 <DynamicImport-Package>*</DynamicImport-Package>
                 <Import-Package />
+                <Sling-Bundle-Resources>/META-INF/tags</Sling-Bundle-Resources>
               </instructions>
             </configuration>
           </plugin>        
