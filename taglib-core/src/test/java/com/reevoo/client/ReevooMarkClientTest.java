@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.io.ByteArrayInputStream;
 
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.methods.*;
@@ -52,15 +53,11 @@ public class ReevooMarkClientTest {
         return Cache.get("http://www.example.org/reevoomark") == null;
     }
 
-    private void p(String str) {
-        System.out.println(str);
-    }
-
     @Before
     public void setUp() throws Exception {
         m = mock(GetMethod.class);
         when(m.getURI()).thenReturn(new URI("http://www.example.org/reevoomark"));
-        when(m.getResponseBodyAsString()).thenReturn("fresh_response");
+        when(m.getResponseBodyAsStream()).thenReturn(new ByteArrayInputStream("fresh_response".getBytes()));
         when(m.getResponseHeader("X-Reevoo-ReviewCount")).thenReturn(new Header("X-Reevoo-ReviewCount", "8"));
         h = mock(HttpClient.class);
         when(h.executeMethod(m)).thenReturn(1);
@@ -85,6 +82,7 @@ public class ReevooMarkClientTest {
         when(m.getStatusCode()).thenReturn(200);
         int[] cachedStatusCodes = {200, 404, 500};
         for (int i = 0; i < cachedStatusCodes.length; i++) {
+            when(m.getResponseBodyAsStream()).thenReturn(new ByteArrayInputStream("fresh_response".getBytes()));
             setStaleCache(cachedStatusCodes[i]);
             String data = c.obtainReevooMarkData(m);
             assertEquals("fresh_response", data);
@@ -215,6 +213,7 @@ public class ReevooMarkClientTest {
                 new Header("X-Reevoo-ReviewCount", "-2"),
                 new Header("X-Reevoo-ReviewCount", "10"));
         for (int i=0; i<3; i++) {
+            when(m.getResponseBodyAsStream()).thenReturn(new ByteArrayInputStream("fresh_response".getBytes()));
             String data = c.obtainReevooMarkData(m);
             assertEquals("fresh_response", data);
         }

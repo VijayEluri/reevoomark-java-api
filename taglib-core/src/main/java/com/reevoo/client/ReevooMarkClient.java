@@ -1,15 +1,19 @@
 package com.reevoo.client;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
+
 
 /**
  * Hook between reevoo REST endpoint, and the rest of the general taglib code
@@ -60,7 +64,7 @@ public class ReevooMarkClient {
         int review_count = extractReviewCountHeader(request);
         String content;
         if (status == 200) {
-            content = request.getResponseBodyAsString();
+            content = getStringContent(request.getResponseBodyAsStream());
         } else {
             content = null;
         }
@@ -138,6 +142,25 @@ public class ReevooMarkClient {
         } else {
             return "&";
         }
+    }
+
+    static String getStringContent(InputStream input) throws java.io.IOException {
+        BufferedReader reader = null;
+        StringBuilder out = new StringBuilder();
+        if (input != null) {
+            try {
+                reader = new BufferedReader(new InputStreamReader(input));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    out.append(line);
+                }
+            } finally {
+                if (reader != null) {
+                    reader.close();
+                }
+            }
+        }
+        return out.toString();
     }
 
 }
