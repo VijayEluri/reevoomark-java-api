@@ -121,7 +121,6 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         queryStringParams.put("page", null);
         queryStringParams.put("per_page", "5");
         queryStringParams.put("sort_by", "seo_boost");
-        queryStringParams.put("client_url", "");
         verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
 
         // when paginated and numberOfReviews missing we set the per_page param to default

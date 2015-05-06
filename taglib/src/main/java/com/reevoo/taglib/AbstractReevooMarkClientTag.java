@@ -118,7 +118,6 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
             if (request.getParameter("reevoo_filter")!=null && !request.getParameter("reevoo_filter").trim().isEmpty()) {
                 queryStringParams.put("filter", request.getParameter("reevoo_filter"));
             }
-            queryStringParams.put("client_url", getClientUrl());
         } else {
             // for non paginated reviews the number of reviews to show is sent to the server
             // with the parameter "reviews" instead of the parameter "per_page".
@@ -126,36 +125,5 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
         }
         return queryStringParams;
     }
-
-
-    /**
-     * Gets the current client url, we send this to reevoo for generating the pagination links.
-     * @return
-     */
-    private String getClientUrl() {
-        // when there is an internal forward within the  java application server, the original
-        // client url is kept in the "javax.servlet.forward.request_uri" attribute.
-        String clientUrl = (String)request.getAttribute("javax.servlet.forward.request_uri");
-        if (clientUrl == null && request.getRequestURL() != null) {
-            clientUrl = request.getRequestURL().toString();
-        }
-        if (clientUrl != null) {
-            String queryString = (String)request.getAttribute("javax.servlet.forward.query_string");
-            if (queryString == null || queryString.trim().equals("")) {
-                queryString = request.getQueryString();
-            }
-            if (queryString != null && !queryString.trim().equals("")) {
-                clientUrl = clientUrl +  '?' + queryString.toString();
-            }
-            try {
-                clientUrl = URLEncoder.encode(clientUrl.toString(), "UTF-8");
-            } catch (Exception e) {
-                clientUrl = "";
-            }
-        }
-        return clientUrl != null? clientUrl.toString():"";
-    }
-
-
 
 }
