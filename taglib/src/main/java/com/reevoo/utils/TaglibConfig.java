@@ -15,6 +15,10 @@ public class TaglibConfig {
 
     private static String singletrkrefMarkloaderScript = loadResourceFile("singletrkrefMarkloader.script");
 
+    private static String propensityToBuyScript = loadResourceFile("propensityToBuyTracking.script");
+
+    private static String purchaseTrackingScript = loadResourceFile("purchaseTracking.script");
+
     private static Properties loadProperties() {
 
         Properties properties = new Properties();
@@ -86,5 +90,12 @@ public class TaglibConfig {
         return singletrkrefMarkloaderScript;
     }
 
+    public static String getPropensityToBuyScript() {
+        return propensityToBuyScript;
+    }
+
+    public static String getPurchaseTrackingScript() {
+        return purchaseTrackingScript;
+    }
 
 }

@@ -9,7 +9,7 @@
     <tag>
         <name>mark</name>
         <tag-class>com.reevoo.taglib.ReevooTaglib</tag-class>
-        <body-content>scriptless</body-content>
+        <body-content>JSP</body-content>
 
         <attribute>
             <name>sku</name>
@@ -33,7 +33,7 @@
     <tag>
         <name>javascriptAssets</name>
         <tag-class>com.reevoo.taglib.ReevooJavascriptAssets</tag-class>
-        <body-content>scriptless</body-content>
+        <body-content>JSP</body-content>
 
         <attribute>
             <name>trkref</name>
@@ -45,7 +45,7 @@
     <tag>
         <name>cssAssets</name>
         <tag-class>com.reevoo.taglib.ReevooCssAssets</tag-class>
-        <body-content>scriptless</body-content>
+        <body-content>JSP</body-content>
 
         <attribute>
             <name>trkref</name>
@@ -57,7 +57,7 @@
     <tag>
         <name>productBadge</name>
         <tag-class>com.reevoo.taglib.ReevooProductBadge</tag-class>
-        <body-content>scriptless</body-content>
+        <body-content>JSP</body-content>
 
         <attribute>
             <name>trkref</name>
@@ -81,7 +81,7 @@
     <tag>
         <name>productSeriesBadge</name>
         <tag-class>com.reevoo.taglib.ReevooProductSeriesBadge</tag-class>
-        <body-content>scriptless</body-content>
+        <body-content>JSP</body-content>
 
         <attribute>
             <name>trkref</name>
@@ -105,7 +105,7 @@
     <tag>
         <name>overallServiceRatingBadge</name>
         <tag-class>com.reevoo.taglib.ReevooOverallServiceRatingBadge</tag-class>
-        <body-content>scriptless</body-content>
+        <body-content>JSP</body-content>
 
         <attribute>
             <name>trkref</name>
@@ -123,7 +123,7 @@
     <tag>
         <name>productReviews</name>
         <tag-class>com.reevoo.taglib.ReevooProductReviews</tag-class>
-        <body-content>scriptless</body-content>
+        <body-content>JSP</body-content>
 
         <attribute>
             <name>trkref</name>
@@ -162,7 +162,7 @@
     <tag>
         <name>conversations</name>
         <tag-class>com.reevoo.taglib.ReevooConversations</tag-class>
-        <body-content>scriptless</body-content>
+        <body-content>JSP</body-content>
 
         <attribute>
             <name>trkref</name>
@@ -199,7 +199,7 @@
     <tag>
         <name>customerExperienceReviews</name>
         <tag-class>com.reevoo.taglib.ReevooCustomerExperienceReviews</tag-class>
-        <body-content>scriptless</body-content>
+        <body-content>JSP</body-content>
 
         <attribute>
             <name>trkref</name>
@@ -229,7 +229,7 @@
     <tag>
         <name>customerServiceRatingBadge</name>
         <tag-class>com.reevoo.taglib.ReevooCustomerServiceRatingBadge</tag-class>
-        <body-content>scriptless</body-content>
+        <body-content>JSP</body-content>
 
         <attribute>
             <name>trkref</name>
@@ -247,7 +247,7 @@
     <tag>
         <name>deliveryRatingBadge</name>
         <tag-class>com.reevoo.taglib.ReevooDeliveryRatingBadge</tag-class>
-        <body-content>scriptless</body-content>
+        <body-content>JSP</body-content>
 
         <attribute>
             <name>trkref</name>
@@ -265,7 +265,7 @@
     <tag>
         <name>conversationsBadge</name>
         <tag-class>com.reevoo.taglib.ReevooConversationsBadge</tag-class>
-        <body-content>scriptless</body-content>
+        <body-content>JSP</body-content>
 
         <attribute>
             <name>trkref</name>
@@ -289,7 +289,7 @@
     <tag>
         <name>conversationSeriesBadge</name>
         <tag-class>com.reevoo.taglib.ReevooConversationSeriesBadge</tag-class>
-        <body-content>scriptless</body-content>
+        <body-content>JSP</body-content>
 
         <attribute>
             <name>trkref</name>
@@ -310,14 +310,52 @@
         </attribute>
     </tag>
 
-    <tag-file>
+    <tag>
       <name>purchaseTrackingEvent</name>
-      <path>/META-INF/tags/purchaseTrackingEvent.tag</path>
-    </tag-file>
+      <tag-class>com.reevoo.taglib.ReevooPurchaseTrackingEvent</tag-class>
+      <body-content>JSP</body-content>
 
-    <tag-file>
+      <attribute>
+        <name>trkref</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+      </attribute>
+
+      <attribute>
+        <name>skus</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+      </attribute>
+
+      <attribute>
+        <name>value</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+      </attribute>
+    </tag>
+
+    <tag>
       <name>propensityToBuyTrackingEvent</name>
-      <path>/META-INF/tags/propensityToBuyTrackingEvent.tag</path>
-    </tag-file>
+      <tag-class>com.reevoo.taglib.ReevooPropensityToBuyTrackingEvent</tag-class>
+      <body-content>JSP</body-content>
+
+      <attribute>
+        <name>trkref</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+      </attribute>
+
+      <attribute>
+        <name>action</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+      </attribute>
+
+      <attribute>
+        <name>sku</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+      </attribute>
+    </tag>
 
 </taglib>

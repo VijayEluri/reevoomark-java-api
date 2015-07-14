@@ -5,9 +5,7 @@ import com.reevoo.utils.TaglibConfig;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -70,19 +68,17 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
         boolean paginated) { this.paginated = paginated;
     }
 
-
     @Override
-    public void doTag() throws JspException {
-        request = ((HttpServletRequest) ((PageContext) getJspContext()).getRequest());
+    public int doStartTag() throws JspException {
+        request = (HttpServletRequest)pageContext.getRequest();
         queryStringParams = buildQueryStringParamsMap();
         String content = getContent();
         try {
             if (content != null) {
-                getJspContext().getOut().write(content);
+                pageContext.getOut().write(content);
+                return SKIP_BODY;
             } else {
-                if (getJspBody() != null) {
-                    getJspBody().invoke(null);
-                }
+                return EVAL_BODY_INCLUDE;
             }
         } catch (IOException e) {
             throw new JspException(e);

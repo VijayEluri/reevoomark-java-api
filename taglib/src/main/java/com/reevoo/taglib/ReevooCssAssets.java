@@ -14,13 +14,15 @@ import java.io.IOException;
  */
 public class ReevooCssAssets extends AbstractReevooTag {
 
-    public void doTag() throws JspException {
-        try {
-            getJspContext().getOut().write(String.format(
-                "<link rel=\"stylesheet\" href=\"%s\" type=\"text/css\" />",
-                TaglibConfig.getProperty("reevoo.css.url")));
+    @Override
+    public int doStartTag() throws JspException {
+       try {
+           pageContext.getOut().write(String.format(
+               "<link rel=\"stylesheet\" href=\"%s\" type=\"text/css\" />",
+               TaglibConfig.getProperty("reevoo.css.url")));
+           return SKIP_BODY;
         } catch (IOException e) {
-            throw new JspException(e);
+           throw new JspException(e);
         }
     }
 

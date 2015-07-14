@@ -14,14 +14,10 @@ import java.io.IOException;
  */
 public class ReevooCustomerServiceRatingBadge extends AbstractBadgeTag {
 
-    public void doTag() throws JspException {
-        super.doTag();
-        try {
-            getJspContext().getOut().write(String.format("<a href=\"%s/retailer/%s\" class=\"reevoo_reputation customer_service%s\">%s</a>",
-                    getBaseUrl(), trkref, getVariantName(), jspBody));
-        } catch (IOException e) {
-            throw new JspException(e);
-        }
+    @Override
+    public String getContent() {
+        return String.format("<a href=\"%s/retailer/%s\" class=\"reevoo_reputation customer_service%s\">%s</a>",
+            getBaseUrl(), trkref, getVariantName(), getBodyContentString());
     }
 
 }

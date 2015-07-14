@@ -1,0 +1,14 @@
+<script type="text/javascript" charset="utf-8">
+  if (typeof afterReevooMarkLoaded === 'undefined') {
+    var afterReevooMarkLoaded = [];
+  }
+  afterReevooMarkLoaded.push(
+    function(){
+      ReevooApi.load("%s", function(retailer){
+        retailer.Tracking.ga_track_event("Propensity to buy", "%s", "%s");
+        retailer.track_exit();
+      });
+    }
+  );
+</script>
+
