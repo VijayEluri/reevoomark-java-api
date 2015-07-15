@@ -3,32 +3,30 @@ package com.reevoo.taglib;
 import com.reevoo.utils.TaglibConfig;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyContent;
 import java.io.IOException;
-import java.io.StringWriter;
 
 /**
  * Superclass for all badge type tags which contains common functionality to all
  * badge type tags.
  */
-public class AbstractBadgeTag extends AbstractReevooTag {
+public abstract class AbstractBadgeTag extends AbstractReevooTag {
 
 
     // will be initialized to the value of teh "variantName" attribute in the jsp tag.
     private String variantName;
 
-    // will be initialized to the html contained in between the opening and closing of the jsp tag.
-    protected String jspBody = "";
-
-    public void doTag() throws JspException {
+    @Override
+    public int doEndTag() throws JspException {
+        String content = getContent();
         try {
-            StringWriter bodyContent = new StringWriter();
-            if (getJspBody() != null) {
-                getJspBody().invoke(bodyContent);
-                jspBody = bodyContent.toString();
+            if (content != null) {
+                pageContext.getOut().write(content);
             }
         } catch (IOException e) {
             throw new JspException(e);
         }
+        return EVAL_PAGE;
     }
 
     /**
@@ -54,5 +52,19 @@ public class AbstractBadgeTag extends AbstractReevooTag {
         return TaglibConfig.getProperty("reevoo.badges.base.url");
     }
 
+    /**
+     * Abstract method that should return the content to replace the jsp tab by when fully evaluated.
+     * @return String
+     */
+    protected abstract String getContent();
+
+    /**
+     * Returns the content between the opening and closing of the tag in the jsp, if there is any.
+     * @return String
+     */
+    protected String getBodyContentString() {
+        BodyContent bodyContent = getBodyContent();
+        return bodyContent != null ? bodyContent.getString() : "";
+    }
 
 }

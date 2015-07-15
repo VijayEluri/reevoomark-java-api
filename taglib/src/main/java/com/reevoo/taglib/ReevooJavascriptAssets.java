@@ -17,9 +17,11 @@ import java.io.IOException;
  */
 public class ReevooJavascriptAssets extends AbstractReevooTag {
 
-    public void doTag() throws JspException {
+    @Override
+    public int doStartTag() throws JspException {
         try {
-            getJspContext().getOut().write(getMarkloaderScript());
+            pageContext.getOut().write(getMarkloaderScript());
+            return SKIP_BODY;
         } catch (IOException e) {
             throw new JspException(e);
         }

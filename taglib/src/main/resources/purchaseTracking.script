@@ -1,0 +1,12 @@
+<script type="text/javascript" charset="utf-8">
+  if (typeof afterReevooMarkLoaded === 'undefined') {
+    var afterReevooMarkLoaded = [];
+  }
+  afterReevooMarkLoaded.push(
+    function(){
+      ReevooApi.load("%s", function(retailer){
+        retailer.track_purchase("%s".split(/[ ,]+/), "%s");
+      });
+    }
+  );
+</script>

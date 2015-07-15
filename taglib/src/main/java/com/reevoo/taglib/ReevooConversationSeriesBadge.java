@@ -15,14 +15,10 @@ import java.io.IOException;
  */
 public class ReevooConversationSeriesBadge extends AbstractBadgeTag {
 
-    public void doTag() throws JspException {
-        super.doTag();
-        try {
-            getJspContext().getOut().write(String.format("<a class=\"reevoomark reevoo-conversations%s\" href=\"%s/partner/%s/series:%s\">%s</a>",
-                    getVariantName(),getBaseUrl(),trkref,sku,jspBody));
-        } catch (IOException e) {
-            throw new JspException(e);
-        }
+    @Override
+    public String getContent() {
+        return String.format("<a class=\"reevoomark reevoo-conversations%s\" href=\"%s/partner/%s/series:%s\">%s</a>",
+            getVariantName(),getBaseUrl(),trkref,sku,getBodyContentString());
     }
 
 }
