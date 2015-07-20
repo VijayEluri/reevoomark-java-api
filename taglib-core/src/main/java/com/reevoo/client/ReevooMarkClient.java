@@ -149,7 +149,7 @@ public class ReevooMarkClient {
         StringBuilder out = new StringBuilder();
         if (input != null) {
             try {
-                reader = new BufferedReader(new InputStreamReader(input));
+                reader = new BufferedReader(new InputStreamReader(input, "UTF-8"));
                 String line;
                 while ((line = reader.readLine()) != null) {
                     out.append(line);
