@@ -2,7 +2,6 @@ taglib/target
 taglib-inttest/target
 *.class
 *.swp
-*.jar
 .idea
 *.iml
 taglib-core/target/maven-archiver/pom.properties
