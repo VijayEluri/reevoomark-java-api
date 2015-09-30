@@ -310,6 +310,14 @@ It is also possible to specify locale and the number of reviews you'd like in th
   <reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_reviews.html" />
 ```
 
+### Price Offers Widget
+
+To render "price offers" you can use the tag below. Please provide the sku and trkref attribute.
+
+```JSP
+ <reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/widgets/offers" />
+```
+
 ## Tracking
 
 If you display the reviews in a tabbed display, or otherwise require visitors to your site to click an element before
