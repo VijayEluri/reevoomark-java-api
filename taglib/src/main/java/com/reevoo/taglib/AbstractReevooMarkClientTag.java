@@ -119,6 +119,11 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
             // with the parameter "reviews" instead of the parameter "per_page".
             queryStringParams.put("reviews",this.numberOfReviews);
         }
+        if (this.dynamicAttrs != null) {
+          for (Map.Entry<String,Object> entry : this.dynamicAttrs.entrySet()) {
+            queryStringParams.put(this.to_camel_case(entry.getKey()), entry.getValue().toString());
+          };
+        }
         return queryStringParams;
     }
 
