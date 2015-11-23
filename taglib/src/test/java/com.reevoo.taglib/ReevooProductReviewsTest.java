@@ -10,6 +10,7 @@ import com.mockrunner.tag.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.HashMap;
 
 
 public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
@@ -127,6 +128,31 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         productReviewsTag.setNumberOfReviews(null);
         processTagLifecycle();
         queryStringParams.put("per_page", "default");
+        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
+    }
+
+    @Test
+    public void testDynamicAttributes() {
+        productReviewsTag = new ReevooProductReviews();
+        productReviewsTag.setClient(markClient);
+        productReviewsTag.setLocale("en-GB");
+        productReviewsTag.setDynamicAttribute("", "model", "fiesta");
+        productReviewsTag.setDynamicAttribute("","modelVariant","studio");
+        productReviewsTag.setDynamicAttribute("","manufacturer","ford");
+        productReviewsTag.setDynamicAttribute("","doors","5");
+        productReviewsTag.setDynamicAttribute("","fuelType","PETROL");
+        setTag(productReviewsTag);
+        processTagLifecycle();
+        Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
+        queryStringParams.put("trkref", "REV");
+        queryStringParams.put("manufacturer", "ford");
+        queryStringParams.put("model", "fiesta");
+        queryStringParams.put("model_variant", "studio");
+        queryStringParams.put("doors", "5");
+        queryStringParams.put("fuel_type", "PETROL");
+        queryStringParams.put("sku", null);
+        queryStringParams.put("locale", "en-GB");
+        queryStringParams.put("reviews", null);
         verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
     }
 
