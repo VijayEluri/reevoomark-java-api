@@ -19,21 +19,21 @@ public class ReevooDeliveryRatingBadgeTest extends BasicTagTestCaseAdapter {
     @Test
     public void testFormatsTheCorrectAnchor() {
         processTagLifecycle();
-        verifyOutput("<a href=\"//test.reevoo.com/retailer/FOO\" class=\"reevoo_reputation delivery\"></a>");
+        verifyOutput("<reevoo-customer-experience-badge trkref=\"FOO\" score=\"delivery\"></reevoo-customer-experience-badge>");
     }
 
     @Test
     public void testIfTrkrefNotSpecifyItWillUseTheOneDefinedInTheConfigurationFile() {
         setTag(new ReevooDeliveryRatingBadge());
         processTagLifecycle();
-        verifyOutput(String.format("<a href=\"//test.reevoo.com/retailer/%s\" class=\"reevoo_reputation delivery\"></a>", TaglibConfig.getProperty("default.trkref")));
+        verifyOutput(String.format("<reevoo-customer-experience-badge trkref=\"%s\" score=\"delivery\"></reevoo-customer-experience-badge>", TaglibConfig.getProperty("default.trkref")));
     }
 
     @Test
     public void testThatIfVariantNamePresentItPrintsTheRightAnchorClass() {
-        deliveryTag.setVariantName("undecorated");
+        deliveryTag.setDynamicAttribute("", "variant", "undecorated");
         processTagLifecycle();
-        verifyOutput("<a href=\"//test.reevoo.com/retailer/FOO\" class=\"reevoo_reputation delivery undecorated\"></a>");
+        verifyOutput("<reevoo-customer-experience-badge trkref=\"FOO\" score=\"delivery\" variant=\"undecorated\"></reevoo-customer-experience-badge>");
     }
 
 
@@ -41,6 +41,6 @@ public class ReevooDeliveryRatingBadgeTest extends BasicTagTestCaseAdapter {
     public void testThatTheTagBodyGoesAsTheAnchorBody() {
         setBody("click here");
         processTagLifecycle();
-        verifyOutput("<a href=\"//test.reevoo.com/retailer/FOO\" class=\"reevoo_reputation delivery\">click here</a>");
+        verifyOutput("<reevoo-customer-experience-badge trkref=\"FOO\" score=\"delivery\">click here</reevoo-customer-experience-badge>");
     }
 }

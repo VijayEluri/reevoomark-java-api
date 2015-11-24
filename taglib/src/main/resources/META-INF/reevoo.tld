@@ -60,12 +60,6 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
-
-        <attribute>
-            <name>variantName</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
     </tag>
 
     <tag>
@@ -79,12 +73,6 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
-
-        <attribute>
-            <name>variantName</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
     </tag>
 
     <tag>
@@ -95,12 +83,6 @@
 
         <attribute>
             <name>trkref</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-
-        <attribute>
-            <name>variantName</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -195,12 +177,6 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
-
-        <attribute>
-            <name>variantName</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
     </tag>
 
     <tag>
@@ -211,12 +187,6 @@
 
         <attribute>
             <name>trkref</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-
-        <attribute>
-            <name>variantName</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -233,12 +203,6 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
-
-        <attribute>
-            <name>variantName</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
     </tag>
 
     <tag>
@@ -249,12 +213,6 @@
 
         <attribute>
             <name>trkref</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-
-        <attribute>
-            <name>variantName</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

@@ -22,15 +22,15 @@ public class ReevooConversationsBadgeTest extends BasicTagTestCaseAdapter {
     public void testFormatsTheCorrectAnchor()
     {
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark reevoo-conversations\" href=\"//test.reevoo.com/partner/FOO/ABC123\"></a>");
+        verifyOutput("<reevoo-conversations-badge trkref=\"FOO\" sku=\"ABC123\"></reevoo-conversations-badge>");
     }
 
 
     @Test
     public void testThatIfVariantNamePresentItPrintsTheRightAnchorClass(){
-        conversationsBadgeTag.setVariantName("undecorated");
+        conversationsBadgeTag.setDynamicAttribute("", "variant", "undecorated");;
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark reevoo-conversations undecorated\" href=\"//test.reevoo.com/partner/FOO/ABC123\"></a>");
+        verifyOutput("<reevoo-conversations-badge trkref=\"FOO\" sku=\"ABC123\" variant=\"undecorated\"></reevoo-conversations-badge>");
     }
 
 
@@ -38,6 +38,6 @@ public class ReevooConversationsBadgeTest extends BasicTagTestCaseAdapter {
     public void testThatTheTagBodyGoesAsTheAnchorBody(){
         setBody("click here");
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark reevoo-conversations\" href=\"//test.reevoo.com/partner/FOO/ABC123\">click here</a>");
+        verifyOutput("<reevoo-conversations-badge trkref=\"FOO\" sku=\"ABC123\">click here</reevoo-conversations-badge>");
     }
 }

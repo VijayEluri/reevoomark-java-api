@@ -20,7 +20,7 @@ public class ReevooProductBadgeTest extends BasicTagTestCaseAdapter {
     @Test
     public void testFormatsTheCorrectAnchor() {
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark\" href=\"//test.reevoo.com/partner/FOO/ABC123\"></a>");
+        verifyOutput("<reevoo-reviewable-badge trkref=\"FOO\" sku=\"ABC123\"></reevoo-reviewable-badge>");
     }
 
     @Test
@@ -29,27 +29,27 @@ public class ReevooProductBadgeTest extends BasicTagTestCaseAdapter {
         reevooTag.setDynamicAttribute("", "sku", "ABC123");
         setTag(reevooTag);
         processTagLifecycle();
-        verifyOutput(String.format("<a class=\"reevoomark\" href=\"//test.reevoo.com/partner/%s/ABC123\"></a>", TaglibConfig.getProperty("default.trkref")));
+        verifyOutput(String.format("<reevoo-reviewable-badge trkref=\"%s\" sku=\"ABC123\"></reevoo-reviewable-badge>", TaglibConfig.getProperty("default.trkref")));
     }
 
     @Test
     public void testThatIfUndecoratedItPrintsTheRightAnchorClass() {
-        reevooTag.setVariantName("undecorated");
+        reevooTag.setDynamicAttribute("", "variant", "undecorated");
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark undecorated\" href=\"//test.reevoo.com/partner/FOO/ABC123\"></a>");
+        verifyOutput("<reevoo-reviewable-badge trkref=\"FOO\" sku=\"ABC123\" variant=\"undecorated\"></reevoo-reviewable-badge>");
     }
 
     @Test
     public void testThatIfVariantNameOtherThanUndecoratedItPrintsTheRightAnchorClass() {
-        reevooTag.setVariantName("search_page");
+        reevooTag.setDynamicAttribute("", "variant", "search_page");
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark search_page_variant\" href=\"//test.reevoo.com/partner/FOO/ABC123\"></a>");
+        verifyOutput("<reevoo-reviewable-badge trkref=\"FOO\" sku=\"ABC123\" variant=\"search_page\"></reevoo-reviewable-badge>");
     }
 
     @Test
     public void testThatTheTagBodyGoesAsTheAnchorBody() {
         setBody("click here");
         processTagLifecycle();
-        verifyOutput("<a class=\"reevoomark\" href=\"//test.reevoo.com/partner/FOO/ABC123\">click here</a>");
+        verifyOutput("<reevoo-reviewable-badge trkref=\"FOO\" sku=\"ABC123\">click here</reevoo-reviewable-badge>");
     }
 }
