@@ -37,11 +37,11 @@ public abstract class AbstractReevooTag extends BodyTagSupport implements Dynami
    /**
     * Called automatically by the jsp engine when it finds a tag that explicitly includes a dynamic attribute.
     * @param uri
-    * @param localName This is the attribute name
+    * @param name This is the attribute name
     * @param value This is the attribute value.
     */
-    public void setDynamicAttribute(String uri, String localName, Object value) {
-      dynamicAttrs.put(localName, value.toString());
+    public void setDynamicAttribute(String uri, String name, Object value) {
+      dynamicAttrs.put(name, value.toString());
     }
 
 }

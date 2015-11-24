@@ -107,11 +107,11 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
             // with the parameter "reviews" instead of the parameter "per_page".
             queryStringParams.put("reviews",this.numberOfReviews);
         }
-        if (this.dynamicAttrs != null) {
-          for (Map.Entry<String,String> entry : this.dynamicAttrs.entrySet()) {
-            queryStringParams.put(this.to_camel_case(entry.getKey()), entry.getValue());
-          };
-        }
+
+        for (Map.Entry<String,String> entry : this.dynamicAttrs.entrySet()) {
+          queryStringParams.put(this.toCamelCase(entry.getKey()), entry.getValue());
+        };
+
         return queryStringParams;
     }
 
@@ -119,7 +119,7 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
     /**
      * Transforms attribute name from camel case to snake case.
      */
-    protected String to_camel_case(String attributeName) {
+    protected String toCamelCase(String attributeName) {
       return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, attributeName);
     }
 
