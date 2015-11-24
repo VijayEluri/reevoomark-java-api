@@ -33,7 +33,10 @@
 <h2>Unsuccessful Product Reviews should show the fallback text</h2>
 <reevoo:productReviews sku="10" locale="fr-FR" numberOfReviews="23">THIS IS THE FALLBACK TEXT</reevoo:productReviews>
 
+<h2>AUTOMOTIVE</h2>
+<reevoo:productReviews trkref="FMC" model="fiesta" doors="3" manufacturer="ford" paginated="true" modelVariant="studio" />
 
-<reevoo:javascriptAssets trkref="REV,CYS,EBU,PIU,HYU"/>
+<reevoo:javascriptAssets trkref="FMC,REV,CYS,EBU,PIU,HYU"/>
+
 </body>
 </html>

@@ -6,10 +6,6 @@ import javax.servlet.jsp.tagext.DynamicAttributes;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.common.base.CaseFormat;
-
-
-
 /**
  * Abstract superclass that contains common functionality to "all" of reevoo tag libs.
  * All of the tags in the tag library should be a direct or indirect descendant of this class.
@@ -24,15 +20,9 @@ public abstract class AbstractReevooTag extends BodyTagSupport implements Dynami
     protected String trkref = TaglibConfig.getProperty("default.trkref");
 
     /**
-     * This variable will be populated automatically with the value of the "sku" attribute, if
-     * such attribute is found in the jsp tag, or left empty otherwise.
-     */
-    protected String sku = null;
-
-    /**
      * Map with all the dynamic attributes.
      */
-    protected Map<String,Object> dynamicAttrs = new HashMap<String,Object>();
+    protected Map<String,String> dynamicAttrs = new HashMap<String,String>();
 
     /**
      * Called automatically by the jps engine when it finds a tag that explicitly includes a "trkref" attribute.
@@ -44,23 +34,14 @@ public abstract class AbstractReevooTag extends BodyTagSupport implements Dynami
         }
     }
 
-    /**
-     * Called automatically by the jsp engine when it finds a tag that explicitly includes a "sku" attribute.
-     * @param sku
-     */
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
-
+   /**
+    * Called automatically by the jsp engine when it finds a tag that explicitly includes a dynamic attribute.
+    * @param uri
+    * @param localName This is the attribute name
+    * @param value This is the attribute value.
+    */
     public void setDynamicAttribute(String uri, String localName, Object value) {
-      dynamicAttrs.put(localName, value);
-    }
-
-    /**
-     * Transforms attribute name from camel case to snake case.
-     */
-    protected String to_camel_case(String attributeName) {
-      return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, attributeName);
+      dynamicAttrs.put(localName, value.toString());
     }
 
 }

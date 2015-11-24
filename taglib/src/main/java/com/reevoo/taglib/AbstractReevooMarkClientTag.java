@@ -9,14 +9,13 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.google.common.base.CaseFormat;
+
 /**
  * Abstract superclass that contains common functionality to "all" of reevoo the tag libs which
  * need to use a <@link>ReevooMarkClient</@link> instance to get content from the reevoo servers.
  */
 public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
-
-    // will be initialized to the value of the "locale" attribute in the jsp tag.
-    protected String locale;
 
     // will be initialized to the value of the "numberOfReviews" attribute in the jsp tag.
     protected String numberOfReviews;
@@ -39,15 +38,6 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
             TaglibConfig.getProperty("http.proxyHost"),
             TaglibConfig.getProperty("http.proxyPort")
         );
-    }
-
-    /**
-     * Method called automatically by the jsp engine to set the value of
-     * the "locale" attribute in the jsp tag.
-     * @param locale
-     */
-    public void setLocale(String locale) {
-        this.locale = locale;
     }
 
     /**
@@ -105,8 +95,6 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
     private Map<String,String> buildQueryStringParamsMap() {
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", trkref);
-        queryStringParams.put("sku",sku);
-        queryStringParams.put("locale",this.locale);
         if (this.paginated) {
             queryStringParams.put("page", request.getParameter("reevoo_page"));
             queryStringParams.put("per_page", (this.numberOfReviews==null || this.numberOfReviews.trim().equals(""))?"default":this.numberOfReviews);
@@ -120,11 +108,19 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
             queryStringParams.put("reviews",this.numberOfReviews);
         }
         if (this.dynamicAttrs != null) {
-          for (Map.Entry<String,Object> entry : this.dynamicAttrs.entrySet()) {
-            queryStringParams.put(this.to_camel_case(entry.getKey()), entry.getValue().toString());
+          for (Map.Entry<String,String> entry : this.dynamicAttrs.entrySet()) {
+            queryStringParams.put(this.to_camel_case(entry.getKey()), entry.getValue());
           };
         }
         return queryStringParams;
+    }
+
+
+    /**
+     * Transforms attribute name from camel case to snake case.
+     */
+    protected String to_camel_case(String attributeName) {
+      return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, attributeName);
     }
 
 }

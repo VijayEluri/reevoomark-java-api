@@ -12,33 +12,23 @@ import java.io.IOException;
  * Usage:
  * <p/>
  * <reevoo:propensityToBuyTrackingEvent trkref="REV" action="Requested Brochure" sku="234"/>
+ *
+ * The "action" attribute is a label given by the tag user to the propensity to buy tracking event. Can be any string.
  */
 public class ReevooPropensityToBuyTrackingEvent extends AbstractReevooTag {
-
-    /**
-     * A label given by the tag user to the propensity to buy tracking event. Can be any string.
-     */
-    protected String action = null;
 
     @Override
     public int doStartTag() throws JspException {
         try {
+            String sku = dynamicAttrs.get("sku") ;
             pageContext.getOut().write(
-                String.format(TaglibConfig.getPropensityToBuyScript(), trkref, action,
+                String.format(TaglibConfig.getPropensityToBuyScript(), trkref, dynamicAttrs.get("action"),
                     sku != null && !sku.trim().equals("") ? sku : "Global CTA")
             );
             return SKIP_BODY;
         } catch (IOException e) {
             throw new JspException(e);
         }
-    }
-
-    /**
-     * Called automatically by the jsp engine when it finds a tag that explicitly includes a "action" attribute.
-     * @param action
-     */
-    public void setAction(String action) {
-        this.action = action;
     }
 
 }
