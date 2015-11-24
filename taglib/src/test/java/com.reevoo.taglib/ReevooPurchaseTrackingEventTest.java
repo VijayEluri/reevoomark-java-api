@@ -14,8 +14,8 @@ public class ReevooPurchaseTrackingEventTest extends BasicTagTestCaseAdapter {
     public void setUp() throws Exception {
         super.setUp();
         reevooTag.setTrkref("FOO");
-        reevooTag.setSkus("AAA,BBB,CCC");
-        reevooTag.setValue("234");
+        reevooTag.setDynamicAttribute("", "skus", "AAA,BBB,CCC");
+        reevooTag.setDynamicAttribute("", "value", "234");
         setTag(reevooTag);
     }
 

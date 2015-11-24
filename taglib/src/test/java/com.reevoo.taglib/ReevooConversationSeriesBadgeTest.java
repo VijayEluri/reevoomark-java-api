@@ -13,7 +13,7 @@ public class ReevooConversationSeriesBadgeTest extends BasicTagTestCaseAdapter {
     {
         super.setUp();
         conversationSeriesBadgeTag.setTrkref("FOO");
-        conversationSeriesBadgeTag.setSku("ABC123");
+        conversationSeriesBadgeTag.setDynamicAttribute("", "sku", "ABC123");
         setTag(conversationSeriesBadgeTag);
     }
 

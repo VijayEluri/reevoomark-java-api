@@ -10,6 +10,7 @@ import com.mockrunner.tag.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.HashMap;
 
 
 public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
@@ -22,7 +23,7 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
     public void setUp() throws Exception {
         super.setUp();
         productReviewsTag.setTrkref("FOO");
-        productReviewsTag.setSku("12345");
+        productReviewsTag.setDynamicAttribute("", "sku", "12345");
         productReviewsTag.setClient(markClient);
         setTag(productReviewsTag);
     }
@@ -33,14 +34,13 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", "FOO");
         queryStringParams.put("sku", "12345");
-        queryStringParams.put("locale", null);
         queryStringParams.put("reviews", null);
         verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
     }
 
     @Test
     public void testTagCallsClientWithCorrectAttributesAndEndpointWhenUsingLocale() {
-        productReviewsTag.setLocale("fr-FR");
+        productReviewsTag.setDynamicAttribute("", "locale", "fr-FR");
         processTagLifecycle();
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", "FOO");
@@ -57,7 +57,6 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", "FOO");
         queryStringParams.put("sku", "12345");
-        queryStringParams.put("locale", null);
         queryStringParams.put("reviews", "10");
         verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
     }
@@ -65,7 +64,7 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
     @Test
     public void testTagCallsClientWithCorrectAttributesAndEndpointWhenUsingLocaleAndNumberOfReviews() {
         productReviewsTag.setNumberOfReviews("10");
-        productReviewsTag.setLocale("fr-FR");
+        productReviewsTag.setDynamicAttribute("", "locale", "fr-FR");
         processTagLifecycle();
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", "FOO");
@@ -98,8 +97,6 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         processTagLifecycle();
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", "REV");
-        queryStringParams.put("sku", null);
-        queryStringParams.put("locale", null);
         queryStringParams.put("reviews", null);
         verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
     }
@@ -110,8 +107,8 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         productReviewsTag.setClient(markClient);
         productReviewsTag.setPaginated(true);
         productReviewsTag.setNumberOfReviews("5");
-        productReviewsTag.setLocale("en-GB");
-        productReviewsTag.setSku("123");
+        productReviewsTag.setDynamicAttribute("", "locale", "en-GB");
+        productReviewsTag.setDynamicAttribute("", "sku", "123");
         setTag(productReviewsTag);
         processTagLifecycle();
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
@@ -127,6 +124,30 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         productReviewsTag.setNumberOfReviews(null);
         processTagLifecycle();
         queryStringParams.put("per_page", "default");
+        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
+    }
+
+    @Test
+    public void testDynamicAttributes() {
+        productReviewsTag = new ReevooProductReviews();
+        productReviewsTag.setClient(markClient);
+        productReviewsTag.setDynamicAttribute("", "locale", "en-GB");
+        productReviewsTag.setDynamicAttribute("", "model", "fiesta");
+        productReviewsTag.setDynamicAttribute("","modelVariant","studio");
+        productReviewsTag.setDynamicAttribute("","manufacturer","ford");
+        productReviewsTag.setDynamicAttribute("","doors","5");
+        productReviewsTag.setDynamicAttribute("","fuelType","PETROL");
+        setTag(productReviewsTag);
+        processTagLifecycle();
+        Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
+        queryStringParams.put("trkref", "REV");
+        queryStringParams.put("manufacturer", "ford");
+        queryStringParams.put("model", "fiesta");
+        queryStringParams.put("model_variant", "studio");
+        queryStringParams.put("doors", "5");
+        queryStringParams.put("fuel_type", "PETROL");
+        queryStringParams.put("locale", "en-GB");
+        queryStringParams.put("reviews", null);
         verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
     }
 

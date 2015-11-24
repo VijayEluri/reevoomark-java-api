@@ -55,7 +55,7 @@ For example, if your trkref is "REV" and you want to set it as a global property
   default.trkref=REV
 ```
 
-Once you have done this, you can use all the jsp tags offered by the library without the need to specify the trkref attribute each time. For example you would use 
+Once you have done this, you can use all the jsp tags offered by the library without the need to specify the trkref attribute each time. For example you would use
 
 ```JSP
   <reevoo:javascriptAssets/>
@@ -77,7 +77,7 @@ If you've already created the "reevooTaglibConfig.properties" file to add the "d
 ```
   http.proxyHost=www.myproxyhost.com
   http.proxyPort=9999
-``` 
+```
 
 Make sure to replace "www.myproxyhost.com" and "9999" for the real values of your proxy.
 
@@ -217,6 +217,7 @@ Make sure to replace `<TRKREF>` and `<VARIANT_NAME>` with the appropriate values
 
 ### Embedded Product Review Content
 
+#### For SKU Based Products
 To render "embedded review content" you can use any of the below.
 The ```sku``` attribute is compulsory but ```trkref```, ```locale```, ```numberOfReviews```  and ```paginated``` are optional.
 
@@ -224,9 +225,9 @@ Make sure to replace `<SKU>` and `<TRKREF>`, `<LOCALE>` and `<NUMBEROFREVIEWS>` 
 Any combination of the optional attributes is possible. Below we show some examples:
 
 ```JSP
-  <reevoo:productReviews sku="<SKU>" />
+  <reevoo:productReviews sku="<SKU>"/>
   <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>"/>
-  <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>" locale="<LOCALE>" />
+  <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>" locale="<LOCALE>"/>
   <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>" locale="en-GB" numberOfReviews="<NUMBEROFREVIEWS>"/>
   <reevoo:productReviews sku="<SKU>" trkref="<TRKREF>" numberOfReviews="<NUMBEROFREVIEWS>" paginated="true"/>
 ```
@@ -238,6 +239,30 @@ If you would like to fall back to some content when Reevoo content is not availa
 
 ```JSP
   <reevoo:productReviews sku="<SKU>">
+    <p>Sorry we don't have any reviews available right now</p>
+  </reevoo:productReviews>
+```
+
+#### For Automotive Products
+
+Automotive products don't use sku to identify products, they use instead a combination of model, model variant and manufacturer.
+
+To render "embedded review content" for automotive products you can use any of the below.
+
+```JSP
+  <reevoo:productReviews model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>"/>
+  <reevoo:productReviews model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" trkref="<TRKREF>"/>
+  <reevoo:productReviews model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" locale="<LOCALE>"/>
+  <reevoo:productReviews model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" trkref="<TRKREF>" locale="en-GB" numberOfReviews="<NUMBEROFREVIEWS>"/>
+  <reevoo:productReviews model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" numberOfReviews="<NUMBEROFREVIEWS>" paginated="true"/>
+```
+
+If you set the ```paginated``` attribute to true, the embedded reviews will show pagination links.
+
+If you would like to fall back to some content when Reevoo content is not available, just specify it within the tag:
+
+```JSP
+  <reevoo:productReviews model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>">
     <p>Sorry we don't have any reviews available right now</p>
   </reevoo:productReviews>
 ```
@@ -369,7 +394,7 @@ In the tag above:
 * Replace the value of the "action" attribute with a string desccribing the type of event that you want to track, can be anything you want like "user visited the buy now page" or "user requested brochure" or "user requested a test drive", etc...
 * The "sku" attribute is optional, you only have to include it if you want to link the tracking event to a specific product sku, otherwise just leave it empty.
 
-All this tracking information will be available to you on your Google Analytics account. 
+All this tracking information will be available to you on your Google Analytics account.
 
 ### OSGI Support
 

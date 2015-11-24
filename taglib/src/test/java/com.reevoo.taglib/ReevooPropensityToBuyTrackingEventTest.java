@@ -14,7 +14,7 @@ public class ReevooPropensityToBuyTrackingEventTest extends BasicTagTestCaseAdap
     public void setUp() throws Exception {
         super.setUp();
         reevooTag.setTrkref("FOO");
-        reevooTag.setAction("Checking Brochure");
+        reevooTag.setDynamicAttribute("", "action", "Checking Brochure");
         setTag(reevooTag);
     }
 
@@ -38,7 +38,7 @@ public class ReevooPropensityToBuyTrackingEventTest extends BasicTagTestCaseAdap
 
     @Test
     public void testTagOutputsSkuWhenSkuProvided() {
-        reevooTag.setSku("AAA");
+        reevooTag.setDynamicAttribute("", "sku", "AAA");
         processTagLifecycle();
         verifyOutputContains("AAA");
     }

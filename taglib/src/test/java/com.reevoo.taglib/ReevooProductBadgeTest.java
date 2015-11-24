@@ -13,7 +13,7 @@ public class ReevooProductBadgeTest extends BasicTagTestCaseAdapter {
     public void setUp() throws Exception {
         super.setUp();
         reevooTag.setTrkref("FOO");
-        reevooTag.setSku("ABC123");
+        reevooTag.setDynamicAttribute("", "sku", "ABC123");
         setTag(reevooTag);
     }
 
@@ -26,7 +26,7 @@ public class ReevooProductBadgeTest extends BasicTagTestCaseAdapter {
     @Test
     public void testIfTrkrefNotSpecifyItWillUseTheOneDefinedInTheConfigurationFile() {
         reevooTag = new ReevooProductBadge();
-        reevooTag.setSku("ABC123");
+        reevooTag.setDynamicAttribute("", "sku", "ABC123");
         setTag(reevooTag);
         processTagLifecycle();
         verifyOutput(String.format("<a class=\"reevoomark\" href=\"//test.reevoo.com/partner/%s/ABC123\"></a>", TaglibConfig.getProperty("default.trkref")));
@@ -53,4 +53,3 @@ public class ReevooProductBadgeTest extends BasicTagTestCaseAdapter {
         verifyOutput("<a class=\"reevoomark\" href=\"//test.reevoo.com/partner/FOO/ABC123\">click here</a>");
     }
 }
-

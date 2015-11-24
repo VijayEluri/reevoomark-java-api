@@ -2,13 +2,15 @@ package com.reevoo.taglib;
 
 import com.reevoo.utils.TaglibConfig;
 import javax.servlet.jsp.tagext.BodyTagSupport;
-
+import javax.servlet.jsp.tagext.DynamicAttributes;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Abstract superclass that contains common functionality to "all" of reevoo tag libs.
  * All of the tags in the tag library should be a direct or indirect descendant of this class.
  */
-public abstract class AbstractReevooTag extends BodyTagSupport {
+public abstract class AbstractReevooTag extends BodyTagSupport implements DynamicAttributes {
 
     /**
      * Default value of the trkref attribute will be the one in the configuration file.
@@ -18,10 +20,9 @@ public abstract class AbstractReevooTag extends BodyTagSupport {
     protected String trkref = TaglibConfig.getProperty("default.trkref");
 
     /**
-     * This variable will be populated automatically with the value of the "sku" attribute, if
-     * such attribute is found in the jsp tag, or left empty otherwise.
+     * Map with all the dynamic attributes.
      */
-    protected String sku = null;
+    protected Map<String,String> dynamicAttrs = new HashMap<String,String>();
 
     /**
      * Called automatically by the jps engine when it finds a tag that explicitly includes a "trkref" attribute.
@@ -33,12 +34,14 @@ public abstract class AbstractReevooTag extends BodyTagSupport {
         }
     }
 
-    /**
-     * Called automatically by the jsp engine when it finds a tag that explicitly includes a "sku" attribute.
-     * @param sku
-     */
-    public void setSku(String sku) {
-        this.sku = sku;
+   /**
+    * Called automatically by the jsp engine when it finds a tag that explicitly includes a dynamic attribute.
+    * @param uri
+    * @param name This is the attribute name
+    * @param value This is the attribute value.
+    */
+    public void setDynamicAttribute(String uri, String name, Object value) {
+      dynamicAttrs.put(name, value.toString());
     }
 
 }
