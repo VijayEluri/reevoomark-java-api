@@ -112,6 +112,26 @@ It also has support for multiple TRKREF'S.
 ```JSP
   <reevoo:javascriptAssets trkref="WAS,CYS,REV" />
 ```
+### IE8 Support
+
+In order to enable support for IE8 you need to include an additional file in the head of your pages, as shown in the snippet below.
+
+```HTML
+<head>
+  ...
+  <!--[if lte IE 8]><script src="//cdn.mark.reevoo.com/assets/ie8.js"></script><![endif]-->
+</head>
+```
+It is important that this script is loaded into the page synchronously before rendering begins in IE8 or we will not be able to display badges, so please put it on the HEAD section just as shown in the snippet above.
+
+For IE8 support, please include also <!DOCTYPE html> just before your opening html tag, as shown in the snippet below.
+
+```HTML
+<!DOCTYPE html>
+<html>
+.....
+</html>
+```
 
 ### Standard Badges
 
