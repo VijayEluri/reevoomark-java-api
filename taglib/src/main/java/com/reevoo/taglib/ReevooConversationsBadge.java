@@ -17,8 +17,8 @@ public class ReevooConversationsBadge extends AbstractBadgeTag {
 
     @Override
     public String getContent() {
-        return String.format("<a class=\"reevoomark reevoo-conversations%s\" href=\"%s/partner/%s/%s\">%s</a>",
-            getVariantName(), getBaseUrl(), trkref, dynamicAttrs.get("sku"), getBodyContentString());
+        return String.format("<reevoo-conversations-badge trkref=\"%s\"%s>%s</reevoo-conversations-badge>",
+           trkref, concatenateDynamicAttributes(), getBodyContentString());
     }
 
 }

@@ -19,21 +19,21 @@ public class ReevooCustomerServiceRatingBadgeTest extends BasicTagTestCaseAdapte
     @Test
     public void testFormatsTheCorrectAnchor() {
         processTagLifecycle();
-        verifyOutput("<a href=\"//test.reevoo.com/retailer/FOO\" class=\"reevoo_reputation customer_service\"></a>");
+        verifyOutput("<reevoo-customer-experience-badge trkref=\"FOO\" score=\"customer_service\"></reevoo-customer-experience-badge>");
     }
 
     @Test
     public void testIfTrkrefNotSpecifyItWillUseTheOneDefinedInTheConfigurationFile() {
         setTag(new ReevooCustomerServiceRatingBadge());
         processTagLifecycle();
-        verifyOutput(String.format("<a href=\"//test.reevoo.com/retailer/%s\" class=\"reevoo_reputation customer_service\"></a>", TaglibConfig.getProperty("default.trkref")));
+        verifyOutput(String.format("<reevoo-customer-experience-badge trkref=\"%s\" score=\"customer_service\"></reevoo-customer-experience-badge>", TaglibConfig.getProperty("default.trkref")));
     }
 
     @Test
     public void testThatIfVariantNamePresentItPrintsTheRightAnchorClass() {
-        customerServiceTag.setVariantName("undecorated");
+        customerServiceTag.setDynamicAttribute("", "variant", "undecorated");
         processTagLifecycle();
-        verifyOutput("<a href=\"//test.reevoo.com/retailer/FOO\" class=\"reevoo_reputation customer_service undecorated\"></a>");
+        verifyOutput("<reevoo-customer-experience-badge trkref=\"FOO\" score=\"customer_service\" variant=\"undecorated\"></reevoo-customer-experience-badge>");
     }
 
 
@@ -41,6 +41,6 @@ public class ReevooCustomerServiceRatingBadgeTest extends BasicTagTestCaseAdapte
     public void testThatTheTagBodyGoesAsTheAnchorBody() {
         setBody("click here");
         processTagLifecycle();
-        verifyOutput("<a href=\"//test.reevoo.com/retailer/FOO\" class=\"reevoo_reputation customer_service\">click here</a>");
+        verifyOutput("<reevoo-customer-experience-badge trkref=\"FOO\" score=\"customer_service\">click here</reevoo-customer-experience-badge>");
     }
 }

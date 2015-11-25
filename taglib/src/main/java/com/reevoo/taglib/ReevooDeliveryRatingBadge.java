@@ -16,8 +16,8 @@ public class ReevooDeliveryRatingBadge extends AbstractBadgeTag {
 
     @Override
     public String getContent() {
-        return String.format("<a href=\"%s/retailer/%s\" class=\"reevoo_reputation delivery%s\">%s</a>",
-            getBaseUrl(), trkref, getVariantName(), getBodyContentString());
+      return String.format("<reevoo-customer-experience-badge trkref=\"%s\" score=\"delivery\"%s>%s</reevoo-customer-experience-badge>",
+          trkref, concatenateDynamicAttributes(), getBodyContentString());
     }
 
 }

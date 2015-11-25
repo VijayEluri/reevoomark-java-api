@@ -3,8 +3,10 @@ package com.reevoo.taglib;
 import com.reevoo.utils.TaglibConfig;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.tagext.DynamicAttributes;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+
+import com.google.common.base.CaseFormat;
 
 /**
  * Abstract superclass that contains common functionality to "all" of reevoo tag libs.
@@ -22,7 +24,7 @@ public abstract class AbstractReevooTag extends BodyTagSupport implements Dynami
     /**
      * Map with all the dynamic attributes.
      */
-    protected Map<String,String> dynamicAttrs = new HashMap<String,String>();
+    protected Map<String,String> dynamicAttrs = new LinkedHashMap<String,String>();
 
     /**
      * Called automatically by the jps engine when it finds a tag that explicitly includes a "trkref" attribute.
@@ -42,6 +44,13 @@ public abstract class AbstractReevooTag extends BodyTagSupport implements Dynami
     */
     public void setDynamicAttribute(String uri, String name, Object value) {
       dynamicAttrs.put(name, value.toString());
+    }
+
+    /**
+     * Transforms attribute name from camel case to snake case.
+     */
+    protected String toCamelCase(String attributeName) {
+      return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, attributeName);
     }
 
 }

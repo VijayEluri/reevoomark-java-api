@@ -5,16 +5,14 @@ import com.reevoo.utils.TaglibConfig;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyContent;
 import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Superclass for all badge type tags which contains common functionality to all
  * badge type tags.
  */
 public abstract class AbstractBadgeTag extends AbstractReevooTag {
-
-
-    // will be initialized to the value of teh "variantName" attribute in the jsp tag.
-    private String variantName;
 
     @Override
     public int doEndTag() throws JspException {
@@ -27,25 +25,6 @@ public abstract class AbstractBadgeTag extends AbstractReevooTag {
             throw new JspException(e);
         }
         return EVAL_PAGE;
-    }
-
-    /**
-     * Method called automatically by the jsp engine to set the value of the
-     * "variantName" attribute in the jsp tag.
-     * @param variantName
-     */
-    public void setVariantName(String variantName) {
-        if (variantName != null && !variantName.trim().isEmpty()) {
-            if (!variantName.endsWith("_variant")  && !variantName.equals("undecorated")) {
-                this.variantName = variantName + "_variant";
-            } else {
-                this.variantName = variantName;
-            }
-        }
-    }
-
-    protected String getVariantName() {
-        return variantName!=null && !variantName.trim().isEmpty()?" " + variantName:"";
     }
 
     protected String getBaseUrl() {
@@ -65,6 +44,25 @@ public abstract class AbstractBadgeTag extends AbstractReevooTag {
     protected String getBodyContentString() {
         BodyContent bodyContent = getBodyContent();
         return bodyContent != null ? bodyContent.getString() : "";
+    }
+
+    protected String concatenateDynamicAttributes() {
+        StringBuilder tagBuilder = new StringBuilder();
+        for (Map.Entry<String,String> entry : this.dynamicAttrs.entrySet()) {
+          tagBuilder.append(String.format(" %s=\"%s\"", keyName(entry.getKey()), entry.getValue()));
+        };
+        return tagBuilder.toString();
+    }
+
+    /**
+     * Some attributes have a different name in the jsp tag and in the web component so
+     * we need to do the conversion for those.
+     */
+    private String keyName(String key) {
+        if (key.equals("variantName")) {
+            key = "variant";
+        }
+        return toCamelCase(key);
     }
 
 }

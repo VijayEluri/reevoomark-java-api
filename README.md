@@ -117,30 +117,60 @@ It also has support for multiple TRKREF'S.
 
 #### Product Badge
 
-To render "product badges" you can use any of the below.
-The ```sku``` is compulsory but ```trkref``` and ```variantName``` are optional.
+##### For SKU Based Products
 
-Make sure to replace `<SKU>`,`<TRKREF>` and `<VARIANT_NAME>` with the appropriate values.
+To render "product badges" you can use any of the below.
+The ```sku``` is compulsory but ```trkref``` and ```variant``` are optional.
+
+Make sure to replace `<SKU>`,`<TRKREF>` and `<VARIANT>` with the appropriate values.
 
 ```JSP
   <reevoo:productBadge sku="<SKU>" />
   <reevoo:productBadge sku="<SKU>" trkref="<TRKREF>"/>
-  <reevoo:productBadge sku="<SKU>" variantName="undecorated"/>
-  <reevoo:productBadge sku="<SKU>" trkref="<TRKREF>" variantName="stars_only"/>
+  <reevoo:productBadge sku="<SKU>" variant="undecorated"/>
+  <reevoo:productBadge sku="<SKU>" trkref="<TRKREF>" variant="stars_only"/>
+```
+
+##### For Automotive Products
+
+Automotive products don't use sku to identify products, they use instead a combination of model, model variant and manufacturer.
+
+To render "product badges" for automotive products you can use any of the below.
+
+```JSP
+  <reevoo:productBadge model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" />
+  <reevoo:productBadge model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" trkref="<TRKREF>"/>
+  <reevoo:productBadge model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" variant="undecorated"/>
+  <reevoo:productBadge model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" trkref="<TRKREF>" variant="stars_only"/>
 ```
 
 #### Conversations Badge
 
-To render "conversations badges" you can use any of the below.
-The ```sku``` is compulsory but ```trkref``` and ```variantName``` are optional.
+##### For SKU Based Products
 
-Make sure to replace `<SKU>`,`<TRKREF>` and `<VARIANT_NAME>` with the appropriate values.
+To render "conversations badges" you can use any of the below.
+The ```sku``` is compulsory but ```trkref``` and ```variant``` are optional.
+
+Make sure to replace `<SKU>`,`<TRKREF>` and `<VARIANT>` with the appropriate values.
 
 ```JSP
   <reevoo:conversationsBadge sku="<SKU>" />
   <reevoo:conversationsBadge sku="<SKU>" trkref="<TRKREF>"/>
-  <reevoo:conversationsBadge sku="<SKU>" variantName="undecorated"/>
-  <reevoo:conversationsBadge sku="<SKU>" trkref="<TRKREF>" variantName="<VARIANT_NAME>"/>
+  <reevoo:conversationsBadge sku="<SKU>" variant="undecorated"/>
+  <reevoo:conversationsBadge sku="<SKU>" trkref="<TRKREF>" variant="<VARIANT>"/>
+```
+
+##### For Automotive Products
+
+Automotive products don't use sku to identify products, they use instead a combination of model, model variant and manufacturer.
+
+To render "conversations badges" for automotive products you can use any of the below.
+
+```JSP
+  <reevoo:conversationsBadge model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" />
+  <reevoo:conversationsBadge model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" trkref="<TRKREF>"/>
+  <reevoo:conversationsBadge model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" variant="undecorated"/>
+  <reevoo:conversationsBadge model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" trkref="<TRKREF>" variant="stars_only"/>
 ```
 
 ### Series Badges
@@ -148,71 +178,71 @@ Make sure to replace `<SKU>`,`<TRKREF>` and `<VARIANT_NAME>` with the appropriat
 #### Product Badges
 
 To render "product series badges" you can use any of the below.
-The ```sku``` is compulsory and should be set to the series id. The ```trkref``` and ```variantName``` are optional.
+The ```sku``` is compulsory and should be set to the series id. The ```trkref``` and ```variant``` are optional.
 
-Make sure to replace `<SKU>`,`<TRKREF>` and `<VARIANT_NAME>` with the appropriate values.
+Make sure to replace `<SKU>`,`<TRKREF>` and `<VARIANT>` with the appropriate values.
 
 ```JSP
   <reevoo:productSeriesBadge sku="<SKU>" />
   <reevoo:productSeriesBadge sku="<SKU>" trkref="<TRKREF>"/>
-  <reevoo:productSeriesBadge sku="<SKU>" variantName="undecorated"/>
-  <reevoo:productSeriesBadge sku="<SKU>" trkref="<TRKREF>" variantName="<VARIANT_NAME>"/>
+  <reevoo:productSeriesBadge sku="<SKU>" variant="undecorated"/>
+  <reevoo:productSeriesBadge sku="<SKU>" trkref="<TRKREF>" variant="<VARIANT>"/>
 ```
 
 #### Conversations Badges
 
 To render "conversation series badges" you can use any of the below.
-The ```sku``` is compulsory and should be set to the series id. The ```trkref``` and ```variantName``` are optional.
+The ```sku``` is compulsory and should be set to the series id. The ```trkref``` and ```variant``` are optional.
 
-Make sure to replace `<SKU>`,`<TRKREF>` and `<VARIANT_NAME>` with the appropriate values.
+Make sure to replace `<SKU>`,`<TRKREF>` and `<VARIANT>` with the appropriate values.
 
 ```JSP
   <reevoo:conversationSeriesBadge sku="<SKU>" />
   <reevoo:conversationSeriesBadge sku="<SKU>" trkref="<TRKREF>"/>
-  <reevoo:conversationSeriesBadge sku="<SKU>" variantName="undecorated"/>
-  <reevoo:conversationSeriesBadge sku="<SKU>" trkref="<TRKREF>" variantName="<VARIANT_NAME>"/>
+  <reevoo:conversationSeriesBadge sku="<SKU>" variant="undecorated"/>
+  <reevoo:conversationSeriesBadge sku="<SKU>" trkref="<TRKREF>" variant="<VARIANT>"/>
 ```
 
 ### Overall Service Rating Badges
 
 To render "Overall Service Rating badges" you can use any of the below.
-The ```trkref``` and ```variantName``` are optional.
+The ```trkref``` and ```variant``` are optional.
 
-Make sure to replace `<TRKREF>` and `<VARIANT_NAME>` with the appropriate values.
+Make sure to replace `<TRKREF>` and `<VARIANT>` with the appropriate values.
 
 ```JSP
   <reevoo:overallServiceRatingBadge/>
   <reevoo:overallServiceRatingBadge trkref="<TRKREF>"/>
-  <reevoo:overallServiceRatingBadge variantName="undecorated"/>
-  <reevoo:overallServiceRatingBadge trkref="<TRKREF>" variantName="<VARIANT_NAME>"/>
+  <reevoo:overallServiceRatingBadge variant="undecorated"/>
+  <reevoo:overallServiceRatingBadge trkref="<TRKREF>" variant="<VARIANT>"/>
 ```
 
 ### Customer Service Rating Badges
 
 To render "Customer Service Rating badges" you can use any of the below.
-The ```trkref``` and ```variantName``` are optional.
+The ```trkref``` and ```variant``` are optional.
 
-Make sure to replace `<TRKREF>` and `<VARIANT_NAME>` with the appropriate values.
+Make sure to replace `<TRKREF>` and `<VARIANT>` with the appropriate values.
 
 ```JSP
   <reevoo:customerServiceRatingBadge/>
   <reevoo:customerServiceRatingBadge trkref="<TRKREF>"/>
-  <reevoo:customerServiceRatingBadge variantName="undecorated"/>
-  <reevoo:overallServiceRatingBadge trkref="<TRKREF>" variantName="<VARIANT_NAME>"/>
+  <reevoo:customerServiceRatingBadge variant="undecorated"/>
+  <reevoo:overallServiceRatingBadge trkref="<TRKREF>" variant="<VARIANT>"/>
 ```
 
 ### Delivery Rating Badges
 
 To render "Delivery Rating badges" you can use any of the below.
-The ```trkref``` and ```variantName``` are optional.
+The ```trkref``` and ```variant``` are optional.
 
-Make sure to replace `<TRKREF>` and `<VARIANT_NAME>` with the appropriate values.
+Make sure to replace `<TRKREF>` and `<VARIANT>` with the appropriate values.
 
 ```JSP
   <reevoo:deliveryRatingBadge/>
   <reevoo:deliveryRatingBadge trkref="<TRKREF>"/>
-  <reevoo:deliveryRatingBadge variantName="undecorated"/>
-  <reevoo:deliveryRatingBadge trkref="<TRKREF>" variantName="<VARIANT_NAME>"/>
+  <reevoo:deliveryRatingBadge variant="undecorated"/>
+  <reevoo:deliveryRatingBadge trkref="<TRKREF>" variant="<VARIANT>"/>
 ```
 
 ### Embedded Product Review Content

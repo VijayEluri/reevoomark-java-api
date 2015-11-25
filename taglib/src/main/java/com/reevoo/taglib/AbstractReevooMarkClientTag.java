@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.google.common.base.CaseFormat;
-
 /**
  * Abstract superclass that contains common functionality to "all" of reevoo the tag libs which
  * need to use a <@link>ReevooMarkClient</@link> instance to get content from the reevoo servers.
@@ -113,14 +111,6 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
         };
 
         return queryStringParams;
-    }
-
-
-    /**
-     * Transforms attribute name from camel case to snake case.
-     */
-    protected String toCamelCase(String attributeName) {
-      return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, attributeName);
     }
 
 }
