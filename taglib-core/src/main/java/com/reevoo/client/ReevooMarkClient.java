@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.Map;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.BufferedReader;
@@ -20,9 +21,21 @@ import org.apache.commons.httpclient.methods.GetMethod;
  */
 public class ReevooMarkClient {
     protected HttpClient client;
+    private Properties config;
+    private int failedRequestCacheTime;
+    private int circuitBreakerWaitTime;
+    private int circuitBreakerLimit;
 
-    public ReevooMarkClient(int connectTimeout, String proxyHost, String proxyPort) {
-        this.client = HttpClientFactory.build(connectTimeout, proxyHost, proxyPort);
+    public ReevooMarkClient(Properties config) {
+        this.config = config;
+        this.client = HttpClientFactory.build(
+                Integer.valueOf(config.getProperty("http.timeout")),
+                config.getProperty("http.proxyHost"),
+                config.getProperty("http.proxyPort"));
+
+        this.failedRequestCacheTime = Integer.valueOf(config.getProperty("http.failed_request.cache_time.in_seconds"));
+        this.circuitBreakerWaitTime = Integer.valueOf(config.getProperty("http.circuit_breaker.wait_time.in_seconds"));
+        this.circuitBreakerLimit = Integer.valueOf(config.getProperty("http.circuit_breaker.number_of_retries"));
     }
 
     public String obtainReevooMarkData(String baseURI, Map<String,String> queryStringParams) {
@@ -50,18 +63,16 @@ public class ReevooMarkClient {
         ReevooMarkRecord cachedResponse = Cache.get(cacheKey);
 
         if (cachedResponse != null && cachedResponse.fresh()) {
-            return cachedResponse.value;
+            return cachedResponse.getValue();
         }
 
         try {
             client.executeMethod(request);
         } catch (Exception e) {
-            return cachedResponse != null ? cachedResponse.value : null;
+            return  cacheFailedRequest(cacheKey, cachedResponse, 500).getValue();
         }
 
         int status = request.getStatusCode();
-        int time_to_live = secondsToLive(request);
-        int review_count = extractReviewCountHeader(request);
         String content;
         if (status == 200) {
             content = getStringContent(request.getResponseBodyAsStream());
@@ -69,12 +80,13 @@ public class ReevooMarkClient {
             content = null;
         }
 
-        if (status >= 500 && cachedResponse != null) {
-            Cache.put(cacheKey, new ReevooMarkRecord(cachedResponse, time_to_live));
-            return cachedResponse.value;
+        if (status >= 400) {
+            return cacheFailedRequest(cacheKey, cachedResponse, status).getValue();
         }
 
-        Cache.put(cacheKey, new ReevooMarkRecord(content, time_to_live, status, review_count));
+        int time_to_live = secondsToLive(request);
+        int review_count = extractReviewCountHeader(request);
+        Cache.put(cacheKey, ReevooMarkRecord.createRecord(content, time_to_live, status, review_count));
         return content;
     }
 
@@ -142,6 +154,44 @@ public class ReevooMarkClient {
         } else {
             return "&";
         }
+    }
+
+    /**
+     * Puts a ReevooMarkRecord instance in the cache for a failed request.
+     *
+     * @param cachedResponse The ReevooMarkRecord instance to cache.
+     * @param status Response error code for the failed request.
+     */
+    private ReevooMarkRecord cacheFailedRequest(String cacheKey, ReevooMarkRecord cachedResponse, int status) {
+        ReevooMarkRecord cacheEntry =
+                ReevooMarkRecord.createRecord(cachedResponse, timeToCacheFailedRequest(cachedResponse), status);
+        Cache.put(cacheKey, cacheEntry);
+        return cacheEntry;
+    }
+
+    /**
+     * Checks whether the specified ReevooMarkRecord instance has reached the configured
+     * maximum number of consecutive failed attempts to get the embedded content from Reevoo servers.
+     *
+     * @param cachedResponse ReevooMarkRecord instance to check
+     * @return true if limit reach; false otherwise
+     */
+    private Boolean maxConsecutiveFailedAttemptsReached(ReevooMarkRecord cachedResponse) {
+        return cachedResponse != null &&
+                cachedResponse.getConsecutiveFailedAttempts() >= this.circuitBreakerLimit;
+    }
+
+    /**
+     * Returns the time to cache a failed request.
+     * @param cachedResponse ReevooMarkRecord instance.
+     * @return The time to cache the failed request in seconds.
+     */
+    private int timeToCacheFailedRequest(ReevooMarkRecord cachedResponse) {
+        int timeToCache = this.failedRequestCacheTime;
+        if (maxConsecutiveFailedAttemptsReached(cachedResponse)) {
+            timeToCache = this.circuitBreakerWaitTime;
+        }
+        return timeToCache;
     }
 
     static String getStringContent(InputStream input) throws java.io.IOException {

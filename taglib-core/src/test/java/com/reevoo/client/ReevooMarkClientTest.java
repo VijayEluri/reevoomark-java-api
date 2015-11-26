@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.io.ByteArrayInputStream;
 
 import org.apache.commons.httpclient.*;
@@ -24,8 +25,9 @@ public class ReevooMarkClientTest {
 
 
     private class ReevooMarkTestClient extends ReevooMarkClient {
-        public ReevooMarkTestClient(int connectTimeout, String proxyHost, String proxyPort) {
-            super(connectTimeout, proxyHost, proxyPort);
+
+        public ReevooMarkTestClient(Properties config) {
+            super(config);
         }
 
         public void setClient(HttpClient client) {
@@ -38,19 +40,19 @@ public class ReevooMarkClientTest {
     private HttpClient h;
 
     private void setFreshCache(int status) {
-        Cache.put("http://www.example.org/reevoomark", new ReevooMarkRecord("cached_response", 60, status, 100));
+        Cache.put("http://www.example.org/reevoomark", ReevooMarkRecord.createRecord("cached_response", 60, status, 100));
     }
 
     private void setStaleCache(int status) {
-        Cache.put("http://www.example.org/reevoomark", new ReevooMarkRecord("cached_response", -60, status, 100));
+        Cache.put("http://www.example.org/reevoomark", ReevooMarkRecord.createRecord("cached_response", -60, status, 100));
     }
 
     private String getCache() {
-        return Cache.get("http://www.example.org/reevoomark").value;
+        return Cache.get("http://www.example.org/reevoomark").getValue();
     }
 
-    private boolean cacheEmpty() {
-        return Cache.get("http://www.example.org/reevoomark") == null;
+    private boolean failedAttempts(int number) {
+        return Cache.get("http://www.example.org/reevoomark").getConsecutiveFailedAttempts() == 1;
     }
 
     @Before
@@ -61,7 +63,13 @@ public class ReevooMarkClientTest {
         when(m.getResponseHeader("X-Reevoo-ReviewCount")).thenReturn(new Header("X-Reevoo-ReviewCount", "8"));
         h = mock(HttpClient.class);
         when(h.executeMethod(m)).thenReturn(1);
-        c = new ReevooMarkTestClient(2000, null, null);
+
+        Properties config = new Properties();
+        config.setProperty("http.timeout", "2000");
+        config.setProperty("http.failed_request.cache_time.in_seconds", "60");
+        config.setProperty("http.circuit_breaker.number_of_retries", "5");
+        config.setProperty("http.circuit_breaker.wait_time.in_seconds", "300");
+        c = new ReevooMarkTestClient(config);
         c.setClient(h);
     }
 
@@ -105,8 +113,8 @@ public class ReevooMarkClientTest {
         for (int i = 0; i < cachedStatusCodes.length; i++) {
             setStaleCache(cachedStatusCodes[i]);
             String data = c.obtainReevooMarkData(m);
-            assertNull(data);
-            assertNull(getCache());
+            assertEquals(data, "cached_response");
+            assertEquals(getCache(), "cached_response");
         }
     }
 
@@ -156,7 +164,7 @@ public class ReevooMarkClientTest {
         when(m.getStatusCode()).thenReturn(500);
         String data = c.obtainReevooMarkData(m);
         assertNull(data);
-        assertTrue(cacheEmpty());
+        assertTrue(failedAttempts(1));
     }
 
     @Test
@@ -218,6 +226,82 @@ public class ReevooMarkClientTest {
             assertEquals("fresh_response", data);
         }
 
+    }
+
+    @Test
+    public void testFailedRequestAreCachedByConfiguredNumberOfSeconds() throws IOException {
+        when(m.getStatusCode()).thenReturn(500);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, 60);
+        Date expected_time = cal.getTime();
+
+        c.obtainReevooMarkData(m);
+        Date cache_expires = Cache.get("http://www.example.org/reevoomark").getExpirationTime();
+
+        assertEquals((double) expected_time.getTime(), (double) cache_expires.getTime(), 1000);
+    }
+
+    @Test
+    public void testConsecutiveFailedRequestsIncrementFailedCounter() throws IOException {
+        when(m.getStatusCode()).thenReturn(404);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, -10000);
+        for (int i = 0; i < 4; i++) {
+            c.obtainReevooMarkData(m);
+            Cache.get("http://www.example.org/reevoomark").setExpirationTime(cal.getTime());
+        }
+        assertEquals(4, Cache.get("http://www.example.org/reevoomark").getConsecutiveFailedAttempts());
+    }
+
+    @Test
+    public void testConsecutiveFailedRequestsOverLimitTriggerCircuitBreaker() throws IOException {
+        when(m.getStatusCode()).thenReturn(404);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, -10000);
+        for (int i = 0; i <= 5; i++) {
+            c.obtainReevooMarkData(m);
+            Cache.get("http://www.example.org/reevoomark").setExpirationTime(cal.getTime());
+        }
+        cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, 300);
+        Date expected_time = cal.getTime();
+
+        c.obtainReevooMarkData(m);
+        Date cache_expires = Cache.get("http://www.example.org/reevoomark").getExpirationTime();
+
+        assertEquals((double) expected_time.getTime(), (double) cache_expires.getTime(), 1000);
+    }
+
+    @Test
+    public void testSuccessfulRequestResetsConsecutiveFailedRequestsCounter() throws IOException {
+        when(m.getStatusCode()).thenReturn(404);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, -10000);
+        c.obtainReevooMarkData(m);
+        Cache.get("http://www.example.org/reevoomark").setExpirationTime(cal.getTime());
+        assertEquals(Cache.get("http://www.example.org/reevoomark").getConsecutiveFailedAttempts(), 1);
+
+        when(m.getStatusCode()).thenReturn(200);
+        c.obtainReevooMarkData(m);
+        assertEquals(Cache.get("http://www.example.org/reevoomark").getConsecutiveFailedAttempts(), 0);
+    }
+
+    @Test
+    public void testFailedRequestWillReturnLastSuccessfulCachedRequestContent() throws IOException {
+        ReevooMarkRecord cachedContent = ReevooMarkRecord.createRecord("valid request content", -100, 200, 60);
+        Cache.put("http://www.example.org/reevoomark", cachedContent);
+
+        when(m.getStatusCode()).thenReturn(404);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, 60);
+
+        c.obtainReevooMarkData(m);
+        Date expected_time = cal.getTime();
+        Date cache_expires = Cache.get("http://www.example.org/reevoomark").getExpirationTime();
+
+        assertEquals(Cache.get("http://www.example.org/reevoomark").getConsecutiveFailedAttempts(), 1);
+        assertEquals(Cache.get("http://www.example.org/reevoomark").getValue(), "valid request content");
+        assertEquals((double) expected_time.getTime(), (double) cache_expires.getTime(), 1000);
     }
 
 }
