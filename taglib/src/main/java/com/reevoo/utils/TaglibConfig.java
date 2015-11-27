@@ -78,6 +78,10 @@ public class TaglibConfig {
         return value;
     }
 
+    public static Properties getProperties() {
+        return properties;
+    }
+
     public static void setProperty(String name, String value) {
         properties.setProperty(name, value);
     }

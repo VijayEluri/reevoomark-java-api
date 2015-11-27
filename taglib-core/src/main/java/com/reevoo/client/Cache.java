@@ -10,7 +10,6 @@ public class Cache {
     private static final com.google.common.cache.Cache<String, ReevooMarkRecord> backingCache =
       CacheBuilder.newBuilder()
              .maximumSize(10000)
-             .expireAfterWrite(4 * 60 * 60, TimeUnit.SECONDS)
              .softValues()
              .build();
 

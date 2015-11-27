@@ -31,11 +31,7 @@ public abstract class AbstractReevooMarkClientTag extends AbstractReevooTag {
     private HttpServletRequest request;
 
     public AbstractReevooMarkClientTag() {
-        this.client = new ReevooMarkClient(
-            Integer.valueOf(TaglibConfig.getProperty("http.timeout")),
-            TaglibConfig.getProperty("http.proxyHost"),
-            TaglibConfig.getProperty("http.proxyPort")
-        );
+        this.client = new ReevooMarkClient(TaglibConfig.getProperties());
     }
 
     /**
