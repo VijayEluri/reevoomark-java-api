@@ -29,9 +29,10 @@ public class ReevooMarkClient {
     public ReevooMarkClient(Properties config) {
         this.config = config;
         this.client = HttpClientFactory.build(
-                Integer.valueOf(config.getProperty("http.timeout")),
-                config.getProperty("http.proxyHost"),
-                config.getProperty("http.proxyPort"));
+            Integer.valueOf(config.getProperty("http.timeout")),
+            config.getProperty("http.proxyHost"),
+            config.getProperty("http.proxyPort")
+        );
 
         this.failedRequestCacheTime = Integer.valueOf(config.getProperty("http.failed_request.cache_time.in_seconds"));
         this.circuitBreakerWaitTime = Integer.valueOf(config.getProperty("http.circuit_breaker.wait_time.in_seconds"));
@@ -73,20 +74,16 @@ public class ReevooMarkClient {
         }
 
         int status = request.getStatusCode();
-        String content;
+        String content = null;
         if (status == 200) {
             content = getStringContent(request.getResponseBodyAsStream());
-        } else {
-            content = null;
+            cacheSuccessfulRequest(request, cacheKey, content);
         }
 
         if (status >= 400) {
             return cacheFailedRequest(cacheKey, cachedResponse, status).getValue();
         }
 
-        int time_to_live = secondsToLive(request);
-        int review_count = extractReviewCountHeader(request);
-        Cache.put(cacheKey, ReevooMarkRecord.createRecord(content, time_to_live, status, review_count));
         return content;
     }
 
@@ -154,6 +151,19 @@ public class ReevooMarkClient {
         } else {
             return "&";
         }
+    }
+
+    /**
+     * Caches a successful request. Uses the max-age header for the expiration time.
+     *
+     * @param request The result of the HttpClient request to get the embedded content.
+     * @param cacheKey Caching key which is the url of the embedded content.
+     * @param content Actual content html returned by the embedded content endpoint.
+     */
+    private void cacheSuccessfulRequest(GetMethod request, String cacheKey, String content) {
+        int timeToLive = secondsToLive(request);
+        int reviewCount = extractReviewCountHeader(request);
+        Cache.put(cacheKey, ReevooMarkRecord.createRecord(content, timeToLive, 200, reviewCount));
     }
 
     /**
