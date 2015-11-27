@@ -28,7 +28,7 @@ There is also a [bug tracker](http://github.com/reevoo/reevoomark-java-api/issue
 
 The easiest way to get the latest compiled version of the Reevoo taglib is to download it from sourceforge:
 
-* Download the file from [here](https://github.com/reevoo/reevoomark-java-api/releases/download/reevoo-taglib-root-1.22/reevoo-taglib-1.22.jar)
+* Download the file from [here](https://github.com/reevoo/reevoomark-java-api/releases/download/1.22/reevoo-taglib-1.22.jar)
 * Add this file to your projects classpath
 
 If you use Maven for your project add the following dependency to your `pom.xml`:
