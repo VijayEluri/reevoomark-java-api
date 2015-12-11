@@ -347,22 +347,53 @@ If you would like to fall back to some content when Reevoo content is not availa
 
 ### Embedded Conversation Content
 
+#### For SKU Based Products
+
 To render "embedded conversations content" you can use any of the below.
 The ```sku``` attribute is compulsory but ```trkref``` and ```locale``` are optional.
 
-Make sure to replace `<SKU>` , `<TRKREF>` and `<LOCALE>` with the appropriate values.
+Make sure to replace `<SKU>` , `<TRKREF>`, `<LOCALE>`  and `<NUMBEROFCONVERSATIONS>` with the appropriate values with the appropriate values.
 Any combination of the optional attributes is possible. Below we show some examples:
 
 ```JSP
   <reevoo:conversations sku="<SKU>" />
   <reevoo:conversations sku="<SKU>" trkref="<TRKREF>"/>
   <reevoo:conversations sku="<SKU>" trkref="<TRKREF>" locale="<LOCALE>"/>
+  <reevoo:conversations sku="<SKU>" trkref="<TRKREF>" numberOfConversations="<NUMBEROFCONVERSATIONS>"/>
+  <reevoo:conversations sku="<SKU>" trkref="<TRKREF>" numberOfConversations="<NUMBEROFCONVERSATIONS>" paginated="true"/>
+
 ```
+
+If you set the ```paginated``` attribute to true, the embedded conversations will show pagination links.
 
 If you would like to fall back to some content when Reevoo content is not available, just specify it within the tag:
 
 ```JSP
   <reevoo:conversations sku="<SKU>">
+    <p>Sorry we don't have any conversations available right now</p>
+  </reevoo:conversations>
+```
+
+#### For Automotive Products
+
+Automotive products don't use sku to identify products, they use instead a combination of model, model variant and manufacturer.
+
+To render "embedded conversations content" for automotive products you can use any of the below.
+
+```JSP
+  <reevoo:conversations model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>"/>
+  <reevoo:conversations model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" trkref="<TRKREF>"/>
+  <reevoo:conversations model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" trkref="<TRKREF>" locale="<LOCALE>"/>
+  <reevoo:conversations model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" trkref="<TRKREF>" locale="en-GB" numberOfConversations="<NUMBEROFCONVERSATIONS>"/>
+  <reevoo:conversations model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>" trkref="<TRKREF>" numberOfConversations="<NUMBEROFCONVERSATIONS>" paginated="true"/>
+```
+
+If you set the ```paginated``` attribute to true, the embedded conversations will show pagination links.
+
+If you would like to fall back to some content when Reevoo content is not available, just specify it within the tag:
+
+```JSP
+  <reevoo:conversations model="<MODEL>" modelVariant="<MODEL_VARIANT>" manufacturer="<MANUFACTURER>">
     <p>Sorry we don't have any conversations available right now</p>
   </reevoo:conversations>
 ```
