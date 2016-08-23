@@ -13,7 +13,7 @@ namespace "test" do
     system("mvn -q test")
   end
   task :verbose do
-    system("mvn test") 
+    system("mvn test")
   end
 end
 
