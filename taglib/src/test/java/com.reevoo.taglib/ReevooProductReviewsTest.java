@@ -35,7 +35,7 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         queryStringParams.put("trkref", "FOO");
         queryStringParams.put("sku", "12345");
         queryStringParams.put("reviews", null);
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
     }
 
     @Test
@@ -47,7 +47,7 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         queryStringParams.put("sku", "12345");
         queryStringParams.put("locale", "fr-FR");
         queryStringParams.put("reviews", null);
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
     }
 
     @Test
@@ -58,7 +58,7 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         queryStringParams.put("trkref", "FOO");
         queryStringParams.put("sku", "12345");
         queryStringParams.put("reviews", "10");
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
     }
 
     @Test
@@ -71,7 +71,7 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         queryStringParams.put("sku", "12345");
         queryStringParams.put("locale","fr-FR");
         queryStringParams.put("reviews","10");
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
     }
 
     @Test
@@ -98,7 +98,7 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", "REV");
         queryStringParams.put("reviews", null);
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
     }
 
     @Test
@@ -118,13 +118,13 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         queryStringParams.put("page", null);
         queryStringParams.put("per_page", "5");
         queryStringParams.put("sort_by", "seo_boost");
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
 
         // when paginated and numberOfReviews missing we set the per_page param to default
         productReviewsTag.setNumberOfReviews(null);
         processTagLifecycle();
         queryStringParams.put("per_page", "default");
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
     }
 
     @Test
@@ -148,7 +148,7 @@ public class ReevooProductReviewsTest extends BasicTagTestCaseAdapter {
         queryStringParams.put("fuel_type", "PETROL");
         queryStringParams.put("locale", "en-GB");
         queryStringParams.put("reviews", null);
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_reviews", queryStringParams, "");
     }
 
 

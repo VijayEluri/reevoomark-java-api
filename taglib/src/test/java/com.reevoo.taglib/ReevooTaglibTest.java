@@ -24,7 +24,7 @@ public class ReevooTaglibTest extends BasicTagTestCaseAdapter {
         super.setUp();
         reevooTag.setDynamicAttribute("", "sku", "ABC123");
         reevooTag.setTrkref("FOO");
-        reevooTag.setBaseURI("http://mark.reevoo.com/endpoint");
+        reevooTag.setBaseURI("https://mark.reevoo.com/endpoint");
         reevooTag.setClient(markClient);
         setTag(reevooTag);
     }
@@ -36,7 +36,7 @@ public class ReevooTaglibTest extends BasicTagTestCaseAdapter {
         queryStringParams.put("trkref", "FOO");
         queryStringParams.put("sku", "ABC123");
         queryStringParams.put("reviews", null);
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/endpoint", queryStringParams);
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/endpoint", queryStringParams);
     }
 
     @Test

@@ -2,7 +2,7 @@
     (function () {
         var script = document.createElement('script');
         script.type = 'text/javascript';
-        script.src = '//cdn.mark.reevoo.com/assets/reevoo_mark.js';
+        script.src = 'https://cdn.mark.reevoo.com/assets/reevoo_mark.js';
         var s = document.getElementById('reevoomark-loader');
         s.parentNode.insertBefore(script, s);
     })();

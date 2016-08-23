@@ -33,7 +33,7 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", "FOO");
         queryStringParams.put("reviews", null);
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
     }
 
     @Test
@@ -43,7 +43,7 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", "FOO");
         queryStringParams.put("reviews","10");
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
     }
 
     @Test
@@ -54,7 +54,7 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
         queryStringParams.put("trkref", "FOO");
         queryStringParams.put("locale","en-GB");
         queryStringParams.put("reviews", null);
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
     }
 
     @Test
@@ -81,7 +81,7 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
         Map<String, String> queryStringParams = new LinkedHashMap<String,String>();
         queryStringParams.put("trkref", "REV");
         queryStringParams.put("reviews", null);
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
     }
 
     @Test
@@ -97,13 +97,13 @@ public class ReevooCustomerExperienceReviewsTest extends BasicTagTestCaseAdapter
         queryStringParams.put("page", null);
         queryStringParams.put("per_page", "5");
         queryStringParams.put("sort_by", "seo_boost");
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
 
         // when paginated and numberOfReviews missing we set the per_page param to default
         cxTag.setNumberOfReviews(null);
         processTagLifecycle();
         queryStringParams.put("per_page", "default");
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_customer_experience_reviews", queryStringParams, "");
     }
 
 

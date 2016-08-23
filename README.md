@@ -407,13 +407,13 @@ not provided by any of the previous tags. The tag name is "mark" and you can use
 Make sure to replace `<SKU>` and `<TRKREF>` with the appropriate values:
 
 ```JSP
-  <reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/embeddable_reviews.html" />
+  <reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="https://mark.reevoo.com/reevoomark/embeddable_reviews.html" />
 ```
 
 It is also possible to specify locale and the number of reviews you'd like in the baseURI:
 
 ```JSP
-  <reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_reviews.html" />
+  <reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="https://mark.reevoo.com/reevoomark/fr-FR/10/embeddable_reviews.html" />
 ```
 
 ### Price Offers Widget
@@ -421,7 +421,7 @@ It is also possible to specify locale and the number of reviews you'd like in th
 To render "price offers" you can use the tag below. Please provide the sku and trkref attribute.
 
 ```JSP
- <reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="http://mark.reevoo.com/widgets/offers" />
+ <reevoo:mark sku="<SKU>" trkref="<TRKREF>" baseURI="https://mark.reevoo.com/widgets/offers" />
 ```
 
 ## Tracking

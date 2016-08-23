@@ -25,31 +25,31 @@ public class HttpClientFactoryTest {
 
     @Test
     public void testWhenProxyIsSetThroughEnvironmentVariables() {
-        System.setProperty("http.proxyHost", "http://example-proxy.com");
+        System.setProperty("http.proxyHost", "https://example-proxy.com");
         System.setProperty("http.proxyPort", "8080");
 
         HttpClient client = HttpClientFactory.build(10, null, null);
 
-        assertEquals(client.getHostConfiguration().getProxyHost(), "http://example-proxy.com");
+        assertEquals(client.getHostConfiguration().getProxyHost(), "https://example-proxy.com");
         assertEquals(client.getHostConfiguration().getProxyPort(), 8080);
     }
 
     @Test
     public void testWhenProxyIsSetThroughMethodParams() {
-        HttpClient client = HttpClientFactory.build(10, "http://example-proxy.com", "9999");
+        HttpClient client = HttpClientFactory.build(10, "https://example-proxy.com", "9999");
 
-        assertEquals(client.getHostConfiguration().getProxyHost(), "http://example-proxy.com");
+        assertEquals(client.getHostConfiguration().getProxyHost(), "https://example-proxy.com");
         assertEquals(client.getHostConfiguration().getProxyPort(), 9999);
     }
 
     @Test
     public void testProxySettingThroughMethodTakePriorityOnProxySettingsThroughEnvironmentVariables() {
-        System.setProperty("http.proxyHost", "http://example-proxy.com");
+        System.setProperty("http.proxyHost", "https://example-proxy.com");
         System.setProperty("http.proxyPort", "8080");
 
-        HttpClient client = HttpClientFactory.build(10, "http://another-proxy.com", "7777");
+        HttpClient client = HttpClientFactory.build(10, "https://another-proxy.com", "7777");
 
-        assertEquals(client.getHostConfiguration().getProxyHost(), "http://another-proxy.com");
+        assertEquals(client.getHostConfiguration().getProxyHost(), "https://another-proxy.com");
         assertEquals(client.getHostConfiguration().getProxyPort(), 7777);
     }
 

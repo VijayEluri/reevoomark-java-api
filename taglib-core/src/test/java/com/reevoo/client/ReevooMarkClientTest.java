@@ -40,19 +40,19 @@ public class ReevooMarkClientTest {
     private HttpClient h;
 
     private void setFreshCache(int status) {
-        Cache.put("http://www.example.org/reevoomark", ReevooMarkRecord.createRecord("cached_response", 60, status, 100));
+        Cache.put("https://www.example.org/reevoomark", ReevooMarkRecord.createRecord("cached_response", 60, status, 100));
     }
 
     private void setStaleCache(int status) {
-        Cache.put("http://www.example.org/reevoomark", ReevooMarkRecord.createRecord("cached_response", -60, status, 100));
+        Cache.put("https://www.example.org/reevoomark", ReevooMarkRecord.createRecord("cached_response", -60, status, 100));
     }
 
     private String getCache() {
-        return Cache.get("http://www.example.org/reevoomark").getValue();
+        return Cache.get("https://www.example.org/reevoomark").getValue();
     }
 
     private boolean failedAttempts(int number) {
-        return Cache.get("http://www.example.org/reevoomark").getConsecutiveFailedAttempts() == 1;
+        return Cache.get("https://www.example.org/reevoomark").getConsecutiveFailedAttempts() == 1;
     }
 
     private void expireCacheEntry(ReevooMarkRecord cacheEntry) {
@@ -70,7 +70,7 @@ public class ReevooMarkClientTest {
     @Before
     public void setUp() throws Exception {
         m = mock(GetMethod.class);
-        when(m.getURI()).thenReturn(new URI("http://www.example.org/reevoomark"));
+        when(m.getURI()).thenReturn(new URI("https://www.example.org/reevoomark"));
         when(m.getResponseBodyAsStream()).thenReturn(new ByteArrayInputStream("fresh_response".getBytes()));
         when(m.getResponseHeader("X-Reevoo-ReviewCount")).thenReturn(new Header("X-Reevoo-ReviewCount", "8"));
         h = mock(HttpClient.class);
@@ -189,7 +189,7 @@ public class ReevooMarkClientTest {
         Date expected_time = cal.getTime();
 
         String data = c.obtainReevooMarkData(m);
-        Date cache_expires = Cache.get("http://www.example.org/reevoomark").getExpirationTime();
+        Date cache_expires = Cache.get("https://www.example.org/reevoomark").getExpirationTime();
 
         assertEquals((double) expected_time.getTime(), (double) cache_expires.getTime(), 1000);
     }
@@ -244,7 +244,7 @@ public class ReevooMarkClientTest {
     public void testFailedRequestAreCachedByConfiguredNumberOfSeconds() throws IOException {
         when(m.getStatusCode()).thenReturn(500);
         c.obtainReevooMarkData(m);
-        checkExpiresInSeconds(60, Cache.get("http://www.example.org/reevoomark"));
+        checkExpiresInSeconds(60, Cache.get("https://www.example.org/reevoomark"));
     }
 
     @Test
@@ -252,9 +252,9 @@ public class ReevooMarkClientTest {
         when(m.getStatusCode()).thenReturn(404);
         for (int i = 0; i < 4; i++) {
             c.obtainReevooMarkData(m);
-            expireCacheEntry(Cache.get("http://www.example.org/reevoomark"));
+            expireCacheEntry(Cache.get("https://www.example.org/reevoomark"));
         }
-        assertEquals(4, Cache.get("http://www.example.org/reevoomark").getConsecutiveFailedAttempts());
+        assertEquals(4, Cache.get("https://www.example.org/reevoomark").getConsecutiveFailedAttempts());
     }
 
     @Test
@@ -262,35 +262,35 @@ public class ReevooMarkClientTest {
         when(m.getStatusCode()).thenReturn(404);
         for (int i = 0; i <= 5; i++) {
             c.obtainReevooMarkData(m);
-            expireCacheEntry(Cache.get("http://www.example.org/reevoomark"));
+            expireCacheEntry(Cache.get("https://www.example.org/reevoomark"));
         }
         c.obtainReevooMarkData(m);
-        checkExpiresInSeconds(300, Cache.get("http://www.example.org/reevoomark"));
+        checkExpiresInSeconds(300, Cache.get("https://www.example.org/reevoomark"));
     }
 
     @Test
     public void testSuccessfulRequestResetsConsecutiveFailedRequestsCounter() throws IOException {
         when(m.getStatusCode()).thenReturn(404);
         c.obtainReevooMarkData(m);
-        expireCacheEntry(Cache.get("http://www.example.org/reevoomark"));
-        assertEquals(Cache.get("http://www.example.org/reevoomark").getConsecutiveFailedAttempts(), 1);
+        expireCacheEntry(Cache.get("https://www.example.org/reevoomark"));
+        assertEquals(Cache.get("https://www.example.org/reevoomark").getConsecutiveFailedAttempts(), 1);
 
         when(m.getStatusCode()).thenReturn(200);
         c.obtainReevooMarkData(m);
-        assertEquals(Cache.get("http://www.example.org/reevoomark").getConsecutiveFailedAttempts(), 0);
+        assertEquals(Cache.get("https://www.example.org/reevoomark").getConsecutiveFailedAttempts(), 0);
     }
 
     @Test
     public void testFailedRequestWillReturnLastSuccessfulCachedRequestContent() throws IOException {
         ReevooMarkRecord cachedContent = ReevooMarkRecord.createRecord("valid request content", -100, 200, 60);
-        Cache.put("http://www.example.org/reevoomark", cachedContent);
+        Cache.put("https://www.example.org/reevoomark", cachedContent);
 
         when(m.getStatusCode()).thenReturn(404);
         c.obtainReevooMarkData(m);
 
-        checkExpiresInSeconds(60, Cache.get("http://www.example.org/reevoomark"));
-        assertEquals(Cache.get("http://www.example.org/reevoomark").getConsecutiveFailedAttempts(), 1);
-        assertEquals(Cache.get("http://www.example.org/reevoomark").getValue(), "valid request content");
+        checkExpiresInSeconds(60, Cache.get("https://www.example.org/reevoomark"));
+        assertEquals(Cache.get("https://www.example.org/reevoomark").getConsecutiveFailedAttempts(), 1);
+        assertEquals(Cache.get("https://www.example.org/reevoomark").getValue(), "valid request content");
     }
 
 }

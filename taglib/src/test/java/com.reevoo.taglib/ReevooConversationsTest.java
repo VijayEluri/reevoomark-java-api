@@ -40,7 +40,7 @@ public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
         queryStringParams.put("reviews", null);
         queryStringParams.put("conversations", "3");
         verify(markClient).obtainReevooMarkData(
-            "http://mark.reevoo.com/reevoomark/embeddable_conversations",
+            "https://mark.reevoo.com/reevoomark/embeddable_conversations",
             queryStringParams);
     }
 
@@ -69,7 +69,7 @@ public class ReevooConversationsTest extends BasicTagTestCaseAdapter{
         queryStringParams.put("trkref", "REV");
         queryStringParams.put("reviews", null);
         queryStringParams.put("conversations",null);
-        verify(markClient).obtainReevooMarkData("http://mark.reevoo.com/reevoomark/embeddable_conversations", queryStringParams);
+        verify(markClient).obtainReevooMarkData("https://mark.reevoo.com/reevoomark/embeddable_conversations", queryStringParams);
     }
 
 }

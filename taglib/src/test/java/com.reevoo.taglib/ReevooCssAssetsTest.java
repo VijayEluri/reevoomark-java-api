@@ -17,6 +17,6 @@ public class ReevooCssAssetsTest extends BasicTagTestCaseAdapter {
     @Test
     public void testTheCssLinkIsLoadedCorrectly() {
         processTagLifecycle();
-        verifyOutput("<link rel=\"stylesheet\" href=\"//mark.reevoo.com/stylesheets/reevoomark/embedded_reviews.css\" type=\"text/css\" />");
+        verifyOutput("<link rel=\"stylesheet\" href=\"https://mark.reevoo.com/stylesheets/reevoomark/embedded_reviews.css\" type=\"text/css\" />");
     }
 }

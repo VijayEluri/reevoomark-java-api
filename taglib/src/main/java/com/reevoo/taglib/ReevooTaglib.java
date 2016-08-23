@@ -9,7 +9,7 @@ package com.reevoo.taglib;
  */
 public class ReevooTaglib extends AbstractReevooMarkClientTag {
 
-    private String baseURI = "http://mark.reevoo.com/reevoomark/first_two_reviews.html";
+    private String baseURI = "https://mark.reevoo.com/reevoomark/first_two_reviews.html";
 
     @Override
     protected String getContent() {
