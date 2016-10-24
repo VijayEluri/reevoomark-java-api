@@ -328,6 +328,7 @@ Any combination of the optional attributes is possible. Below we show some examp
 ```JSP
   <reevoo:customerExperienceReviews />
   <reevoo:customerExperienceReviews trkref="<TRKREF>"/>
+  <reevoo:customerExperienceReviews trkref="<TRKREF>" branchCode="<BRANCH_CODE>"/>
   <reevoo:customerExperienceReviews numberOfReviews="<NUMBEROFREVIEWS>"/>
   <reevoo:customerExperienceReviews locale="<LOCALE>"/>
   <reevoo:customerExperienceReviews trkref="<TRKREF>" locale="en-GB" numberOfReviews="<NUMBEROFREVIEWS>"/>
@@ -340,7 +341,7 @@ If you set the ```paginated``` attribute to true, the embedded reviews will show
 If you would like to fall back to some content when Reevoo content is not available, just specify it within the tag:
 
 ```JSP
-  <reevoo:customerExperienceReviews sku="<SKU>">
+  <reevoo:customerExperienceReviews trkref="<TRKREF>">
     <p>Sorry we don't have any customer experience reviews available right now</p>
   </reevoo:customerExperienceReviews>
 ```
